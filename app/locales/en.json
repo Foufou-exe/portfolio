@@ -1,0 +1,112 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "contact": "Contact",
+    "mobileDescription": "Access the different sections of the portfolio"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "available": "Available for opportunities",
+    "cta": {
+      "projects": "View my projects",
+      "contact": "Contact me"
+    }
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Discover my journey and passion for development",
+    "available": "Available",
+    "downloadCv": "Download CV",
+    "contactMe": "Contact me",
+    "mainTech": "Main technologies",
+    "mainTechSubtitle": "What I use daily",
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Projects completed",
+      "technologies": "Technologies",
+      "coffees": "Coffees consumed"
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I master",
+    "filters": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps"
+    },
+    "legend": {
+      "size": "Size = Level",
+      "indicator": "Level indicator"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "junior": "Junior",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    },
+    "stats": {
+      "technologies": "Technologies",
+      "mastered": "Mastered",
+      "domains": "Domains"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "A selection of my work",
+    "viewDemo": "Demo",
+    "viewSource": "Source code",
+    "details": "Details",
+    "technologies": "Technologies used"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey",
+    "current": "Current",
+    "seeMore": "See more",
+    "achievements": "Key achievements",
+    "technologies": "Technologies used",
+    "close": "Close"
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "My academic journey",
+    "skills": "Skills acquired"
+  },
+  "contact": {
+    "title": "Let's work together",
+    "subtitle": "Have a project in mind? A question? Don't hesitate to contact me.",
+    "form": {
+      "email": "Your email",
+      "emailPlaceholder": "you{'@'}example.com",
+      "message": "Your message",
+      "messagePlaceholder": "Describe your project or ask me a question...",
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "success": {
+      "title": "Message sent!",
+      "message": "Thank you! I'll get back to you as soon as possible."
+    },
+    "error": {
+      "title": "Error sending",
+      "message": "An error occurred. Please try again."
+    },
+    "alternative": "Prefer direct email?"
+  },
+  "common": {
+    "backToTop": "Back to top",
+    "loading": "Loading...",
+    "close": "Close",
+    "toggleTheme": "Toggle theme"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  }
+}

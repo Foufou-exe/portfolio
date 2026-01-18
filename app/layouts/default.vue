@@ -1,39 +1,54 @@
 <template>
-  <div>
-    <header class="p-2 border-b">
-      <nav class="flex justify-between items-center">
-        <div class="text-xl font-semibold">
-          TM
+  <div class="min-h-screen">
+    <!-- Navigation -->
+    <NavBar />
+
+    <!-- Main content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Back to top button -->
+    <BackToTop />
+
+    <!-- Footer -->
+    <footer class="border-t bg-muted/30">
+      <div class="container mx-auto px-4 py-12">
+        <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+          <!-- Logo & tagline -->
+          <div class="text-center md:text-left">
+            <a 
+              href="#" 
+              class="text-xl font-bold tracking-tight"
+              @click.prevent="scrollToTop"
+            >
+              {{ profile.initials }}
+            </a>
+            <p class="mt-1 text-sm text-muted-foreground">
+              {{ profile.title }}
+            </p>
+          </div>
+
+          <!-- Social Links -->
+          <SocialLinks variant="ghost" size="icon" />
+
+          <!-- Copyright -->
+          <p class="text-sm text-muted-foreground">
+            &copy; {{ new Date().getFullYear() }} {{ profile.name }}. {{ $t('footer.rights') }}
+          </p>
         </div>
-        <Button size="icon" variant="ghost" @click="switchColorMode">
-          <Moon class="w-5 h-5" />
-        </Button>
-      </nav>
-    </header>
-    <slot />
-    <footer>
-      <div class="text-center py-4">
-        &copy; {{ new Date().getFullYear() }} My Company
       </div>
     </footer>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Moon } from 'lucide-vue-next';
-import Button from '~/components/ui/button/Button.vue';
+import NavBar from '~/components/common/NavBar.vue'
+import SocialLinks from '~/components/common/SocialLinks.vue'
+import BackToTop from '~/components/common/BackToTop.vue'
+import { profile } from '~/data/portfolio'
 
-
-// Switch color mode
-const colorMode = useColorMode();
-
-function switchColorMode() {
-  colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light';
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-
 </script>
-
-<style scoped>
-
-</style>
