@@ -14,8 +14,7 @@ export interface SocialLink {
 export interface Skill {
   name: string
   description: string
-  level: 1 | 2 | 3 | 4 | 5
-  category: 'frontend' | 'backend' | 'devops'
+  category: 'frontend' | 'backend' | 'database' | 'cloud' | 'devops' | 'tools'
   color?: string
 }
 
@@ -138,40 +137,67 @@ export const navLinks: NavLink[] = [
 // SKILLS - Compétences techniques
 // ============================================
 export const skills: Skill[] = [
-  // Frontend - Bleu
-  { name: 'Vue.js', description: 'Framework JavaScript progressif pour construire des interfaces utilisateur', level: 5, category: 'frontend', color: '#42b883' },
-  { name: 'Nuxt', description: 'Framework Vue.js pour applications universelles et SSR', level: 5, category: 'frontend', color: '#00dc82' },
-  { name: 'React', description: 'Bibliothèque JavaScript pour construire des interfaces utilisateur', level: 4, category: 'frontend', color: '#61dafb' },
-  { name: 'TypeScript', description: 'Superset JavaScript avec typage statique', level: 5, category: 'frontend', color: '#3178c6' },
-  { name: 'Tailwind', description: 'Framework CSS utility-first pour un design rapide', level: 5, category: 'frontend', color: '#38bdf8' },
-  { name: 'JavaScript', description: 'Langage de programmation du web, ES6+', level: 5, category: 'frontend', color: '#f7df1e' },
-  { name: 'Next.js', description: 'Framework React pour applications full-stack', level: 3, category: 'frontend', color: '#000000' },
-  { name: 'HTML/CSS', description: 'Fondamentaux du web, sémantique et responsive design', level: 5, category: 'frontend', color: '#e34f26' },
+  // Frontend
+  { name: 'Vue.js', description: 'Framework JavaScript progressif pour construire des interfaces utilisateur', category: 'frontend', color: '#42b883' },
+  { name: 'Nuxt', description: 'Framework Vue.js pour applications universelles et SSR', category: 'frontend', color: '#00dc82' },
+  { name: 'React', description: 'Bibliothèque JavaScript pour construire des interfaces utilisateur', category: 'frontend', color: '#61dafb' },
+  { name: 'TypeScript', description: 'Superset JavaScript avec typage statique', category: 'frontend', color: '#3178c6' },
+  { name: 'Tailwind CSS', description: 'Framework CSS utility-first pour un design rapide', category: 'frontend', color: '#38bdf8' },
+  { name: 'JavaScript', description: 'Langage de programmation du web, ES6+', category: 'frontend', color: '#f7df1e' },
+  { name: 'Next.js', description: 'Framework React pour applications full-stack', category: 'frontend', color: '#000000' },
+  { name: 'HTML/CSS', description: 'Fondamentaux du web, sémantique et responsive design', category: 'frontend', color: '#e34f26' },
 
-  // Backend - Vert
-  { name: 'Node.js', description: 'Runtime JavaScript côté serveur', level: 4, category: 'backend', color: '#339933' },
-  { name: 'Python', description: 'Langage polyvalent pour scripts, API et data science', level: 4, category: 'backend', color: '#3776ab' },
-  { name: 'PostgreSQL', description: 'Base de données relationnelle robuste et performante', level: 4, category: 'backend', color: '#4169e1' },
-  { name: 'MongoDB', description: 'Base de données NoSQL orientée documents', level: 3, category: 'backend', color: '#47a248' },
-  { name: 'REST API', description: 'Conception et développement d\'APIs RESTful', level: 5, category: 'backend', color: '#ff6c37' },
-  { name: 'GraphQL', description: 'Langage de requête flexible pour APIs', level: 3, category: 'backend', color: '#e10098' },
-  { name: 'Prisma', description: 'ORM moderne pour Node.js et TypeScript', level: 4, category: 'backend', color: '#2d3748' },
-  { name: 'Express', description: 'Framework web minimaliste pour Node.js', level: 4, category: 'backend', color: '#000000' },
+  // Backend
+  { name: 'Node.js', description: 'Runtime JavaScript côté serveur', category: 'backend', color: '#339933' },
+  { name: 'Python', description: 'Langage polyvalent pour scripts, API et data science', category: 'backend', color: '#3776ab' },
+  { name: 'REST API', description: 'Conception et développement d\'APIs RESTful', category: 'backend', color: '#ff6c37' },
+  { name: 'GraphQL', description: 'Langage de requête flexible pour APIs', category: 'backend', color: '#e10098' },
+  { name: 'Express', description: 'Framework web minimaliste pour Node.js', category: 'backend', color: '#000000' },
+  { name: 'FastAPI', description: 'Framework Python moderne et performant pour APIs', category: 'backend', color: '#009688' },
 
-  // DevOps - Violet/Orange
-  { name: 'Docker', description: 'Plateforme de conteneurisation d\'applications', level: 4, category: 'devops', color: '#2496ed' },
-  { name: 'Git', description: 'Système de contrôle de version distribué', level: 5, category: 'devops', color: '#f05032' },
-  { name: 'Linux', description: 'Système d\'exploitation open source', level: 4, category: 'devops', color: '#fcc624' },
-  { name: 'CI/CD', description: 'Intégration et déploiement continus (GitHub Actions, GitLab CI)', level: 4, category: 'devops', color: '#fc6d26' },
-  { name: 'AWS', description: 'Services cloud Amazon Web Services', level: 3, category: 'devops', color: '#ff9900' },
-  { name: 'Kubernetes', description: 'Orchestration de conteneurs à grande échelle', level: 2, category: 'devops', color: '#326ce5' },
-  { name: 'Terraform', description: 'Infrastructure as Code pour le cloud', level: 3, category: 'devops', color: '#7b42bc' },
-  { name: 'Vercel', description: 'Plateforme de déploiement pour applications front-end', level: 4, category: 'devops', color: '#000000' },
+  // Base de données
+  { name: 'PostgreSQL', description: 'Base de données relationnelle robuste et performante', category: 'database', color: '#4169e1' },
+  { name: 'MongoDB', description: 'Base de données NoSQL orientée documents', category: 'database', color: '#47a248' },
+  { name: 'Redis', description: 'Base de données en mémoire pour cache et sessions', category: 'database', color: '#dc382d' },
+  { name: 'Prisma', description: 'ORM moderne pour Node.js et TypeScript', category: 'database', color: '#2d3748' },
+  { name: 'MySQL', description: 'Système de gestion de base de données relationnelle', category: 'database', color: '#4479a1' },
+
+  // Cloud & Infrastructure
+  { name: 'AWS', description: 'Services cloud Amazon Web Services', category: 'cloud', color: '#ff9900' },
+  { name: 'Vercel', description: 'Plateforme de déploiement pour applications front-end', category: 'cloud', color: '#000000' },
+  { name: 'Linux', description: 'Système d\'exploitation open source', category: 'cloud', color: '#fcc624' },
+  { name: 'Nginx', description: 'Serveur web et reverse proxy haute performance', category: 'cloud', color: '#009639' },
+
+  // DevOps & Automatisation
+  { name: 'Docker', description: 'Plateforme de conteneurisation d\'applications', category: 'devops', color: '#2496ed' },
+  { name: 'Kubernetes', description: 'Orchestration de conteneurs à grande échelle', category: 'devops', color: '#326ce5' },
+  { name: 'Git', description: 'Système de contrôle de version distribué', category: 'devops', color: '#f05032' },
+  { name: 'CI/CD', description: 'Intégration et déploiement continus (GitHub Actions, GitLab CI)', category: 'devops', color: '#fc6d26' },
+  { name: 'Terraform', description: 'Infrastructure as Code pour le cloud', category: 'devops', color: '#7b42bc' },
+  { name: 'Ansible', description: 'Automatisation de configuration et déploiement', category: 'devops', color: '#ee0000' },
+
+  // Outils & Gestion
+  { name: 'VS Code', description: 'Éditeur de code source léger et extensible', category: 'tools', color: '#007acc' },
+  { name: 'Jira', description: 'Outil de gestion de projet et suivi de tickets', category: 'tools', color: '#0052cc' },
+  { name: 'Notion', description: 'Espace de travail collaboratif tout-en-un', category: 'tools', color: '#000000' },
+  { name: 'Figma', description: 'Outil de design collaboratif pour interfaces', category: 'tools', color: '#f24e1e' },
+  { name: 'Postman', description: 'Plateforme de développement et test d\'APIs', category: 'tools', color: '#ff6c37' },
+  { name: 'Slack', description: 'Plateforme de communication d\'équipe', category: 'tools', color: '#4a154b' },
 ]
 
 // Helper pour récupérer les skills par catégorie
 export const getSkillsByCategory = (category: Skill['category']) =>
   skills.filter(skill => skill.category === category)
+
+// Catégories de compétences avec métadonnées
+export const skillCategories = [
+  { id: 'frontend', label: 'Frontend', icon: 'Monitor' },
+  { id: 'backend', label: 'Backend', icon: 'Server' },
+  { id: 'database', label: 'Base de données', icon: 'Database' },
+  { id: 'cloud', label: 'Cloud & Infrastructure', icon: 'Cloud' },
+  { id: 'devops', label: 'DevOps & Automatisation', icon: 'GitBranch' },
+  { id: 'tools', label: 'Outils & Gestion', icon: 'Wrench' },
+] as const
 
 // ============================================
 // PROJECTS - Projets réalisés

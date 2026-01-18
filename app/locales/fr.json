@@ -55,6 +55,14 @@
       "technologies": "Technologies",
       "mastered": "Maitrisees",
       "domains": "Domaines"
+    },
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de donnees",
+      "cloud": "Cloud & Infrastructure",
+      "devops": "DevOps & Automatisation",
+      "tools": "Outils & Gestion"
     }
   },
   "projects": {
@@ -63,7 +71,11 @@
     "viewDemo": "Demo",
     "viewSource": "Code source",
     "details": "Details",
-    "technologies": "Technologies utilisees"
+    "technologies": "Technologies utilisees",
+    "featured": "Projets mis en avant",
+    "others": "Autres projets",
+    "viewMore": "Envie de voir plus de projets ?",
+    "viewGithub": "Voir mon GitHub"
   },
   "experience": {
     "title": "Experiences",
@@ -107,6 +119,10 @@
     "toggleTheme": "Changer le theme"
   },
   "footer": {
-    "rights": "Tous droits reserves"
+    "rights": "Tous droits reserves",
+    "navigation": "Navigation",
+    "social": "Reseaux",
+    "contact": "Contact",
+    "madeWith": "Fait avec"
   }
 }

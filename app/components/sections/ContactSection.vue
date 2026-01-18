@@ -1,5 +1,5 @@
 <template>
-  <section id="contact" class="py-20 ">
+  <section id="contact" class="overflow-hidden py-20">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"

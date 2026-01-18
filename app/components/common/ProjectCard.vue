@@ -18,18 +18,31 @@
 
       <!-- Image du projet -->
       <div class="relative aspect-video overflow-hidden">
+        <!-- Fallback gradient background -->
+        <div 
+          class="absolute inset-0 flex items-center justify-center"
+          :style="{ background: `linear-gradient(135deg, ${projectColor} 0%, ${projectColorDark} 100%)` }"
+        >
+          <span class="text-2xl font-bold text-white/90 text-center px-4">{{ project.title }}</span>
+        </div>
+        
         <!-- Skeleton loader -->
         <div 
-          v-if="!imageLoaded" 
-          class="skeleton absolute inset-0"
+          v-if="!imageLoaded && !imageError" 
+          class="skeleton absolute inset-0 z-[1]"
         />
+        
+        <!-- Image -->
         <img
+          v-if="!imageError"
           :src="project.image"
           :alt="project.title"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          class="relative z-[2] h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           :class="{ 'opacity-0': !imageLoaded }"
           @load="imageLoaded = true"
+          @error="imageError = true"
         />
+        
         <div v-if="project.featured" class="absolute right-2 top-2 z-20">
           <Badge variant="default" class="border-0 bg-primary/90 backdrop-blur-sm">
             <Star class="mr-1 h-3 w-3" />
@@ -37,10 +50,10 @@
           </Badge>
         </div>
         <!-- Gradient overlay on hover -->
-        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       </div>
 
-      <CardHeader class="relative z-10">
+      <CardHeader class="relative z-20">
         <CardTitle class="line-clamp-1 transition-colors group-hover:text-primary">
           {{ project.title }}
         </CardTitle>
@@ -49,7 +62,7 @@
         </CardDescription>
       </CardHeader>
 
-      <CardContent class="relative z-10">
+      <CardContent class="relative z-20">
         <!-- Tags -->
         <div class="flex flex-wrap gap-1.5">
           <Badge 
@@ -70,7 +83,7 @@
         </div>
       </CardContent>
 
-      <CardFooter class="relative z-10 gap-2 p-5">
+      <CardFooter class="relative z-20 gap-2 p-5">
         <!-- Bouton pour voir les details (Dialog) -->
         <Dialog>
           <DialogTrigger as-child>
@@ -199,17 +212,43 @@ import {
 } from '~/components/ui/dialog'
 import type { Project } from '~/data/portfolio'
 
-defineProps<{
+const props = defineProps<{
   project: Project
 }>()
 
 const cardRef = ref<HTMLElement | null>(null)
 const imageLoaded = ref(false)
+const imageError = ref(false)
 const isHovered = ref(false)
 const mouseX = ref(50)
 const mouseY = ref(50)
 const rotateX = ref(0)
 const rotateY = ref(0)
+
+// Generate a consistent color based on project title
+const projectColor = computed(() => {
+  const colors = [
+    'oklch(0.65 0.2 285)', // violet
+    'oklch(0.65 0.2 200)', // blue
+    'oklch(0.65 0.2 150)', // teal
+    'oklch(0.65 0.2 330)', // pink
+    'oklch(0.65 0.2 30)',  // orange
+  ]
+  const index = props.project.title.length % colors.length
+  return colors[index]
+})
+
+const projectColorDark = computed(() => {
+  const colors = [
+    'oklch(0.35 0.15 285)', // violet dark
+    'oklch(0.35 0.15 200)', // blue dark
+    'oklch(0.35 0.15 150)', // teal dark
+    'oklch(0.35 0.15 330)', // pink dark
+    'oklch(0.35 0.15 30)',  // orange dark
+  ]
+  const index = props.project.title.length % colors.length
+  return colors[index]
+})
 
 const cardStyle = computed(() => {
   if (!isHovered.value) {

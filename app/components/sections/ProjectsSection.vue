@@ -1,19 +1,19 @@
 <template>
-  <section id="projects" class="py-20 min-h-screen">
+  <section id="projects" class="overflow-hidden py-20 min-h-screen">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
     >
       <SectionTitle 
-        title="Projets" 
-        subtitle="Une sélection de mes réalisations récentes"
+        :title="$t('projects.title')" 
+        :subtitle="$t('projects.subtitle')"
       />
 
       <!-- Featured Projects -->
       <div v-if="featuredProjects.length > 0" class="mb-12">
         <h3 class="mb-6 text-lg font-semibold text-muted-foreground">
-          Projets mis en avant
+          {{ $t('projects.featured') }}
         </h3>
         <div class="grid gap-6 md:grid-cols-2">
           <ProjectCard 
@@ -27,7 +27,7 @@
       <!-- Other Projects -->
       <div v-if="otherProjects.length > 0">
         <h3 class="mb-6 text-lg font-semibold text-muted-foreground">
-          Autres projets
+          {{ $t('projects.others') }}
         </h3>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <ProjectCard 
@@ -41,11 +41,11 @@
       <!-- CTA -->
       <div class="mt-12 text-center">
         <p class="mb-4 text-muted-foreground">
-          Envie de voir plus de projets ?
+          {{ $t('projects.viewMore') }}
         </p>
         <Button variant="outline" as="a" :href="githubUrl" target="_blank" rel="noopener noreferrer">
           <Github class="mr-2 h-4 w-4" />
-          Voir mon GitHub
+          {{ $t('projects.viewGithub') }}
         </Button>
       </div>
     </div>

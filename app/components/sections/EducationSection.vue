@@ -1,13 +1,13 @@
 <template>
-  <section id="education" class="py-20 min-h-screen">
+  <section id="education" class="overflow-hidden py-20 min-h-screen">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
     >
       <SectionTitle 
-        title="Formation" 
-        subtitle="Mon parcours academique"
+        :title="$t('education.title')" 
+        :subtitle="$t('education.subtitle')"
       />
 
       <div class="mx-auto max-w-3xl">

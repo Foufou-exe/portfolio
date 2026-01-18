@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="py-20 min-h-screen">
+  <section id="about" class="overflow-hidden py-20">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
@@ -127,8 +127,9 @@ const translatedStats = computed(() => [
   { value: stats[3].value, label: t('about.stats.coffees'), icon: stats[3].icon },
 ])
 
-// Technologies principales (niveau 5 seulement)
-const mainTechnologies = computed(() => 
-  skills.filter(s => s.level === 5).slice(0, 8)
-)
+// Technologies principales (sélection des skills frontend + quelques backend clés)
+const mainTechnologies = computed(() => {
+  const mainTechNames = ['Vue.js', 'Nuxt', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Python', 'Docker', 'AWS']
+  return skills.filter(s => mainTechNames.includes(s.name))
+})
 </script>

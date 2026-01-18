@@ -1,76 +1,75 @@
 <template>
-  <section id="skills" class="bg-muted/30 py-20 min-h-screen">
+  <section id="skills" class="overflow-hidden bg-muted/30 py-20">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
     >
       <SectionTitle 
-        title="Competences" 
-        subtitle="Les technologies et outils que je maitrise"
+        :title="$t('skills.title')" 
+        :subtitle="$t('skills.subtitle')"
       />
 
-      <!-- Category Filter -->
-      <div class="mx-auto mb-12 flex max-w-md justify-center">
-        <div class="inline-flex rounded-lg bg-muted p-1">
-          <button
-            v-for="filter in filters"
-            :key="filter.value"
-            class="flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-200"
-            :class="activeFilter === filter.value 
-              ? 'bg-background text-foreground shadow-sm' 
-              : 'text-muted-foreground hover:text-foreground'"
-            @click="activeFilter = filter.value"
+      <!-- Skills Grid by Category -->
+      <div class="mx-auto max-w-6xl">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Card 
+            v-for="(category, index) in categoriesWithSkills" 
+            :key="category.id"
+            class="group overflow-hidden border-primary/10 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+            :class="{ 'animate-slide-up': isVisible }"
+            :style="{ animationDelay: `${index * 0.1}s` }"
           >
-            <component :is="filter.icon" class="h-4 w-4" />
-            <span class="hidden sm:inline">{{ filter.label }}</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Skill Cloud -->
-      <div class="mx-auto max-w-5xl">
-        <div 
-          class="skill-cloud flex flex-wrap items-center justify-center gap-4 md:gap-6"
-        >
-          <TransitionGroup name="skill">
-            <SkillNode
-              v-for="skill in filteredSkills"
-              :key="skill.name"
-              :skill="skill"
-              :hover-side="getHoverSide(skill)"
-            />
-          </TransitionGroup>
-        </div>
-      </div>
-
-      <!-- Legend -->
-      <div class="mx-auto mt-12 max-w-md">
-        <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-          <div class="flex items-center gap-2">
-            <div class="h-3 w-3 rounded-full bg-muted-foreground/30" />
-            <span>Taille = Niveau</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span 
-              v-for="i in 5" 
-              :key="i"
-              class="h-1.5 w-1.5 rounded-full"
-              :class="i <= 3 ? 'bg-primary' : 'bg-muted-foreground/30'"
-            />
-            <span class="ml-1">Indicateur de niveau</span>
-          </div>
+            <CardHeader class="pb-4">
+              <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <component :is="getCategoryIcon(category.icon)" class="h-5 w-5" />
+                </div>
+                <CardTitle class="text-lg">{{ $t(`skills.categories.${category.id}`) }}</CardTitle>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <div class="flex flex-wrap gap-2">
+                <TooltipProvider>
+                  <Tooltip v-for="skill in category.skills" :key="skill.name">
+                    <TooltipTrigger as-child>
+                      <Badge 
+                        variant="secondary"
+                        class="cursor-default px-3 py-1.5 text-sm transition-all duration-200 hover:scale-105"
+                        :style="{ 
+                          '--skill-color': skill.color,
+                          borderColor: `${skill.color}30`,
+                          backgroundColor: `${skill.color}15`
+                        }"
+                        :class="'hover:shadow-sm'"
+                      >
+                        <span 
+                          class="mr-1.5 inline-block h-2 w-2 rounded-full"
+                          :style="{ backgroundColor: skill.color }"
+                        />
+                        {{ skill.name }}
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" class="max-w-xs">
+                      <p class="text-sm">{{ skill.description }}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
       <!-- Stats -->
-      <div class="mx-auto mt-8 flex max-w-lg flex-wrap justify-center gap-8">
+      <div class="mx-auto mt-12 flex max-w-2xl flex-wrap justify-center gap-8 sm:gap-12">
         <div 
           v-for="stat in skillStats" 
           :key="stat.label"
           class="text-center"
         >
-          <div class="text-2xl font-bold text-primary">{{ stat.value }}</div>
+          <div class="text-3xl font-bold text-primary">{{ stat.value }}</div>
           <div class="text-sm text-muted-foreground">{{ stat.label }}</div>
         </div>
       </div>
@@ -79,75 +78,61 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { Layers, Monitor, Server, Wrench } from 'lucide-vue-next'
+import { computed } from 'vue'
+import { Monitor, Server, Database, Cloud, GitBranch, Wrench } from 'lucide-vue-next'
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
+import { Badge } from '~/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import SectionTitle from '~/components/common/SectionTitle.vue'
-import SkillNode from '~/components/common/SkillNode.vue'
-import { skills, type Skill } from '~/data/portfolio'
+import { skills, skillCategories, getSkillsByCategory } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
+const { t } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
-type FilterValue = 'all' | 'frontend' | 'backend' | 'devops'
-
-const filters: { value: FilterValue; label: string; icon: typeof Layers }[] = [
-  { value: 'all', label: 'Tout', icon: Layers },
-  { value: 'frontend', label: 'Frontend', icon: Monitor },
-  { value: 'backend', label: 'Backend', icon: Server },
-  { value: 'devops', label: 'DevOps', icon: Wrench },
-]
-
-const activeFilter = ref<FilterValue>('all')
-
-const filteredSkills = computed(() => {
-  if (activeFilter.value === 'all') {
-    // Melanger les skills pour un effet cloud plus naturel
-    return [...skills].sort(() => Math.random() - 0.5)
-  }
-  return skills.filter(skill => skill.category === activeFilter.value)
-})
-
-// Position du hover basee sur l'index pour eviter les debordements
-const getHoverSide = (skill: Skill): 'top' | 'bottom' => {
-  const index = filteredSkills.value.findIndex(s => s.name === skill.name)
-  // Alterner haut/bas pour eviter les chevauchements
-  return index % 2 === 0 ? 'top' : 'bottom'
+// Map icon names to components
+const iconMap = {
+  Monitor,
+  Server,
+  Database,
+  Cloud,
+  GitBranch,
+  Wrench,
 }
 
-// Statistiques des competences
+const getCategoryIcon = (iconName: string) => {
+  return iconMap[iconName as keyof typeof iconMap] || Monitor
+}
+
+// Categories with their skills
+const categoriesWithSkills = computed(() => 
+  skillCategories.map(category => ({
+    ...category,
+    skills: getSkillsByCategory(category.id as any),
+  }))
+)
+
+// Stats
 const skillStats = computed(() => [
-  { value: skills.length, label: 'Technologies' },
-  { value: skills.filter(s => s.level >= 4).length, label: 'Maitrisees' },
-  { value: new Set(skills.map(s => s.category)).size, label: 'Domaines' },
+  { value: skills.length, label: t('skills.stats.technologies') },
+  { value: skillCategories.length, label: t('skills.stats.domains') },
 ])
 </script>
 
 <style scoped>
-.skill-cloud {
-  min-height: 300px;
-}
-
-/* Transitions pour le filtre */
-.skill-enter-active {
-  transition: all 0.4s ease-out;
-}
-
-.skill-leave-active {
-  transition: all 0.3s ease-in;
-  position: absolute;
-}
-
-.skill-enter-from {
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out forwards;
   opacity: 0;
-  transform: scale(0.6);
 }
 
-.skill-leave-to {
-  opacity: 0;
-  transform: scale(0.6);
-}
-
-.skill-move {
-  transition: transform 0.4s ease;
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
