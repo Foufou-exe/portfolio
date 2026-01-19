@@ -104,7 +104,7 @@ export default defineEventHandler(async (event) => {
             </div>
             
             <p style="margin-top: 20px; font-size: 12px; color: #9ca3af; text-align: center;">
-              Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
+              Ce message a été envoye depuis le formulaire de contact de votre portfolio.
             </p>
           </body>
         </html>

@@ -72,14 +72,26 @@ export interface Stat {
 // ============================================
 // PROFILE - Informations personnelles
 // ============================================
+import SHA256 from 'crypto-js/sha256';
+
+function getGravatarUrl(email:string, size = 80) {
+    const trimmedEmail = email.trim().toLowerCase();
+    const hash = SHA256(trimmedEmail).toString();
+    return `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
+}
+
+const email = process.env.GRAVATAR_EMAIL || 'exemple@example.com'
+const size = 500; 
+const gravatarUrl = getGravatarUrl(email, size);
+
 export const profile = {
   name: 'Thibaut Maurras',
   initials: 'TM',
-  title: 'Ingénieur Logiciel',
+  title: 'Ingénieur Systèmes',
   subtitle: 'Alternant',
   tagline: 'Passionné par l\'innovation et le développement de solutions technologiques.',
-  bio: 'Ingénieur logiciel en alternance avec une passion pour la création de solutions innovantes. Spécialisé dans l\'infrastructure cloud et le développement backend, je suis toujours à la recherche de nouveaux défis techniques.',
-  avatar: 'https://gravatar.com/avatar/93e1495ea061884238f07f13baa8eeaf240428e4779b45c47cb7dde4ea73fac6?size=256',
+  bio: 'Ingénieur systèmes en alternance avec une passion pour la création de solutions innovantes. Spécialisé dans l\'infrastructure cloud et le développement backend, je suis toujours à la recherche de nouveaux défis techniques.',
+  avatar: gravatarUrl,
   location: 'Montpellier, France',
   available: true,
   resumeUrl: '/cv-thibaut-maurras.pdf',

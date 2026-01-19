@@ -3,7 +3,12 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
+    },
+  },
 
   // Modules
   modules: [
@@ -35,24 +40,23 @@ export default defineNuxtConfig({
     fallback: 'dark',
     classPrefix: '',
     classSuffix: '',
-    storage: 'localStorage',
+    storage: 'sessionStorage',
     storageKey: 'portfolio-theme',
   },
 
   // Runtime config
   runtimeConfig: {
     // Server-side only (private) - SMTP for Nodemailer
-    smtpHost: '',
-    smtpPort: '587',
-    smtpUser: '',
-    smtpPass: '',
-    contactEmail: '',
-
+    smtpHost: process.env.NUXT_SMTP_HOST || 'smtp.gmail.com',
+    smtpPort: process.env.NUXT_SMTP_PORT || '587',
+    smtpUser: process.env.NUXT_SMTP_USER || '',
+    smtpPass: process.env.NUXT_SMTP_PASS || '',
+    contactEmail: process.env.NUXT_CONTACT_EMAIL || '',
     // Client-side (public)
     public: {
-      siteUrl: 'http://localhost:3000',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
       siteName: 'Thibaut Maurras - Portfolio',
-      siteDescription: 'Ingenieur Logiciel passionne par l\'innovation et le developpement de solutions technologiques.',
+      siteDescription: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
       siteAuthor: 'Thibaut Maurras',
       enableContactForm: true,
       enableAnalytics: false,
@@ -66,14 +70,14 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'fr',
       },
-      title: 'Thibaut Maurras - Ingenieur Logiciel',
+      title: 'Portfolio - Thibaut Maurras',
       titleTemplate: '%s | Thibaut Maurras',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Ingenieur Logiciel passionne par l\'innovation et le developpement de solutions technologiques. Specialise en Vue.js, Nuxt, TypeScript et infrastructure cloud.',
+          content: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
         },
         { name: 'author', content: 'Thibaut Maurras' },
         {
@@ -84,10 +88,10 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'fr_FR' },
         { property: 'og:site_name', content: 'Thibaut Maurras - Portfolio' },
-        { property: 'og:title', content: 'Thibaut Maurras - Ingenieur Logiciel' },
+        { property: 'og:title', content: 'Portfolio - Thibaut Maurras' },
         {
           property: 'og:description',
-          content: 'Ingenieur Logiciel passionne par l\'innovation et le developpement de solutions technologiques.',
+          content: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
         },
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
@@ -99,7 +103,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: 'https://thibautmaurras.dev' },
+        { rel: 'canonical', href: 'https://thibautm.com' },
       ],
     },
   },

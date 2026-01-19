@@ -23,8 +23,8 @@
               class="inline-flex items-center gap-2 text-2xl font-bold tracking-tight transition-colors hover:text-primary"
               @click.prevent="scrollToTop"
             >
-              <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                {{ profile.initials }}
+              <span class="flex h-10 w-10 items-center justify-center">
+                {{ profile.initials }}.
               </span>
             </a>
             <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -99,10 +99,10 @@
         <!-- Bottom Bar -->
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p class="text-sm text-muted-foreground">
-            &copy; {{ new Date().getFullYear() }} {{ profile.name }}. {{ $t('footer.rights') }}
+            &copy;2022-{{ new Date().getFullYear() }} {{ profile.name }}. {{ $t('footer.rights') }}
           </p>
           <p class="text-xs text-muted-foreground/60">
-            {{ $t('footer.madeWith') }}
+            {{ $t('footer.madeWith') }} ❤️
           </p>
         </div>
       </div>
