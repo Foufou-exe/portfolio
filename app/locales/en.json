@@ -91,12 +91,27 @@
     "description": "Description",
     "achievements": "Key achievements",
     "technologies": "Technologies used",
-    "close": "Close"
+    "close": "Close",
+    "contractType": {
+      "cdi": "Permanent",
+      "cdd": "Fixed-term",
+      "alternance": "Apprenticeship",
+      "stage": "Internship",
+      "freelance": "Freelance",
+      "interim": "Temporary"
+    }
   },
   "education": {
     "title": "Education",
     "subtitle": "My academic journey",
     "skills": "Skills acquired"
+  },
+  "establishment": {
+    "industry": "Industry",
+    "size": "Size",
+    "website": "Website",
+    "visitWebsite": "Visit website",
+    "location": "Location"
   },
   "contact": {
     "title": "Let's work together",

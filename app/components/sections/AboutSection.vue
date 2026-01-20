@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="overflow-hidden py-20">
+  <section id="about" class="overflow-hidden py-20 min-h-screen">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"

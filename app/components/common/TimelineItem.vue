@@ -47,7 +47,64 @@
                     </div>
                     <div>
                       <h3 class="font-semibold leading-tight">{{ title }}</h3>
-                      <p class="text-sm text-muted-foreground">{{ subtitle }}</p>
+                      <!-- Establishment with HoverCard -->
+                      <HoverCard v-if="establishment">
+                        <HoverCardTrigger as-child>
+                          <button class="text-sm text-muted-foreground hover:text-primary hover:underline transition-colors text-left">
+                            {{ subtitle }}
+                          </button>
+                        </HoverCardTrigger>
+                        <HoverCardContent class="w-80" align="start">
+                          <div class="flex gap-4">
+                            <!-- Logo -->
+                            <div v-if="establishment.logo" class="shrink-0">
+                              <img 
+                                :src="establishment.logo" 
+                                :alt="establishment.name"
+                                class="h-12 w-12 rounded-md object-cover"
+                              />
+                            </div>
+                            <div v-else class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-muted">
+                              <Building2 class="h-6 w-6 text-muted-foreground" />
+                            </div>
+                            <!-- Info -->
+                            <div class="flex-1 space-y-1">
+                              <h4 class="text-sm font-semibold">{{ establishment.name }}</h4>
+                              <p v-if="establishment.description" class="text-xs text-muted-foreground line-clamp-2">
+                                {{ establishment.description }}
+                              </p>
+                            </div>
+                          </div>
+                          <!-- Meta -->
+                          <div class="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                            <span v-if="establishment.industry" class="flex items-center gap-1">
+                              <Building2 class="h-3 w-3" />
+                              {{ establishment.industry }}
+                            </span>
+                            <span v-if="establishment.size" class="flex items-center gap-1">
+                              <Users class="h-3 w-3" />
+                              {{ establishment.size }}
+                            </span>
+                            <span v-if="establishment.location" class="flex items-center gap-1">
+                              <MapPin class="h-3 w-3" />
+                              {{ establishment.location }}
+                            </span>
+                          </div>
+                          <!-- Website link -->
+                          <a 
+                            v-if="establishment.website"
+                            :href="establishment.website"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="mt-3 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                          >
+                            <ExternalLink class="h-3 w-3" />
+                            {{ t('establishment.visitWebsite') }}
+                          </a>
+                        </HoverCardContent>
+                      </HoverCard>
+                      <!-- Fallback without HoverCard -->
+                      <p v-else class="text-sm text-muted-foreground">{{ subtitle }}</p>
                     </div>
                   </div>
                   
@@ -61,6 +118,9 @@
                       <Calendar class="h-3 w-3" />
                       {{ period }}
                     </span>
+                    <Badge v-if="contractType" variant="secondary" class="text-xs">
+                      {{ t(`experience.contractType.${contractType}`) }}
+                    </Badge>
                   </div>
 
                   <!-- Truncated description -->
@@ -90,8 +150,65 @@
               </div>
               <div>
                 <DialogTitle class="text-xl">{{ title }}</DialogTitle>
-                <DialogDescription class="flex items-center gap-2">
-                  {{ subtitle }}
+                <DialogDescription as="div" class="flex flex-wrap items-center gap-2">
+                  <!-- Establishment with HoverCard in Dialog -->
+                  <HoverCard v-if="establishment">
+                    <HoverCardTrigger as-child>
+                      <button class="text-muted-foreground hover:text-primary hover:underline transition-colors text-left">
+                        {{ subtitle }}
+                      </button>
+                    </HoverCardTrigger>
+                    <HoverCardContent class="w-80" align="start">
+                      <div class="flex gap-4">
+                        <!-- Logo -->
+                        <div v-if="establishment.logo" class="shrink-0">
+                          <img 
+                            :src="establishment.logo" 
+                            :alt="establishment.name"
+                            class="h-12 w-12 rounded-md object-cover"
+                          />
+                        </div>
+                        <div v-else class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-muted">
+                          <Building2 class="h-6 w-6 text-muted-foreground" />
+                        </div>
+                        <!-- Info -->
+                        <div class="flex-1 space-y-1">
+                          <h4 class="text-sm font-semibold">{{ establishment.name }}</h4>
+                          <p v-if="establishment.description" class="text-xs text-muted-foreground line-clamp-2">
+                            {{ establishment.description }}
+                          </p>
+                        </div>
+                      </div>
+                      <!-- Meta -->
+                      <div class="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                        <span v-if="establishment.industry" class="flex items-center gap-1">
+                          <Building2 class="h-3 w-3" />
+                          {{ establishment.industry }}
+                        </span>
+                        <span v-if="establishment.size" class="flex items-center gap-1">
+                          <Users class="h-3 w-3" />
+                          {{ establishment.size }}
+                        </span>
+                        <span v-if="establishment.location" class="flex items-center gap-1">
+                          <MapPin class="h-3 w-3" />
+                          {{ establishment.location }}
+                        </span>
+                      </div>
+                      <!-- Website link -->
+                      <a 
+                        v-if="establishment.website"
+                        :href="establishment.website"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="mt-3 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                      >
+                        <ExternalLink class="h-3 w-3" />
+                        {{ t('establishment.visitWebsite') }}
+                      </a>
+                    </HoverCardContent>
+                  </HoverCard>
+                  <!-- Fallback without HoverCard -->
+                  <span v-else>{{ subtitle }}</span>
                   <Badge v-if="isCurrent" variant="default" class="ml-2">
                     {{ t('experience.current') }}
                   </Badge>
@@ -111,6 +228,9 @@
                 <Calendar class="h-4 w-4" />
                 {{ period }}
               </div>
+              <Badge v-if="contractType" variant="secondary">
+                {{ t(`experience.contractType.${contractType}`) }}
+              </Badge>
             </div>
 
             <!-- Description -->
@@ -166,7 +286,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { Briefcase, GraduationCap, MapPin, Calendar, ChevronRight, CheckCircle } from 'lucide-vue-next'
+import { Briefcase, GraduationCap, MapPin, Calendar, ChevronRight, CheckCircle, Building2, Users, ExternalLink } from 'lucide-vue-next'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
@@ -180,6 +300,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '~/components/ui/hover-card'
+import type { Establishment } from '~/data/portfolio'
 
 const { t } = useI18n()
 
@@ -195,11 +321,15 @@ const props = withDefaults(defineProps<{
   tags?: string[]
   isCurrent?: boolean
   isLast?: boolean
+  contractType?: 'cdi' | 'cdd' | 'alternance' | 'stage' | 'freelance' | 'interim'
+  establishment?: Establishment
 }>(), {
   isCurrent: false,
   isLast: false,
   achievements: () => [],
   tags: () => [],
+  contractType: undefined,
+  establishment: undefined,
 })
 
 const isDialogOpen = ref(false)

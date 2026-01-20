@@ -1,5 +1,5 @@
 <template>
-  <section id="skills" class="overflow-hidden bg-muted/30 py-20">
+  <section id="skills" class="overflow-hidden bg-muted/30 py-20 min-h-screen">
     <div 
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"

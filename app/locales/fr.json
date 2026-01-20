@@ -91,12 +91,27 @@
     "description": "Description",
     "achievements": "Realisations cles",
     "technologies": "Technologies utilisees",
-    "close": "Fermer"
+    "close": "Fermer",
+    "contractType": {
+      "cdi": "CDI",
+      "cdd": "CDD",
+      "alternance": "Alternance",
+      "stage": "Stage",
+      "freelance": "Freelance",
+      "interim": "Interim"
+    }
   },
   "education": {
     "title": "Formation",
     "subtitle": "Mon parcours academique",
     "skills": "Competences acquises"
+  },
+  "establishment": {
+    "industry": "Secteur",
+    "size": "Taille",
+    "website": "Site web",
+    "visitWebsite": "Visiter le site",
+    "location": "Localisation"
   },
   "contact": {
     "title": "Travaillons ensemble",

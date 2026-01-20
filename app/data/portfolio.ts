@@ -30,6 +30,16 @@ export interface Project {
   featured?: boolean
 }
 
+export interface Establishment {
+  name: string
+  logo?: string
+  description?: string
+  website?: string
+  industry?: string
+  size?: string
+  location: string
+}
+
 export interface Experience {
   id: number
   title: string
@@ -43,6 +53,8 @@ export interface Experience {
   achievements: string[]
   technologies: string[]
   type: 'work' | 'internship' | 'freelance'
+  contractType: 'cdi' | 'cdd' | 'alternance' | 'stage' | 'freelance' | 'interim'
+  establishment?: Establishment
 }
 
 export interface Education {
@@ -56,6 +68,7 @@ export interface Education {
   description: string
   achievements: string[]
   skills: string[]
+  establishment?: Establishment
 }
 
 export interface NavLink {
@@ -345,6 +358,7 @@ export const experiences: Experience[] = [
     startYear: 2024,
     current: true,
     type: 'work',
+    contractType: 'alternance',
     description: 'Déploiement et maintenance de solutions de dématérialisation pour les clients. MCO et sécurisation des infrastructures serveurs.',
     achievements: [
       'Déploiement de solutions GED sur infrastructures clients (Cloud/On-Premise)',
@@ -353,6 +367,15 @@ export const experiences: Experience[] = [
       'Sécurisation des infrastructures Linux/Windows',
     ],
     technologies: ['Linux', 'Windows Server', 'Python', 'Bash', 'Ansible', 'VMware', 'GCP', 'PostgreSQL', 'Oracle'],
+    establishment: {
+      name: 'Nexpublica',
+      logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQE8fHHr70cN-g/company-logo_200_200/company-logo_200_200/0/1630601996817/nexpublica_logo?e=1744848000&v=beta&t=VQ-F0uTjGipGmEVBCT_cSU7M_gP_xpBzqJzOoWwxTQU',
+      description: 'Éditeur de logiciels spécialisé dans la dématérialisation et la gestion documentaire pour les collectivités et administrations publiques.',
+      website: 'https://www.nexpublica.fr',
+      industry: 'Logiciels & Services IT',
+      size: '50-100 employés',
+      location: 'Montpellier, France',
+    },
   },
   {
     id: 2,
@@ -363,6 +386,7 @@ export const experiences: Experience[] = [
     startYear: 2024,
     endYear: 2024,
     type: 'work',
+    contractType: 'cdd',
     description: 'Déploiement et MCO d\'applications métiers critiques (Finance, RH, Gestion) pour les clients d\'Inetum.',
     achievements: [
       'Intégration applicative GECCO/ASTRE sur infrastructures Cloud et On-Premise',
@@ -371,6 +395,15 @@ export const experiences: Experience[] = [
       'Rédaction de documentation technique et guides utilisateurs',
     ],
     technologies: ['Linux', 'Windows', 'VMware', 'Cloud', 'SQL'],
+    establishment: {
+      name: 'Inetum',
+      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFJiV-bJNsapA/company-logo_200_200/company-logo_200_200/0/1719844449498/inetum_logo?e=1744848000&v=beta&t=eW-Kb8NSpU0R8bVSqkv-Hgc2k1ZBXMyzlEAvd1OKksk',
+      description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
+      website: 'https://www.inetum.com',
+      industry: 'Conseil & Services IT',
+      size: '28 000+ employés',
+      location: 'Paris, France (siège)',
+    },
   },
   {
     id: 3,
@@ -381,6 +414,7 @@ export const experiences: Experience[] = [
     startYear: 2022,
     endYear: 2023,
     type: 'work',
+    contractType: 'alternance',
     description: 'Déploiement et maintenance de solutions de dématérialisation en alternance.',
     achievements: [
       'Installation et intégration de logiciels GED chez les clients',
@@ -389,6 +423,15 @@ export const experiences: Experience[] = [
       'Automatisation via Python, Bash et Ansible',
     ],
     technologies: ['Linux', 'Windows', 'Java', 'VMware', 'Réseaux'],
+    establishment: {
+      name: 'Inetum',
+      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFJiV-bJNsapA/company-logo_200_200/company-logo_200_200/0/1719844449498/inetum_logo?e=1744848000&v=beta&t=eW-Kb8NSpU0R8bVSqkv-Hgc2k1ZBXMyzlEAvd1OKksk',
+      description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
+      website: 'https://www.inetum.com',
+      industry: 'Conseil & Services IT',
+      size: '28 000+ employés',
+      location: 'Paris, France (siège)',
+    },
   },
   {
     id: 4,
@@ -399,6 +442,7 @@ export const experiences: Experience[] = [
     startYear: 2022,
     endYear: 2022,
     type: 'internship',
+    contractType: 'stage',
     description: 'Mise en place d\'infrastructure haute disponibilité et administration de serveurs Linux.',
     achievements: [
       'Infrastructure HA : Web, FTP, DNS, VPN, BDD',
@@ -407,6 +451,14 @@ export const experiences: Experience[] = [
       'Intégration de solutions analytics (Matomo, Google Analytics)',
     ],
     technologies: ['Linux', 'Docker', 'Python', 'Bash', 'Zabbix', 'DNS', 'LizardFS'],
+    establishment: {
+      name: 'DataHeberg',
+      description: 'Hébergeur web français proposant des solutions d\'hébergement mutualisé, VPS et serveurs dédiés.',
+      website: 'https://www.dataheberg.com',
+      industry: 'Hébergement Web & Cloud',
+      size: '1-10 employés',
+      location: 'Montpellier, France',
+    },
   },
   {
     id: 5,
@@ -417,6 +469,7 @@ export const experiences: Experience[] = [
     startYear: 2021,
     endYear: 2021,
     type: 'internship',
+    contractType: 'stage',
     description: 'Mise en place d\'infrastructure virtualisée et orchestration Kubernetes.',
     achievements: [
       'Surveillance réseau avec Zabbix',
@@ -425,6 +478,14 @@ export const experiences: Experience[] = [
       'Gestion des accès et politiques de sécurité',
     ],
     technologies: ['Linux', 'Kubernetes', 'Docker', 'Zabbix', 'VMware'],
+    establishment: {
+      name: 'OuiHeberg',
+      description: 'Hébergeur web français spécialisé dans les solutions d\'hébergement haute disponibilité et les services cloud.',
+      website: 'https://www.ouiheberg.com',
+      industry: 'Hébergement Web & Cloud',
+      size: '1-10 employés',
+      location: 'Montpellier, France',
+    },
   },
   {
     id: 6,
@@ -435,6 +496,7 @@ export const experiences: Experience[] = [
     startYear: 2017,
     endYear: 2020,
     type: 'internship',
+    contractType: 'stage',
     description: 'Stage longue durée (Bac Pro) : assistance technique et maintenance informatique.',
     achievements: [
       'Diagnostic et résolution de problèmes hardware/software',
@@ -443,6 +505,13 @@ export const experiences: Experience[] = [
       'Maintenance préventive des équipements',
     ],
     technologies: ['Windows', 'Réseaux', 'Hardware', 'Sécurité'],
+    establishment: {
+      name: 'PRO&Cie',
+      description: 'Entreprise spécialisée dans la vente, réparation et maintenance de matériel informatique et multimédia.',
+      industry: 'Services Informatiques',
+      size: '1-10 employés',
+      location: 'Pézenas, France',
+    },
   },
 ]
 
@@ -464,6 +533,15 @@ export const education: Education[] = [
       'Formation en alternance',
     ],
     skills: ['Architecture Cloud', 'Infrastructure', 'DevOps', 'Systèmes d\'information'],
+    establishment: {
+      name: 'EPSI',
+      logo: 'https://media.licdn.com/dms/image/v2/C560BAQGOWuHpfjRW6A/company-logo_200_200/company-logo_200_200/0/1630607601685/epabordeaux_logo?e=1744848000&v=beta&t=7msCF05z_Y3K-vnpFp8VjWc4xv6TvG51bKXjCkJBhEY',
+      description: 'École d\'ingénierie informatique membre du réseau Compétences et Développement. Formation en alternance du Bac+2 au Bac+5 dans les métiers du numérique.',
+      website: 'https://www.epsi.fr',
+      industry: 'Enseignement Supérieur',
+      size: '5 000+ étudiants',
+      location: 'France (14 campus)',
+    },
   },
   {
     id: 2,
@@ -479,6 +557,15 @@ export const education: Education[] = [
       'Spécialisation Réseaux et Systèmes',
     ],
     skills: ['Administration Réseaux', 'Systèmes', 'Base de données', 'Sécurité'],
+    establishment: {
+      name: 'EPSI',
+      logo: 'https://media.licdn.com/dms/image/v2/C560BAQGOWuHpfjRW6A/company-logo_200_200/company-logo_200_200/0/1630607601685/epabordeaux_logo?e=1744848000&v=beta&t=7msCF05z_Y3K-vnpFp8VjWc4xv6TvG51bKXjCkJBhEY',
+      description: 'École d\'ingénierie informatique membre du réseau Compétences et Développement. Formation en alternance du Bac+2 au Bac+5 dans les métiers du numérique.',
+      website: 'https://www.epsi.fr',
+      industry: 'Enseignement Supérieur',
+      size: '5 000+ étudiants',
+      location: 'France (14 campus)',
+    },
   },
   {
     id: 3,
@@ -494,6 +581,13 @@ export const education: Education[] = [
       'Spécialisation Infrastructure',
     ],
     skills: ['Réseaux', 'Systèmes', 'Virtualisation', 'Scripting'],
+    establishment: {
+      name: 'Lycée Marc Bloch',
+      description: 'Lycée général et technologique proposant des formations du Bac au BTS, notamment en informatique (BTS SIO).',
+      website: 'https://marc-bloch-serignan.mon-ent-occitanie.fr',
+      industry: 'Éducation Nationale',
+      location: 'Sérignan, France',
+    },
   },
   {
     id: 4,
@@ -509,6 +603,13 @@ export const education: Education[] = [
       'BEP Mise en réseau (Très Bien)',
     ],
     skills: ['Réseaux', 'Télécommunications', 'Électronique', 'Maintenance'],
+    establishment: {
+      name: 'Lycée Jean Moulin',
+      description: 'Lycée professionnel spécialisé dans les formations industrielles et numériques : électronique, réseaux, maintenance.',
+      website: 'https://jean-moulin-beziers.mon-ent-occitanie.fr',
+      industry: 'Éducation Nationale',
+      location: 'Béziers, France',
+    },
   },
   {
     id: 5,
@@ -523,6 +624,12 @@ export const education: Education[] = [
       'Mention Bien',
     ],
     skills: [],
+    establishment: {
+      name: 'Collège Jules Ferry',
+      description: 'Collège public de l\'Éducation Nationale.',
+      industry: 'Éducation Nationale',
+      location: 'Montagnac, France',
+    },
   },
 ]
 

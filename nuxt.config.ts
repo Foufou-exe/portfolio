@@ -71,7 +71,6 @@ export default defineNuxtConfig({
         lang: 'fr',
       },
       title: 'Portfolio - Thibaut Maurras',
-      titleTemplate: '%s | Thibaut Maurras',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

@@ -27,6 +27,7 @@
             :tags="edu.skills"
             :is-current="edu.endYear >= new Date().getFullYear()"
             :is-last="index === education.length - 1"
+            :establishment="edu.establishment"
           />
         </div>
       </div>

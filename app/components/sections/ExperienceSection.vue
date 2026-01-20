@@ -27,6 +27,8 @@
             :tags="exp.technologies"
             :is-current="exp.current"
             :is-last="index === experiences.length - 1"
+            :contract-type="exp.contractType"
+            :establishment="exp.establishment"
           />
         </div>
       </div>
