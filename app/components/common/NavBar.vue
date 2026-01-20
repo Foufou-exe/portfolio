@@ -39,7 +39,7 @@
           variant="ghost" 
           size="icon" 
           @click="toggleLocale"
-          :title="locale === 'fr' ? 'Switch to English' : 'Passer en Français'"
+          :title="$t('nav.switchLanguage')"
         >
           <span class="text-sm font-semibold">{{ locale === 'fr' ? 'EN' : 'FR' }}</span>
         </Button>
@@ -56,12 +56,12 @@
           <SheetTrigger as-child>
             <Button variant="ghost" size="icon" class="md:hidden">
               <Menu class="h-5 w-5" />
-              <span class="sr-only">Menu</span>
+              <span class="sr-only">{{ $t('nav.menu') }}</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="right" class="w-72">
             <SheetHeader>
-              <SheetTitle>Navigation</SheetTitle>
+              <SheetTitle>{{ $t('nav.navigation') }}</SheetTitle>
               <SheetDescription>
                 {{ $t('nav.mobileDescription') }}
               </SheetDescription>

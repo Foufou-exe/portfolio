@@ -46,7 +46,7 @@
         <div v-if="project.featured" class="absolute right-2 top-2 z-20">
           <Badge variant="default" class="border-0 bg-primary/90 backdrop-blur-sm">
             <Star class="mr-1 h-3 w-3" />
-            Featured
+            {{ t('projects.featuredBadge') }}
           </Badge>
         </div>
         <!-- Gradient overlay on hover -->
@@ -89,7 +89,7 @@
           <DialogTrigger as-child>
             <Button variant="default" size="sm" class="flex-1 glow-sm">
               <Eye class="mr-2 h-4 w-4" />
-              Details
+              {{ t('projects.details') }}
             </Button>
           </DialogTrigger>
           <DialogContent class="max-w-2xl">
@@ -119,7 +119,7 @@
 
               <!-- Tags -->
               <div>
-                <h4 class="mb-2 text-sm font-semibold">Technologies</h4>
+                <h4 class="mb-2 text-sm font-semibold">{{ t('projects.technologies') }}</h4>
                 <div class="flex flex-wrap gap-2">
                   <Badge v-for="tag in project.tags" :key="tag" variant="secondary">
                     {{ tag }}
@@ -138,7 +138,7 @@
                   class="flex-1"
                 >
                   <ExternalLink class="mr-2 h-4 w-4" />
-                  Voir le projet
+                  {{ t('projects.viewProject') }}
                 </Button>
                 <Button
                   v-if="project.sourceUrl"
@@ -150,7 +150,7 @@
                   class="flex-1"
                 >
                   <Github class="mr-2 h-4 w-4" />
-                  Code source
+                  {{ t('projects.viewSource') }}
                 </Button>
               </div>
             </div>
@@ -211,6 +211,8 @@ import {
   DialogTrigger,
 } from '~/components/ui/dialog'
 import type { Project } from '~/data/portfolio'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   project: Project

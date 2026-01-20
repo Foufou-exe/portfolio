@@ -71,7 +71,7 @@
 
                 <!-- See more -->
                 <Button variant="ghost" size="sm" class="shrink-0">
-                  Voir plus
+                  {{ t('experience.seeMore') }}
                   <ChevronRight class="ml-1 h-4 w-4" />
                 </Button>
               </div>
@@ -93,7 +93,7 @@
                 <DialogDescription class="flex items-center gap-2">
                   {{ subtitle }}
                   <Badge v-if="isCurrent" variant="default" class="ml-2">
-                    Actuel
+                    {{ t('experience.current') }}
                   </Badge>
                 </DialogDescription>
               </div>
@@ -115,7 +115,7 @@
 
             <!-- Description -->
             <div>
-              <h4 class="mb-2 font-semibold">Description</h4>
+              <h4 class="mb-2 font-semibold">{{ t('experience.description') }}</h4>
               <p class="text-muted-foreground leading-relaxed">
                 {{ description }}
               </p>
@@ -123,7 +123,7 @@
 
             <!-- Achievements -->
             <div v-if="achievements && achievements.length > 0">
-              <h4 class="mb-3 font-semibold">Realisations cles</h4>
+              <h4 class="mb-3 font-semibold">{{ t('experience.achievements') }}</h4>
               <ul class="space-y-2">
                 <li 
                   v-for="(achievement, index) in achievements" 
@@ -139,7 +139,7 @@
             <!-- Technologies/Skills -->
             <div v-if="tags && tags.length > 0">
               <h4 class="mb-3 font-semibold">
-                {{ type === 'education' ? 'Competences acquises' : 'Technologies utilisees' }}
+                {{ type === 'education' ? t('education.skills') : t('experience.technologies') }}
               </h4>
               <div class="flex flex-wrap gap-2">
                 <Badge 
@@ -155,7 +155,7 @@
 
           <DialogFooter>
             <DialogClose as-child>
-              <Button variant="outline">Fermer</Button>
+              <Button variant="outline">{{ t('experience.close') }}</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
@@ -180,6 +180,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '~/components/ui/dialog'
+
+const { t } = useI18n()
 
 const props = withDefaults(defineProps<{
   type: 'experience' | 'education'

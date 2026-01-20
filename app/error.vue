@@ -14,7 +14,7 @@
       </h1>
 
       <!-- Error message -->
-      <div class="mt-[-2rem] space-y-4 sm:mt-[-3rem]">
+      <div class="-mt-8 space-y-4 sm:-mt-12">
         <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">
           {{ errorTitle }}
         </h2>
@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { Home, RefreshCw } from 'lucide-vue-next'
+import { Home } from 'lucide-vue-next'
 import type { NuxtError } from '#app'
 import { Button } from '~/components/ui/button'
 

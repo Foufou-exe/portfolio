@@ -121,7 +121,7 @@
           class="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
           @click="scrollToAbout"
         >
-          <span class="text-xs uppercase tracking-widest">Scroll</span>
+          <span class="text-xs uppercase tracking-widest">{{ $t('hero.scroll') }}</span>
           <ChevronDown class="h-5 w-5 animate-bounce" />
         </button>
       </div>

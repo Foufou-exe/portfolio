@@ -4,7 +4,7 @@
       v-show="isVisible"
       class="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-background/80 text-primary shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground hover:shadow-xl"
       :class="{ 'glow-sm': isVisible }"
-      aria-label="Retour en haut"
+      :aria-label="$t('common.backToTop')"
       @click="scrollToTop"
     >
       <ArrowUp class="h-5 w-5" />

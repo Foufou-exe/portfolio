@@ -19,7 +19,7 @@
       <div class="mx-auto max-w-lg">
         <Card class="border-0 shadow-lg p-0">
           <CardContent class="p-6 sm:p-8">
-            <form @submit.prevent="handleSubmit" class="space-y-6">
+            <form class="space-y-6" @submit.prevent="handleSubmit">
               <!-- Email -->
               <div class="space-y-2">
                 <Label for="email" class="text-sm font-medium">
@@ -63,33 +63,6 @@
                 {{ isSubmitting ? $t('contact.form.sending') : $t('contact.form.send') }}
               </Button>
             </form>
-
-            <!-- Success Alert -->
-            <Alert 
-              v-if="submitStatus === 'success'" 
-              class="mt-6 border-green-500/50 bg-green-500/10"
-            >
-              <CheckCircle class="h-4 w-4 text-green-600 dark:text-green-400" />
-              <AlertTitle class="text-green-600 dark:text-green-400">
-                {{ $t('contact.success.title') }}
-              </AlertTitle>
-              <AlertDescription class="text-green-600/80 dark:text-green-400/80">
-                {{ $t('contact.success.message') }}
-              </AlertDescription>
-            </Alert>
-
-            <!-- Error Alert -->
-            <Alert 
-              v-if="submitStatus === 'error'" 
-              class="mt-6" 
-              variant="destructive"
-            >
-              <AlertCircle class="h-4 w-4" />
-              <AlertTitle>{{ $t('contact.error.title') }}</AlertTitle>
-              <AlertDescription>
-                {{ errorMessage || $t('contact.error.message') }}
-              </AlertDescription>
-            </Alert>
           </CardContent>
         </Card>
 
@@ -113,14 +86,8 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { 
-  AlertCircle, 
-  CheckCircle, 
-  Loader2, 
-  Mail, 
-  Send 
-} from 'lucide-vue-next'
-import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert'
+import { toast } from 'vue-sonner'
+import { Loader2, Mail, Send } from 'lucide-vue-next'
 import { Button } from '~/components/ui/button'
 import { Card, CardContent } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
@@ -129,6 +96,7 @@ import { Textarea } from '~/components/ui/textarea'
 import { contactInfo } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
+const { t } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
 // Form state
@@ -138,13 +106,9 @@ const form = reactive({
 })
 
 const isSubmitting = ref(false)
-const submitStatus = ref<'idle' | 'success' | 'error'>('idle')
-const errorMessage = ref<string | null>(null)
 
 async function handleSubmit() {
   isSubmitting.value = true
-  submitStatus.value = 'idle'
-  errorMessage.value = null
 
   try {
     const response = await $fetch('/api/contact', {
@@ -156,23 +120,20 @@ async function handleSubmit() {
     })
 
     if (response.success) {
-      submitStatus.value = 'success'
+      toast.success(t('contact.success.title'), {
+        description: t('contact.success.message'),
+      })
       resetForm()
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        submitStatus.value = 'idle'
-      }, 5000)
     } else {
       throw new Error(response.error || 'Erreur inconnue')
     }
   } catch (error: unknown) {
     console.error('Erreur lors de l\'envoi:', error)
-    submitStatus.value = 'error'
     
-    if (error instanceof Error) {
-      errorMessage.value = error.message
-    }
+    const errorMsg = error instanceof Error ? error.message : t('contact.error.message')
+    toast.error(t('contact.error.title'), {
+      description: errorMsg,
+    })
   } finally {
     isSubmitting.value = false
   }

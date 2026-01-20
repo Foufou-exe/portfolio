@@ -6,11 +6,15 @@
     "experience": "Experiences",
     "education": "Formation",
     "contact": "Contact",
-    "mobileDescription": "Accedez aux differentes sections du portfolio"
+    "mobileDescription": "Accedez aux differentes sections du portfolio",
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "switchLanguage": "Passer en Anglais"
   },
   "hero": {
     "greeting": "Bonjour, je suis",
     "available": "Disponible pour des opportunites",
+    "scroll": "Defiler",
     "cta": {
       "projects": "Voir mes projets",
       "contact": "Me contacter"
@@ -70,9 +74,11 @@
     "subtitle": "Une selection de mes realisations",
     "viewDemo": "Demo",
     "viewSource": "Code source",
+    "viewProject": "Voir le projet",
     "details": "Details",
     "technologies": "Technologies utilisees",
     "featured": "Projets mis en avant",
+    "featuredBadge": "Mis en avant",
     "others": "Autres projets",
     "viewMore": "Envie de voir plus de projets ?",
     "viewGithub": "Voir mon GitHub"
@@ -82,6 +88,7 @@
     "subtitle": "Mon parcours professionnel",
     "current": "Actuel",
     "seeMore": "Voir plus",
+    "description": "Description",
     "achievements": "Realisations cles",
     "technologies": "Technologies utilisees",
     "close": "Fermer"
