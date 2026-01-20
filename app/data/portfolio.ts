@@ -369,7 +369,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows Server', 'Python', 'Bash', 'Ansible', 'VMware', 'GCP', 'PostgreSQL', 'Oracle'],
     establishment: {
       name: 'Nexpublica',
-      logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQE8fHHr70cN-g/company-logo_200_200/company-logo_200_200/0/1630601996817/nexpublica_logo?e=1744848000&v=beta&t=VQ-F0uTjGipGmEVBCT_cSU7M_gP_xpBzqJzOoWwxTQU',
+      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFxdkwE4lEYBQ/company-logo_200_200/B4EZWyX.96HgAQ-/0/1742454387047/inetum_software_logo?e=1770249600&v=beta&t=rYrhWHZcCBa7mAgS1Et8R4OP5-Bs5WlwdXi8Nzsd260',
       description: 'Éditeur de logiciels spécialisé dans la dématérialisation et la gestion documentaire pour les collectivités et administrations publiques.',
       website: 'https://www.nexpublica.fr',
       industry: 'Logiciels & Services IT',
@@ -397,7 +397,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows', 'VMware', 'Cloud', 'SQL'],
     establishment: {
       name: 'Inetum',
-      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFJiV-bJNsapA/company-logo_200_200/company-logo_200_200/0/1719844449498/inetum_logo?e=1744848000&v=beta&t=eW-Kb8NSpU0R8bVSqkv-Hgc2k1ZBXMyzlEAvd1OKksk',
+      logo: 'https://media.licdn.com/dms/image/v2/C4D0BAQFo_2-ZPy_psw/company-logo_200_200/company-logo_200_200/0/1630558676103/inetum_logo?e=1770249600&v=beta&t=TWJjokORxs4rIEmSwe2cfv6tC1gzCS1Kg91ALYhK-1Q',
       description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
       website: 'https://www.inetum.com',
       industry: 'Conseil & Services IT',
@@ -425,7 +425,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows', 'Java', 'VMware', 'Réseaux'],
     establishment: {
       name: 'Inetum',
-      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFJiV-bJNsapA/company-logo_200_200/company-logo_200_200/0/1719844449498/inetum_logo?e=1744848000&v=beta&t=eW-Kb8NSpU0R8bVSqkv-Hgc2k1ZBXMyzlEAvd1OKksk',
+      logo: 'https://media.licdn.com/dms/image/v2/C4D0BAQFo_2-ZPy_psw/company-logo_200_200/company-logo_200_200/0/1630558676103/inetum_logo?e=1770249600&v=beta&t=TWJjokORxs4rIEmSwe2cfv6tC1gzCS1Kg91ALYhK-1Q',
       description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
       website: 'https://www.inetum.com',
       industry: 'Conseil & Services IT',
@@ -454,6 +454,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'DataHeberg',
       description: 'Hébergeur web français proposant des solutions d\'hébergement mutualisé, VPS et serveurs dédiés.',
+      logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQFowOG3KEbm1w/company-logo_200_200/company-logo_200_200/0/1643186287717/dataheberg_logo?e=1770249600&v=beta&t=sG2XmuiIMRzCFeSuUvknotveHpl-C-YNfiKbdTbnAyw',
       website: 'https://www.dataheberg.com',
       industry: 'Hébergement Web & Cloud',
       size: '1-5 employés',
@@ -481,6 +482,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'OuiHeberg',
       description: 'Hébergeur web français spécialisé dans les solutions d\'hébergement haute disponibilité et les services cloud.',
+      logo: 'https://media.licdn.com/dms/image/v2/C560BAQHKIqqE-5iKuQ/company-logo_200_200/company-logo_200_200/0/1630600872998/ouiheberg_officiel_logo?e=1770249600&v=beta&t=NquntBydLlSYPJQL8YQrjq-i5Su1qvXCjpfBDPb3oR0',
       website: 'https://www.ouiheberg.com',
       industry: 'Hébergement Web & Cloud',
       size: '1-2 employés',
@@ -508,6 +510,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'PRO&Cie',
       description: 'Entreprise spécialisée dans la vente, réparation et maintenance de matériel informatique et multimédia.',
+      logo: 'https://media.licdn.com/dms/image/v2/C510BAQG17cJYn_CSsA/company-logo_200_200/company-logo_200_200/0/1631305640162?e=1770249600&v=beta&t=kpmBcJ3iGpnC-LoOvn0s7_80BaNTF1cWuFaE92-tNpM',
       industry: 'Services Informatiques',
       size: '1-10 employés',
       location: 'Pézenas, France',
