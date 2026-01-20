@@ -23,7 +23,7 @@
               class="inline-flex items-center gap-2 text-2xl font-bold tracking-tight transition-colors hover:text-primary"
               @click.prevent="scrollToTop"
             >
-              <span class="flex h-10 w-10 items-center justify-center">
+              <span class="flex h-10 w-10 items-center justify-center font-bold">
                 {{ profile.initials }}.
               </span>
             </a>

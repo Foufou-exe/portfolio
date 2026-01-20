@@ -124,5 +124,26 @@
     "social": "Social",
     "contact": "Contact",
     "madeWith": "Made with"
+  },
+  "error": {
+    "backHome": "Back to home",
+    "retry": "Retry",
+    "details": "Error details",
+    "404": {
+      "title": "Page not found",
+      "description": "Oops! The page you're looking for doesn't exist or has been moved."
+    },
+    "403": {
+      "title": "Access denied",
+      "description": "You don't have permission to access this page."
+    },
+    "500": {
+      "title": "Server error",
+      "description": "An unexpected error occurred. Please try again later."
+    },
+    "default": {
+      "title": "An error occurred",
+      "description": "Something went wrong. Please try again."
+    }
   }
 }

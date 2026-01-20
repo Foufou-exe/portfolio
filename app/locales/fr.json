@@ -124,5 +124,26 @@
     "social": "Reseaux",
     "contact": "Contact",
     "madeWith": "Fait avec"
+  },
+  "error": {
+    "backHome": "Retour a l'accueil",
+    "retry": "Reessayer",
+    "details": "Details de l'erreur",
+    "404": {
+      "title": "Page introuvable",
+      "description": "Oups ! La page que vous recherchez n'existe pas ou a ete deplacee."
+    },
+    "403": {
+      "title": "Acces refuse",
+      "description": "Vous n'avez pas les autorisations necessaires pour acceder a cette page."
+    },
+    "500": {
+      "title": "Erreur serveur",
+      "description": "Une erreur inattendue s'est produite. Veuillez reessayer plus tard."
+    },
+    "default": {
+      "title": "Une erreur est survenue",
+      "description": "Quelque chose s'est mal passe. Veuillez reessayer."
+    }
   }
 }

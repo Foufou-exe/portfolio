@@ -106,11 +106,6 @@
             {{ contactInfo.email }}
           </a>
         </div>
-
-        <!-- Social Links -->
-        <div class="mt-8 flex justify-center">
-          <SocialLinks variant="ghost" size="icon" />
-        </div>
       </div>
     </div>
   </section>
@@ -131,7 +126,6 @@ import { Card, CardContent } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Label } from '~/components/ui/label'
 import { Textarea } from '~/components/ui/textarea'
-import SocialLinks from '~/components/common/SocialLinks.vue'
 import { contactInfo } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 

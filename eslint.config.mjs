@@ -131,9 +131,9 @@ export default withNuxt({
     // Pas d'imports dupliqués
     'no-duplicate-imports': 'error',
     
-    // ====================================
+    // ====================================================
     // Stylistic (optionnel - peut être géré par Prettier)
-    // ====================================
+    // ====================================================
     
     // Virgules finales
     'comma-dangle': ['error', 'always-multiline'],
