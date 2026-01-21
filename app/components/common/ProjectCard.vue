@@ -1,20 +1,8 @@
 <template>
-  <div 
-    ref="cardRef"
-    class="tilt-card"
-    @mousemove="handleMouseMove"
-    @mouseleave="handleMouseLeave"
-    @mouseenter="handleMouseEnter"
-  >
+  <div class="gradient-border-card group">
     <Card 
-      class="tilt-card-inner group relative overflow-hidden py-0 transition-all duration-300"
-      :style="cardStyle"
+      class="relative overflow-hidden py-0 transition-all duration-300 hover:-translate-y-1"
     >
-      <!-- Shine effect overlay -->
-      <div 
-        class="tilt-card-shine pointer-events-none absolute inset-0 z-10 rounded-lg"
-        :style="shineStyle"
-      />
 
       <!-- Image du projet -->
       <div class="relative aspect-video overflow-hidden">
@@ -226,14 +214,8 @@ const props = defineProps<{
   project: Project
 }>()
 
-const cardRef = ref<HTMLElement | null>(null)
 const imageLoaded = ref(false)
 const imageError = ref(false)
-const isHovered = ref(false)
-const mouseX = ref(50)
-const mouseY = ref(50)
-const rotateX = ref(0)
-const rotateY = ref(0)
 
 // Generate a consistent color based on project title
 const projectColor = computed(() => {
@@ -259,68 +241,49 @@ const projectColorDark = computed(() => {
   const index = props.project.title.length % colors.length
   return colors[index]
 })
-
-const cardStyle = computed(() => {
-  if (!isHovered.value) {
-    return {
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
-    }
-  }
-  return {
-    transform: `perspective(1000px) rotateX(${rotateX.value}deg) rotateY(${rotateY.value}deg)`,
-    boxShadow: `
-      0 25px 50px -12px oklch(0.7 0.2 285 / 25%),
-      ${rotateY.value * 2}px ${rotateX.value * -2}px 30px -15px oklch(0.7 0.2 285 / 20%)
-    `,
-  }
-})
-
-const shineStyle = computed(() => ({
-  background: `radial-gradient(circle at ${mouseX.value}% ${mouseY.value}%, oklch(1 0 0 / 15%), transparent 50%)`,
-  opacity: isHovered.value ? 1 : 0,
-}))
-
-function handleMouseMove(e: MouseEvent) {
-  if (!cardRef.value) return
-  
-  const rect = cardRef.value.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-  
-  mouseX.value = (x / rect.width) * 100
-  mouseY.value = (y / rect.height) * 100
-  
-  // Calculate rotation (max 10 degrees)
-  const centerX = rect.width / 2
-  const centerY = rect.height / 2
-  rotateY.value = ((x - centerX) / centerX) * 8
-  rotateX.value = ((centerY - y) / centerY) * 8
-}
-
-function handleMouseEnter() {
-  isHovered.value = true
-}
-
-function handleMouseLeave() {
-  isHovered.value = false
-  rotateX.value = 0
-  rotateY.value = 0
-  mouseX.value = 50
-  mouseY.value = 50
-}
 </script>
 
 <style scoped>
-.tilt-card {
-  perspective: 1000px;
+.gradient-border-card {
+  --gradient-angle: 0deg;
+  position: relative;
+  border-radius: var(--radius);
+  background: linear-gradient(
+    var(--gradient-angle),
+    oklch(0.7 0.25 285),
+    oklch(0.65 0.2 200),
+    oklch(0.7 0.25 330),
+    oklch(0.7 0.25 285)
+  );
+  padding: 2px;
+  transition: box-shadow 0.3s ease;
 }
 
-.tilt-card-inner {
-  transform-style: preserve-3d;
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+.gradient-border-card:hover {
+  animation: rotate-gradient 3s linear infinite;
+  box-shadow: 
+    0 8px 30px -10px oklch(0.7 0.25 285 / 40%),
+    0 4px 15px -5px oklch(0.65 0.2 200 / 30%);
 }
 
-.tilt-card-shine {
-  transition: opacity 0.3s ease;
+.gradient-border-card > :deep(.card) {
+  background: hsl(var(--card));
+  border-radius: calc(var(--radius) - 2px);
+  border: none;
+}
+
+@keyframes rotate-gradient {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 </style>
