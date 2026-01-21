@@ -1,6 +1,9 @@
 {
   "name": "portfolio",
   "type": "module",
+  "version": "2026.1.0",
+  "author": "Thibaut Maurras",
+  "description": "portfolio",
   "private": true,
   "scripts": {
     "build": "nuxt build",

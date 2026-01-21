@@ -103,6 +103,13 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://thibautm.com' },
+        // Preconnect to external resources
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
+        { rel: 'preconnect', href: 'https://www.gravatar.com' },
+        { rel: 'preconnect', href: 'https://images.unsplash.com' },
+        // DNS prefetch for faster resolution
+        { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' },
+        { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
       ],
     },
   },
@@ -110,6 +117,52 @@ export default defineNuxtConfig({
   // Nitro configuration
   nitro: {
     compressPublicAssets: true,
+    // Enable compression for all responses
+    routeRules: {
+      '/**': {
+        headers: {
+          'Cache-Control': 'public, max-age=31536000, immutable',
+        },
+      },
+      '/': {
+        headers: {
+          'Cache-Control': 'public, max-age=3600',
+        },
+      },
+      '/api/**': {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        },
+      },
+    },
+  },
+
+  // Image optimization configuration
+  image: {
+    // Quality for optimized images
+    quality: 80,
+    // Formats to generate
+    format: ['webp'],
+    // Screen sizes for responsive images
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
+    // External domains allowed for optimization
+    domains: [
+      'images.unsplash.com',
+      'www.gravatar.com',
+      'media.licdn.com',
+    ],
+    // Alias for external images
+    alias: {
+      unsplash: 'https://images.unsplash.com',
+      gravatar: 'https://www.gravatar.com',
+    },
   },
 
   // Google Fonts configuration

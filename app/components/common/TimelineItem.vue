@@ -61,6 +61,10 @@
                               <img 
                                 :src="establishment.logo" 
                                 :alt="establishment.name"
+                                width="48"
+                                height="48"
+                                loading="lazy"
+                                decoding="async"
                                 class="h-12 w-12 rounded-md object-cover"
                               />
                             </div>
@@ -165,6 +169,10 @@
                           <img 
                             :src="establishment.logo" 
                             :alt="establishment.name"
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                            decoding="async"
                             class="h-12 w-12 rounded-md object-cover"
                           />
                         </div>

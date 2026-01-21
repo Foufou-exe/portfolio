@@ -94,8 +94,8 @@ function getGravatarUrl(email:string, size = 80) {
 }
 
 const email = process.env.GRAVATAR_EMAIL || 'exemple@example.com'
-const size = 500; 
-const gravatarUrl = getGravatarUrl(email, size);
+const size = 200 // Optimized size for avatar display
+const gravatarUrl = getGravatarUrl(email, size)
 
 export const profile = {
   name: 'Thibaut Maurras',
@@ -242,7 +242,7 @@ Fonctionnalités principales :
 - Notifications et rappels
 - Filtres et recherche avancée
 - Mode sombre/clair`,
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Vue.js', 'Nuxt', 'Supabase', 'Tailwind CSS', 'WebSocket'],
     demoUrl: 'https://taskflow-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/taskflow',
@@ -262,7 +262,7 @@ Fonctionnalités :
 - Monitoring intégré
 - Rollback automatique
 - Logs en temps réel`,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Python', 'Terraform', 'AWS', 'Docker', 'FastAPI'],
     demoUrl: 'https://clouddeploy-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/clouddeploy',
@@ -283,7 +283,7 @@ Fonctionnalités :
 - Recherche full-text
 - RSS feed et sitemap automatique
 - Optimisation SEO`,
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Nuxt', 'Nuxt Content', 'Tailwind CSS', 'MDX'],
     demoUrl: 'https://devblog-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/devblog',
@@ -301,7 +301,7 @@ Fonctionnalités :
 - Authentification JWT/OAuth2
 - Load balancing
 - Métriques Prometheus`,
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Node.js', 'Express', 'Redis', 'JWT', 'Docker'],
     demoUrl: 'https://api-gateway-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/api-gateway',
@@ -319,7 +319,7 @@ Fonctionnalités :
 - Filtres dynamiques
 - Export PDF/PNG
 - Thèmes personnalisables`,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Vue.js', 'Chart.js', 'D3.js', 'Tailwind CSS'],
     demoUrl: 'https://dataviz-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/dataviz',
@@ -337,7 +337,7 @@ Fonctionnalités :
 - Multi-langues
 - Export de conversations
 - Personnalisation du comportement`,
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop&fm=webp&q=80',
     tags: ['Python', 'FastAPI', 'OpenAI', 'Vue.js', 'WebSocket'],
     demoUrl: 'https://chatbot-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/chatbot-ai',
