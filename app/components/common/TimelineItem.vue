@@ -31,9 +31,9 @@
       <!-- Card -->
       <Dialog v-model:open="isDialogOpen">
         <DialogTrigger as-child>
-          <Card 
-            class="cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-md"
-          >
+            <Card 
+              class="cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-md"
+            >
             <CardContent class="p-4">
               <div class="flex items-start justify-between gap-4">
                 <div class="flex-1">

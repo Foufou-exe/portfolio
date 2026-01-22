@@ -1,33 +1,20 @@
 <template>
-  <header
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="[
-      isScrolled 
-        ? 'bg-background/80 backdrop-blur-md border-b shadow-sm' 
-        : 'bg-transparent'
-    ]"
-  >
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" :class="[
+    isScrolled
+      ? 'bg-background/80 backdrop-blur-md border-b shadow-sm'
+      : 'bg-transparent'
+  ]">
     <nav class="container mx-auto flex h-16 items-center justify-between px-4">
       <!-- Logo -->
-      <a 
-        href="#" 
-        class="text-xl font-bold tracking-tight transition-colors hover:text-primary"
-        @click.prevent="scrollToTop"
-      >
+      <a href="#" class="text-xl font-bold tracking-tight transition-colors hover:text-primary"
+        @click.prevent="scrollToTop">
         {{ profile.initials }}.
       </a>
 
       <!-- Desktop Navigation -->
       <div class="hidden items-center gap-1 md:flex">
-        <Button
-          v-for="link in translatedNavLinks"
-          :key="link.href"
-          variant="ghost"
-          size="sm"
-          as="a"
-          :href="link.href"
-          @click.prevent="scrollToSection(link.href)"
-        >
+        <Button v-for="link in translatedNavLinks" :key="link.href" variant="ghost" size="sm" as="a" :href="link.href"
+          @click.prevent="scrollToSection(link.href)">
           {{ link.name }}
         </Button>
       </div>
@@ -35,21 +22,41 @@
       <!-- Actions (Desktop & Mobile) -->
       <div class="flex items-center gap-2">
         <!-- Language Toggle -->
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          @click="toggleLocale"
-          :title="$t('nav.switchLanguage')"
-        >
-          <span class="text-sm font-semibold">{{ locale === 'fr' ? 'EN' : 'FR' }}</span>
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger as-child>
+              <Button variant="ghost" size="icon" @click="toggleLocale">
+                <span class="text-sm font-semibold">{{ locale === 'fr' ? 'EN' : 'FR' }}</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{{ $t('nav.switchLanguage') }}</p>
+            </TooltipContent>
+          </Tooltip>
 
-        <!-- Theme Toggle -->
-        <Button variant="ghost" size="icon" @click="toggleColorMode">
-          <Sun v-if="colorMode.value === 'dark'" class="h-5 w-5" />
-          <Moon v-else class="h-5 w-5" />
-          <span class="sr-only">{{ $t('common.toggleTheme') }}</span>
-        </Button>
+          <ClientOnly>
+            <Tooltip>
+              <TooltipTrigger as-child>
+                <Button variant="ghost" size="icon" @click="toggleColorMode">
+                  <Sun v-if="colorMode.value === 'dark'" class="h-5 w-5" />
+                  <Moon v-else class="h-5 w-5" />
+                </Button>
+                <template #fallback>
+                  <Button variant="ghost" size="icon" disabled>
+                    <Sun class="h-5 w-5" />
+                  </Button>
+                </template>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{{ $t('common.toggleTheme') }}</p>
+              </TooltipContent>
+            </Tooltip>
+          </ClientOnly>
+
+          <!-- Theme Toggle -->
+
+
+        </TooltipProvider>
 
         <!-- Mobile Menu (Sheet) -->
         <Sheet v-model:open="isMenuOpen">
@@ -67,15 +74,8 @@
               </SheetDescription>
             </SheetHeader>
             <div class="mt-6 flex flex-col gap-2">
-              <Button
-                v-for="link in translatedNavLinks"
-                :key="link.href"
-                variant="ghost"
-                class="justify-start"
-                as="a"
-                :href="link.href"
-                @click="handleMobileNavClick(link.href)"
-              >
+              <Button v-for="link in translatedNavLinks" :key="link.href" variant="ghost" class="justify-start" as="a"
+                :href="link.href" @click="handleMobileNavClick(link.href)">
                 {{ link.name }}
               </Button>
               <Separator class="my-4" />

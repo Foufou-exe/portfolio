@@ -72,8 +72,9 @@
   "projects": {
     "title": "Projets",
     "subtitle": "Une selection de mes realisations",
-    "viewDemo": "Demo",
+    "viewDemo": "Voir la demo de {title}",
     "viewSource": "Code source",
+    "viewSourceCode": "Voir le code source de {title}",
     "viewProject": "Voir le projet",
     "details": "Details",
     "technologies": "Technologies utilisees",
@@ -145,7 +146,7 @@
     "navigation": "Navigation",
     "social": "Reseaux",
     "contact": "Contact",
-    "madeWith": "Fait avec"
+    "madeWith": "Fait avec ❤️"
   },
   "error": {
     "backHome": "Retour a l'accueil",

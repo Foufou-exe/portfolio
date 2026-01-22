@@ -105,8 +105,6 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://thibautm.com' },
         // Preconnect to external resources
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
-        { rel: 'preconnect', href: 'https://www.gravatar.com' },
-        { rel: 'preconnect', href: 'https://images.unsplash.com' },
         // DNS prefetch for faster resolution
         { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' },
         { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
@@ -151,17 +149,6 @@ export default defineNuxtConfig({
       lg: 1024,
       xl: 1280,
       '2xl': 1536,
-    },
-    // External domains allowed for optimization
-    domains: [
-      'images.unsplash.com',
-      'www.gravatar.com',
-      'media.licdn.com',
-    ],
-    // Alias for external images
-    alias: {
-      unsplash: 'https://images.unsplash.com',
-      gravatar: 'https://www.gravatar.com',
     },
   },
 

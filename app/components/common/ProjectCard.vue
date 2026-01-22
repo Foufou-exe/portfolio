@@ -16,13 +16,13 @@
         
         <!-- Skeleton loader -->
         <div 
-          v-if="!imageLoaded && !imageError" 
+          v-if="hasImage && !imageLoaded && !imageError" 
           class="skeleton absolute inset-0 z-[1]"
         />
         
         <!-- Image -->
         <img
-          v-if="!imageError"
+          v-if="hasImage && !imageError"
           :src="project.image"
           :alt="project.title"
           width="600"
@@ -94,7 +94,7 @@
             
             <div class="space-y-4">
               <!-- Image -->
-              <div class="aspect-video overflow-hidden rounded-lg">
+              <div v-if="hasImage" class="aspect-video overflow-hidden rounded-lg">
                 <img
                   :src="project.image"
                   :alt="project.title"
@@ -104,6 +104,13 @@
                   decoding="async"
                   class="h-full w-full object-cover"
                 />
+              </div>
+              <div 
+                v-else 
+                class="aspect-video overflow-hidden rounded-lg flex items-center justify-center"
+                :style="{ background: `linear-gradient(135deg, ${projectColor} 0%, ${projectColorDark} 100%)` }"
+              >
+                <span class="text-2xl font-bold text-white/90 text-center px-4">{{ project.title }}</span>
               </div>
 
               <!-- Description longue -->
@@ -163,6 +170,7 @@
           :href="project.demoUrl"
           target="_blank"
           rel="noopener noreferrer"
+          :aria-label="t('projects.viewDemo', { title: project.title })"
         >
           <ExternalLink class="h-4 w-4" />
         </Button>
@@ -177,6 +185,7 @@
           :href="project.sourceUrl"
           target="_blank"
           rel="noopener noreferrer"
+          :aria-label="t('projects.viewSourceCode', { title: project.title })"
         >
           <Github class="h-4 w-4" />
         </Button>
@@ -216,6 +225,9 @@ const props = defineProps<{
 
 const imageLoaded = ref(false)
 const imageError = ref(false)
+
+// Check if project has a valid image
+const hasImage = computed(() => !!props.project.image && props.project.image.trim() !== '')
 
 // Generate a consistent color based on project title
 const projectColor = computed(() => {

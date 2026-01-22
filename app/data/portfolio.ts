@@ -85,17 +85,6 @@ export interface Stat {
 // ============================================
 // PROFILE - Informations personnelles
 // ============================================
-import SHA256 from 'crypto-js/sha256';
-
-function getGravatarUrl(email:string, size = 80) {
-    const trimmedEmail = email.trim().toLowerCase();
-    const hash = SHA256(trimmedEmail).toString();
-    return `https://www.gravatar.com/avatar/${hash}?s=${size}&d=identicon`;
-}
-
-const email = process.env.GRAVATAR_EMAIL || 'exemple@example.com'
-const size = 200 // Optimized size for avatar display
-const gravatarUrl = getGravatarUrl(email, size)
 
 export const profile = {
   name: 'Thibaut Maurras',
@@ -104,10 +93,10 @@ export const profile = {
   subtitle: 'Alternant',
   tagline: 'Passionné par l\'innovation et le développement de solutions technologiques.',
   bio: 'Ingénieur systèmes en alternance avec une passion pour la création de solutions innovantes. Spécialisé dans l\'infrastructure cloud et le développement backend, je suis toujours à la recherche de nouveaux défis techniques.',
-  avatar: gravatarUrl,
+  avatar: '/images/moi/me.webp',
   location: 'Montpellier, France',
   available: true,
-  resumeUrl: '/cv-thibaut-maurras.pdf',
+  resumeUrl: '', // Ajouter le fichier CV dans /public/ et mettre le chemin ici
 }
 
 // ============================================
@@ -242,7 +231,7 @@ Fonctionnalités principales :
 - Notifications et rappels
 - Filtres et recherche avancée
 - Mode sombre/clair`,
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Vue.js', 'Nuxt', 'Supabase', 'Tailwind CSS', 'WebSocket'],
     demoUrl: 'https://taskflow-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/taskflow',
@@ -262,7 +251,7 @@ Fonctionnalités :
 - Monitoring intégré
 - Rollback automatique
 - Logs en temps réel`,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Python', 'Terraform', 'AWS', 'Docker', 'FastAPI'],
     demoUrl: 'https://clouddeploy-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/clouddeploy',
@@ -283,7 +272,7 @@ Fonctionnalités :
 - Recherche full-text
 - RSS feed et sitemap automatique
 - Optimisation SEO`,
-    image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Nuxt', 'Nuxt Content', 'Tailwind CSS', 'MDX'],
     demoUrl: 'https://devblog-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/devblog',
@@ -301,7 +290,7 @@ Fonctionnalités :
 - Authentification JWT/OAuth2
 - Load balancing
 - Métriques Prometheus`,
-    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Node.js', 'Express', 'Redis', 'JWT', 'Docker'],
     demoUrl: 'https://api-gateway-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/api-gateway',
@@ -319,7 +308,7 @@ Fonctionnalités :
 - Filtres dynamiques
 - Export PDF/PNG
 - Thèmes personnalisables`,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Vue.js', 'Chart.js', 'D3.js', 'Tailwind CSS'],
     demoUrl: 'https://dataviz-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/dataviz',
@@ -337,7 +326,7 @@ Fonctionnalités :
 - Multi-langues
 - Export de conversations
 - Personnalisation du comportement`,
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop&fm=webp&q=80',
+    image: '',
     tags: ['Python', 'FastAPI', 'OpenAI', 'Vue.js', 'WebSocket'],
     demoUrl: 'https://chatbot-demo.vercel.app',
     sourceUrl: 'https://github.com/foufou-exe/chatbot-ai',
@@ -369,7 +358,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows Server', 'Python', 'Bash', 'Ansible', 'VMware', 'GCP', 'PostgreSQL', 'Oracle'],
     establishment: {
       name: 'Nexpublica',
-      logo: 'https://media.licdn.com/dms/image/v2/D4E0BAQFxdkwE4lEYBQ/company-logo_200_200/B4EZWyX.96HgAQ-/0/1742454387047/inetum_software_logo?e=1770249600&v=beta&t=rYrhWHZcCBa7mAgS1Et8R4OP5-Bs5WlwdXi8Nzsd260',
+      logo: '/images/entreprise/nexpublica.webp',
       description: 'Éditeur de logiciels spécialisé dans la dématérialisation et la gestion documentaire pour les collectivités et administrations publiques.',
       website: 'https://www.nexpublica.fr',
       industry: 'Logiciels & Services IT',
@@ -397,7 +386,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows', 'VMware', 'Cloud', 'SQL'],
     establishment: {
       name: 'Inetum',
-      logo: 'https://media.licdn.com/dms/image/v2/C4D0BAQFo_2-ZPy_psw/company-logo_200_200/company-logo_200_200/0/1630558676103/inetum_logo?e=1770249600&v=beta&t=TWJjokORxs4rIEmSwe2cfv6tC1gzCS1Kg91ALYhK-1Q',
+      logo: '/images/entreprise/inetum.webp',
       description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
       website: 'https://www.inetum.com',
       industry: 'Conseil & Services IT',
@@ -425,7 +414,7 @@ export const experiences: Experience[] = [
     technologies: ['Linux', 'Windows', 'Java', 'VMware', 'Réseaux'],
     establishment: {
       name: 'Inetum',
-      logo: 'https://media.licdn.com/dms/image/v2/C4D0BAQFo_2-ZPy_psw/company-logo_200_200/company-logo_200_200/0/1630558676103/inetum_logo?e=1770249600&v=beta&t=TWJjokORxs4rIEmSwe2cfv6tC1gzCS1Kg91ALYhK-1Q',
+      logo: '/images/entreprise/inetum.webp',
       description: 'Leader européen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numérique.',
       website: 'https://www.inetum.com',
       industry: 'Conseil & Services IT',
@@ -454,7 +443,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'DataHeberg',
       description: 'Hébergeur web français proposant des solutions d\'hébergement mutualisé, VPS et serveurs dédiés.',
-      logo: 'https://media.licdn.com/dms/image/v2/C4E0BAQFowOG3KEbm1w/company-logo_200_200/company-logo_200_200/0/1643186287717/dataheberg_logo?e=1770249600&v=beta&t=sG2XmuiIMRzCFeSuUvknotveHpl-C-YNfiKbdTbnAyw',
+      logo: '/images/entreprise/dataheberg.webp',
       website: 'https://www.dataheberg.com',
       industry: 'Hébergement Web & Cloud',
       size: '1-5 employés',
@@ -482,7 +471,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'OuiHeberg',
       description: 'Hébergeur web français spécialisé dans les solutions d\'hébergement haute disponibilité et les services cloud.',
-      logo: 'https://media.licdn.com/dms/image/v2/C560BAQHKIqqE-5iKuQ/company-logo_200_200/company-logo_200_200/0/1630600872998/ouiheberg_officiel_logo?e=1770249600&v=beta&t=NquntBydLlSYPJQL8YQrjq-i5Su1qvXCjpfBDPb3oR0',
+      logo: '/images/entreprise/ouiheberg.webp',
       website: 'https://www.ouiheberg.com',
       industry: 'Hébergement Web & Cloud',
       size: '1-2 employés',
@@ -510,7 +499,7 @@ export const experiences: Experience[] = [
     establishment: {
       name: 'PRO&Cie',
       description: 'Entreprise spécialisée dans la vente, réparation et maintenance de matériel informatique et multimédia.',
-      logo: 'https://media.licdn.com/dms/image/v2/C510BAQG17cJYn_CSsA/company-logo_200_200/company-logo_200_200/0/1631305640162?e=1770249600&v=beta&t=kpmBcJ3iGpnC-LoOvn0s7_80BaNTF1cWuFaE92-tNpM',
+      logo: '/images/entreprise/pro_cie.webp',
       industry: 'Services Informatiques',
       size: '1-10 employés',
       location: 'Pézenas, France',
@@ -538,7 +527,7 @@ export const education: Education[] = [
     skills: ['Architecture Cloud', 'Infrastructure', 'DevOps', 'Systèmes d\'information'],
     establishment: {
       name: 'EPSI',
-      logo: 'https://media.licdn.com/dms/image/v2/C560BAQGOWuHpfjRW6A/company-logo_200_200/company-logo_200_200/0/1630607601685/epabordeaux_logo?e=1744848000&v=beta&t=7msCF05z_Y3K-vnpFp8VjWc4xv6TvG51bKXjCkJBhEY',
+      logo: '/images/ecoles/epsi.webp',
       description: 'École d\'ingénierie informatique membre du réseau Compétences et Développement. Formation en alternance du Bac+2 au Bac+5 dans les métiers du numérique.',
       website: 'https://www.epsi.fr',
       industry: 'Enseignement Supérieur',
@@ -562,7 +551,7 @@ export const education: Education[] = [
     skills: ['Administration Réseaux', 'Systèmes', 'Base de données', 'Sécurité'],
     establishment: {
       name: 'EPSI',
-      logo: 'https://media.licdn.com/dms/image/v2/C560BAQGOWuHpfjRW6A/company-logo_200_200/company-logo_200_200/0/1630607601685/epabordeaux_logo?e=1744848000&v=beta&t=7msCF05z_Y3K-vnpFp8VjWc4xv6TvG51bKXjCkJBhEY',
+      logo: '/images/ecoles/epsi.webp',
       description: 'École d\'ingénierie informatique membre du réseau Compétences et Développement. Formation en alternance du Bac+2 au Bac+5 dans les métiers du numérique.',
       website: 'https://www.epsi.fr',
       industry: 'Enseignement Supérieur',
@@ -586,6 +575,7 @@ export const education: Education[] = [
     skills: ['Réseaux', 'Systèmes', 'Virtualisation', 'Scripting'],
     establishment: {
       name: 'Lycée Marc Bloch',
+      logo: '/images/ecoles/lycee_marc_bloch.webp',
       description: 'Lycée général et technologique proposant des formations du Bac au BTS, notamment en informatique (BTS SIO).',
       website: 'https://marc-bloch-serignan.mon-ent-occitanie.fr',
       industry: 'Éducation Nationale',
@@ -608,6 +598,7 @@ export const education: Education[] = [
     skills: ['Réseaux', 'Télécommunications', 'Électronique', 'Maintenance'],
     establishment: {
       name: 'Lycée Jean Moulin',
+      logo: '/images/ecoles/lycee_jean_moulin.webp',
       description: 'Lycée professionnel spécialisé dans les formations industrielles et numériques : électronique, réseaux, maintenance.',
       website: 'https://jean-moulin-beziers.mon-ent-occitanie.fr',
       industry: 'Éducation Nationale',
@@ -629,6 +620,7 @@ export const education: Education[] = [
     skills: [],
     establishment: {
       name: 'Collège Jules Ferry',
+      logo: '/images/ecoles/college_montagnac.webp',
       description: 'Collège public de l\'Éducation Nationale.',
       industry: 'Éducation Nationale',
       location: 'Montagnac, France',

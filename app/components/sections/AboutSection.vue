@@ -53,7 +53,7 @@
 
                 <!-- CTA Buttons -->
                 <div class="mt-6 flex flex-wrap gap-3">
-                  <Button as="a" :href="profile.resumeUrl" target="_blank">
+                  <Button v-if="profile.resumeUrl" as="a" :href="profile.resumeUrl" target="_blank">
                     <FileText class="mr-2 h-4 w-4" />
                     {{ $t('about.downloadCv') }}
                   </Button>

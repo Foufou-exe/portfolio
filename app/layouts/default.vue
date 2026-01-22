@@ -41,7 +41,7 @@
               <li v-for="link in translatedNavLinks" :key="link.href">
                 <a 
                   :href="link.href"
-                  class="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  class="flex text-sm text-muted-foreground transition-colors hover:text-primary"
                   @click.prevent="scrollToSection(link.href)"
                 >
                   {{ link.name }}
@@ -101,8 +101,8 @@
           <p class="text-sm text-muted-foreground">
             &copy;2022-{{ new Date().getFullYear() }} {{ profile.name }}. {{ $t('footer.rights') }}
           </p>
-          <p class="text-xs text-muted-foreground/60">
-            {{ $t('footer.madeWith') }} ❤️
+          <p class="text-xs text-muted-foreground">
+            {{ $t('footer.madeWith') }}
           </p>
         </div>
       </div>
@@ -112,7 +112,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { Github, Linkedin, Twitter, Mail, MapPin } from 'lucide-vue-next'
+import { Github, Linkedin, Twitter, Mail, MapPin, ArrowUpRight } from 'lucide-vue-next'
 import NavBar from '~/components/common/NavBar.vue'
 import BackToTop from '~/components/common/BackToTop.vue'
 import { Separator } from '~/components/ui/separator'
