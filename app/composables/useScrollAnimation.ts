@@ -39,7 +39,7 @@ export function useScrollAnimation(options: ScrollAnimationOptions = {}) {
       {
         threshold,
         rootMargin,
-      }
+      },
     )
 
     return { isVisible, stop }
@@ -79,7 +79,7 @@ export function useElementAnimation(options: ScrollAnimationOptions = {}) {
     {
       threshold,
       rootMargin,
-    }
+    },
   )
 
   return {

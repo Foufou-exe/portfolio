@@ -1,26 +1,3 @@
-<script setup lang="ts">
-import type { MenubarSubContentEmits, MenubarSubContentProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import {
-  MenubarPortal,
-  MenubarSubContent,
-  useForwardPropsEmits,
-} from "reka-ui"
-import { cn } from "@/lib/utils"
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const props = defineProps<MenubarSubContentProps & { class?: HTMLAttributes["class"] }>()
-const emits = defineEmits<MenubarSubContentEmits>()
-
-const delegatedProps = reactiveOmit(props, "class")
-
-const forwarded = useForwardPropsEmits(delegatedProps, emits)
-</script>
-
 <template>
   <MenubarPortal>
     <MenubarSubContent
@@ -33,7 +10,31 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
         )
       "
     >
-      <slot />
+      <slot ></slot>
     </MenubarSubContent>
   </MenubarPortal>
 </template>
+
+<script setup lang="ts">
+import type { MenubarSubContentEmits, MenubarSubContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import {
+  MenubarPortal,
+  MenubarSubContent,
+  useForwardPropsEmits,
+} from 'reka-ui'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<MenubarSubContentProps & { class?: HTMLAttributes['class'] }>()
+
+const emits = defineEmits<MenubarSubContentEmits>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const delegatedProps = reactiveOmit(props, 'class')
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+</script>

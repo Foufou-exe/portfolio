@@ -5,7 +5,7 @@
 
     <!-- Main content -->
     <main>
-      <slot />
+      <slot ></slot>
     </main>
 
     <!-- Back to top button -->

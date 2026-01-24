@@ -1,29 +1,3 @@
-<script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { X } from "lucide-vue-next"
-import {
-  DialogClose,
-  DialogContent,
-  DialogOverlay,
-  DialogPortal,
-  useForwardPropsEmits,
-} from "reka-ui"
-import { cn } from "@/lib/utils"
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const props = defineProps<DialogContentProps & { class?: HTMLAttributes["class"] }>()
-const emits = defineEmits<DialogContentEmits>()
-
-const delegatedProps = reactiveOmit(props, "class")
-
-const forwarded = useForwardPropsEmits(delegatedProps, emits)
-</script>
-
 <template>
   <DialogPortal>
     <DialogOverlay
@@ -45,7 +19,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
           }
         }"
       >
-        <slot />
+        <slot ></slot>
 
         <DialogClose
           class="absolute top-4 right-4 p-0.5 transition-colors rounded-md hover:bg-secondary"
@@ -57,3 +31,30 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     </DialogOverlay>
   </DialogPortal>
 </template>
+
+<script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import { X } from 'lucide-vue-next'
+import {
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  useForwardPropsEmits,
+} from 'reka-ui'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
+
+const emits = defineEmits<DialogContentEmits>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const delegatedProps = reactiveOmit(props, 'class')
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+</script>

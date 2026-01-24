@@ -13,7 +13,7 @@
       <!-- Loading State -->
       <div v-if="pending" class="flex items-center justify-center py-20">
         <div class="flex flex-col items-center gap-4">
-          <div class="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <div class="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" ></div>
           <p class="text-muted-foreground">{{ $t('projects.loading') }}</p>
         </div>
       </div>
@@ -60,7 +60,12 @@
         <p class="mb-4 text-muted-foreground">
           {{ $t('projects.viewMore') }}
         </p>
-        <Button variant="outline" as="a" :href="githubUrl" target="_blank" rel="noopener noreferrer">
+        <Button
+          variant="outline"
+          as="a"
+          :href="githubUrl"
+          target="_blank"
+          rel="noopener noreferrer">
           <Github class="mr-2 h-4 w-4" />
           {{ $t('projects.viewGithub') }}
         </Button>
@@ -99,7 +104,7 @@ const displayedRepos = computed(() => data.value?.data || [])
 
 // Stats calculées
 const totalStars = computed(() => 
-  displayedRepos.value.reduce((sum, repo) => sum + repo.stars, 0)
+  displayedRepos.value.reduce((sum, repo) => sum + repo.stars, 0),
 )
 
 const uniqueLanguages = computed(() => {
@@ -118,7 +123,7 @@ const getCardSize = (index: number): 'large' | 'medium' | 'small' => {
 }
 
 const githubUrl = computed(() => 
-  socialLinks.find(l => l.icon === 'github')?.url || 'https://github.com/foufou-exe'
+  socialLinks.find(l => l.icon === 'github')?.url || 'https://github.com/foufou-exe',
 )
 </script>
 

@@ -29,6 +29,13 @@ export default defineNuxtConfig({
     componentDir: '@/components/ui',
   },
 
+  // ESLint configuration
+  eslint: {
+    config: {
+      stylistic: true, // <---
+    },
+  },
+
   // Vite configuration
   vite: {
     plugins: [tailwindcss()],

@@ -1,27 +1,3 @@
-<script setup lang="ts">
-import type { AlertDialogContentEmits, AlertDialogContentProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import {
-  AlertDialogContent,
-  AlertDialogOverlay,
-  AlertDialogPortal,
-  useForwardPropsEmits,
-} from "reka-ui"
-import { cn } from "@/lib/utils"
-
-defineOptions({
-  inheritAttrs: false,
-})
-
-const props = defineProps<AlertDialogContentProps & { class?: HTMLAttributes["class"] }>()
-const emits = defineEmits<AlertDialogContentEmits>()
-
-const delegatedProps = reactiveOmit(props, "class")
-
-const forwarded = useForwardPropsEmits(delegatedProps, emits)
-</script>
-
 <template>
   <AlertDialogPortal>
     <AlertDialogOverlay
@@ -38,7 +14,32 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
         )
       "
     >
-      <slot />
+      <slot ></slot>
     </AlertDialogContent>
   </AlertDialogPortal>
 </template>
+
+<script setup lang="ts">
+import type { AlertDialogContentEmits, AlertDialogContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import {
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  useForwardPropsEmits,
+} from 'reka-ui'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<AlertDialogContentProps & { class?: HTMLAttributes['class'] }>()
+
+const emits = defineEmits<AlertDialogContentEmits>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const delegatedProps = reactiveOmit(props, 'class')
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+</script>

@@ -60,15 +60,8 @@ export const languageColors: Record<string, string> = {
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
-  const githubToken = config.githubToken
+  const {githubToken} = config
   const username = config.githubUsername
-
-  // Repos à exclure (nom du repo en lowercase)
-  const excludedRepos = [
-    username.toLowerCase(), // Exclure le repo de profil GitHub (même nom que l'utilisateur)
-    'octocat', // Repo de stats GitHub
-    '.github', // Repo de config organisation
-  ]
 
   try {
     // Headers pour l'API GitHub
@@ -86,8 +79,10 @@ export default defineEventHandler(async (event) => {
     // Appel à l'API GitHub
     const response = await fetch(
       `https://api.github.com/users/${username}/repos?sort=pushed&direction=desc&per_page=20`,
-      { headers }
+      { headers },
     )
+
+    
 
     if (!response.ok) {
       console.error('GitHub API Error:', response.status, response.statusText)
@@ -104,8 +99,7 @@ export default defineEventHandler(async (event) => {
       .filter(repo => 
         !repo.fork && 
         !repo.archived && 
-        repo.visibility === 'public' &&
-        !excludedRepos.includes(repo.name.toLowerCase())
+        repo.visibility === 'public', 
       )
       .slice(0, 5) // Limiter à 5 repos
 

@@ -51,7 +51,7 @@
                         <span 
                           class="mr-1.5 inline-block h-2 w-2 rounded-full"
                           :style="{ backgroundColor: skill.color }"
-                        />
+                        ></span>
                         {{ skill.name }}
                       </Badge>
                     </TooltipTrigger>
@@ -88,7 +88,7 @@
             <div 
               class="absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity duration-300 group-hover:opacity-40"
               :style="{ backgroundColor: category.color }"
-            />
+            ></div>
 
             <CardHeader class="relative pb-3">
               <div class="flex items-center gap-3">
@@ -155,7 +155,7 @@ import {
   MessageSquare, Users, Lightbulb, Target, Zap,
   // Soft skill icons
   Presentation, MessageCircle, FileText, GitPullRequest, GraduationCap,
-  Search, Bug, Calendar, ListOrdered, Compass, Radar, RefreshCw, Shield
+  Search, Bug, Calendar, ListOrdered, Compass, Radar, RefreshCw, Shield,
 } from 'lucide-vue-next'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
@@ -223,7 +223,7 @@ const categoriesWithSkills = computed(() =>
   skillCategories.map(category => ({
     ...category,
     skills: getSkillsByCategory(category.id as any),
-  })).filter(category => category.skills.length > 0)
+  })).filter(category => category.skills.length > 0),
 )
 
 // Soft Skills categories with their skills
@@ -231,7 +231,7 @@ const softSkillCategoriesWithSkills = computed(() =>
   softSkillCategories.map(category => ({
     ...category,
     skills: getSoftSkillsByCategory(category.id as any),
-  })).filter(category => category.skills.length > 0)
+  })).filter(category => category.skills.length > 0),
 )
 
 // Stats

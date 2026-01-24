@@ -6,22 +6,22 @@
       <div 
         class="absolute top-1/4 left-1/4 h-[600px] w-[600px] rounded-full opacity-30 blur-[120px]"
         style="background: radial-gradient(circle, oklch(0.6 0.25 285), transparent 70%);"
-      />
+      ></div>
       <!-- Secondary gradient blob -->
       <div 
         class="absolute bottom-1/4 right-1/4 h-[500px] w-[500px] rounded-full opacity-25 blur-[100px]"
         style="background: radial-gradient(circle, oklch(0.6 0.2 320), transparent 70%); animation: float 8s ease-in-out infinite;"
-      />
+      ></div>
       <!-- Accent gradient blob -->
       <div 
         class="absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-[80px]"
         style="background: radial-gradient(circle, oklch(0.7 0.15 350), transparent 70%); animation: float 10s ease-in-out infinite reverse;"
-      />
+      ></div>
       <!-- Grid pattern overlay -->
       <div 
         class="absolute inset-0 opacity-[0.02]"
         style="background-image: linear-gradient(oklch(0.9 0.1 285) 1px, transparent 1px), linear-gradient(90deg, oklch(0.9 0.1 285) 1px, transparent 1px); background-size: 60px 60px;"
-      />
+      ></div>
     </div>
 
     <div 
@@ -34,7 +34,7 @@
         :class="{ 'animate-slide-up': isVisible }"
       >
         <div class="relative">
-          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 opacity-75 blur-md" />
+          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 opacity-75 blur-md" ></div>
           <Avatar class="relative h-32 w-32 border-4 border-background shadow-2xl ring-2 ring-primary/30">
             <AvatarImage :src="profile.avatar" :alt="profile.name" />
             <AvatarFallback class="text-3xl font-bold">{{ profile.initials }}</AvatarFallback>
@@ -50,8 +50,8 @@
       >
         <Badge variant="outline" class="gap-2 border-primary/30 bg-primary/10 px-4 py-1.5 backdrop-blur-sm">
           <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" ></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500" ></span>
           </span>
           {{ $t('hero.available') }}
         </Badge>
@@ -94,11 +94,22 @@
         class="mb-8 flex flex-wrap items-center justify-center gap-4 opacity-0"
         :class="{ 'animate-slide-up stagger-4': isVisible }"
       >
-        <Button size="lg" class="group glow-sm" as="a" href="#projects" @click.prevent="scrollToProjects">
+        <Button
+          size="lg"
+          class="group glow-sm"
+          as="a"
+          href="#projects"
+          @click.prevent="scrollToProjects">
           <Briefcase class="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
           {{ $t('hero.cta.projects') }}
         </Button>
-        <Button size="lg" variant="outline" class="border-primary/30 backdrop-blur-sm hover:bg-primary/10" as="a" href="#contact" @click.prevent="scrollToContact">
+        <Button
+          size="lg"
+          variant="outline"
+          class="border-primary/30 backdrop-blur-sm hover:bg-primary/10"
+          as="a"
+          href="#contact"
+          @click.prevent="scrollToContact">
           <Mail class="mr-2 h-5 w-5" />
           {{ $t('hero.cta.contact') }}
         </Button>

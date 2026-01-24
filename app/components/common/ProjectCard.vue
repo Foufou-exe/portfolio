@@ -18,7 +18,7 @@
         <div 
           v-if="hasImage && !imageLoaded && !imageError" 
           class="skeleton absolute inset-0 z-[1]"
-        />
+        ></div>
         
         <!-- Image -->
         <img
@@ -42,7 +42,7 @@
           </Badge>
         </div>
         <!-- Gradient overlay on hover -->
-        <div class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" ></div>
       </div>
 
       <CardHeader class="relative z-20">
@@ -217,11 +217,11 @@ import {
 } from '~/components/ui/dialog'
 import type { Project } from '~/data/portfolio'
 
-const { t } = useI18n()
-
 const props = defineProps<{
   project: Project
 }>()
+
+const { t } = useI18n()
 
 const imageLoaded = ref(false)
 const imageError = ref(false)

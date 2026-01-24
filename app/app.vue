@@ -2,7 +2,11 @@
   <div>
     <NuxtLayout>
       <NuxtPage />
-      <Toaster position="bottom-right" :expand="true" rich-colors close-button />
+      <Toaster
+        position="bottom-right"
+        :expand="true"
+        rich-colors
+        close-button />
     </NuxtLayout>
   </div>
 </template>

@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import type { MenubarSubTriggerProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { ChevronRight } from "lucide-vue-next"
-import { MenubarSubTrigger, useForwardProps } from "reka-ui"
-import { cn } from "@/lib/utils"
-
-const props = defineProps<MenubarSubTriggerProps & { class?: HTMLAttributes["class"], inset?: boolean }>()
-
-const delegatedProps = reactiveOmit(props, "class", "inset")
-const forwardedProps = useForwardProps(delegatedProps)
-</script>
-
 <template>
   <MenubarSubTrigger
     data-slot="menubar-sub-trigger"
@@ -22,7 +8,21 @@ const forwardedProps = useForwardProps(delegatedProps)
       props.class,
     )"
   >
-    <slot />
+    <slot ></slot>
     <ChevronRight class="ml-auto size-4" />
   </MenubarSubTrigger>
 </template>
+
+<script setup lang="ts">
+import type { MenubarSubTriggerProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import { ChevronRight } from 'lucide-vue-next'
+import { MenubarSubTrigger, useForwardProps } from 'reka-ui'
+import { cn } from '@/lib/utils'
+
+const props = defineProps<MenubarSubTriggerProps & { class?: HTMLAttributes['class'], inset?: boolean }>()
+
+const delegatedProps = reactiveOmit(props, 'class', 'inset')
+const forwardedProps = useForwardProps(delegatedProps)
+</script>

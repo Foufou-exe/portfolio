@@ -8,7 +8,7 @@
     :style="{ animationDelay: `${index * 0.1}s` }"
   >
     <!-- Gradient Border Effect -->
-    <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-transparent to-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+    <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-transparent to-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" ></div>
     
     <!-- Card Content -->
     <div class="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-xl group-hover:shadow-primary/5">
@@ -17,7 +17,7 @@
       <div 
         class="h-1.5 rounded-t-xl transition-all duration-300 group-hover:h-2"
         :style="{ backgroundColor: languageColor }"
-      />
+      ></div>
 
       <div class="flex h-[calc(100%-6px)] flex-col p-5">
         <!-- Top Row: Title + Badges -->
@@ -31,7 +31,7 @@
                 <span 
                   class="h-2.5 w-2.5 rounded-full"
                   :style="{ backgroundColor: languageColor }"
-                />
+                ></span>
                 {{ repo.language }}
               </span>
               <span v-if="repo.language" class="text-border">|</span>
@@ -142,7 +142,7 @@
 
       <!-- Hover Glow Effect -->
       <div class="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-transparent to-primary/10" />
+        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 via-transparent to-primary/10" ></div>
       </div>
     </div>
   </div>
@@ -188,7 +188,7 @@ const languageColors: Record<string, string> = {
 }
 
 const languageColor = computed(() => 
-  props.repo.language ? (languageColors[props.repo.language] || '#6b7280') : '#6b7280'
+  props.repo.language ? (languageColors[props.repo.language] || '#6b7280') : '#6b7280',
 )
 
 // Classes de taille pour le Bento Grid
@@ -209,7 +209,7 @@ const sizeClasses = computed(() => {
 const maxTopics = computed(() => props.size === 'large' ? 6 : 3)
 
 const displayedTopics = computed(() => 
-  props.repo.topics.slice(0, maxTopics.value)
+  props.repo.topics.slice(0, maxTopics.value),
 )
 
 // Formatter le nom du repo (remplacer - et _ par des espaces, capitaliser)

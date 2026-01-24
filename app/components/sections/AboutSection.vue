@@ -30,7 +30,7 @@
                   variant="outline" 
                   class="border-green-500/50 bg-green-500/10 text-green-600 dark:text-green-400"
                 >
-                  <span class="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                  <span class="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-green-500" ></span>
                   {{ $t('about.available') }}
                 </Badge>
               </div>
@@ -53,7 +53,11 @@
 
                 <!-- CTA Buttons -->
                 <div class="mt-6 flex flex-wrap gap-3">
-                  <Button v-if="profile.resumeUrl" as="a" :href="profile.resumeUrl" target="_blank">
+                  <Button
+                    v-if="profile.resumeUrl"
+                    as="a"
+                    :href="profile.resumeUrl"
+                    target="_blank">
                     <FileText class="mr-2 h-4 w-4" />
                     {{ $t('about.downloadCv') }}
                   </Button>

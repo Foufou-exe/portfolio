@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody<ContactBody>(event)
     console.info('Demo mode - Contact form submission:', {
       from: body.email,
-      message: body.message.substring(0, 100) + '...',
+      message: `${body.message.substring(0, 100)  }...`,
     })
     
     // Simuler un delai

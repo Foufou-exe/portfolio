@@ -12,13 +12,13 @@
         <span 
           v-if="isCurrent" 
           class="absolute h-6 w-6 animate-ping rounded-full bg-primary/30"
-        />
+        ></span>
       </div>
       <!-- Line -->
       <div 
         v-if="!isLast"
         class="h-full w-0.5 bg-border"
-      />
+      ></div>
     </div>
 
     <!-- Content -->
@@ -31,9 +31,9 @@
       <!-- Card -->
       <Dialog v-model:open="isDialogOpen">
         <DialogTrigger as-child>
-            <Card 
-              class="cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-md"
-            >
+          <Card 
+            class="cursor-pointer transition-all duration-300 hover:border-primary/50 hover:shadow-md"
+          >
             <CardContent class="p-4">
               <div class="flex items-start justify-between gap-4">
                 <div class="flex-1">
@@ -315,8 +315,6 @@ import {
 } from '~/components/ui/hover-card'
 import type { Establishment } from '~/data/portfolio'
 
-const { t } = useI18n()
-
 const props = withDefaults(defineProps<{
   type: 'experience' | 'education'
   title: string
@@ -340,6 +338,8 @@ const props = withDefaults(defineProps<{
   establishment: undefined,
 })
 
+const { t } = useI18n()
+
 const isDialogOpen = ref(false)
 
 const icon = computed(() => props.type === 'education' ? GraduationCap : Briefcase)
@@ -347,13 +347,13 @@ const icon = computed(() => props.type === 'education' ? GraduationCap : Briefca
 const iconBgClass = computed(() => 
   props.type === 'education' 
     ? 'bg-amber-500/10' 
-    : 'bg-primary/10'
+    : 'bg-primary/10',
 )
 
 const iconClass = computed(() => 
   props.type === 'education' 
     ? 'text-amber-600 dark:text-amber-400' 
-    : 'text-primary'
+    : 'text-primary',
 )
 </script>
 

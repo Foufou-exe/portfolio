@@ -1,17 +1,3 @@
-<script lang="ts" setup>
-import type { HTMLAttributes } from "vue"
-import { ErrorMessage } from "vee-validate"
-import { toValue } from "vue"
-import { cn } from "@/lib/utils"
-import { useFormField } from "./useFormField"
-
-const props = defineProps<{
-  class?: HTMLAttributes["class"]
-}>()
-
-const { name, formMessageId } = useFormField()
-</script>
-
 <template>
   <ErrorMessage
     :id="formMessageId"
@@ -21,3 +7,17 @@ const { name, formMessageId } = useFormField()
     :class="cn('text-destructive text-sm', props.class)"
   />
 </template>
+
+<script lang="ts" setup>
+import type { HTMLAttributes } from 'vue'
+import { ErrorMessage } from 'vee-validate'
+import { toValue } from 'vue'
+import { cn } from '@/lib/utils'
+import { useFormField } from './useFormField'
+
+const props = defineProps<{
+  class?: HTMLAttributes['class']
+}>()
+
+const { name, formMessageId } = useFormField()
+</script>
