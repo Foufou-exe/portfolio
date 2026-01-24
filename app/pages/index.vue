@@ -26,8 +26,8 @@ const config = useRuntimeConfig()
 // SEO dynamique basé sur la langue
 const seoTitle = computed(() =>
   locale.value === 'fr'
-    ? `${profile.name} - ${profile.title} | Portfolio`
-    : `${profile.name} - Systems Engineer | Portfolio`,
+    ? `Portfolio | ${profile.name}`
+    : `Portfolio | ${profile.name}`,
 )
 
 const seoDescription = computed(() =>
@@ -54,13 +54,14 @@ useSeoMeta({
   ogType: 'website',
   ogLocale: computed(() => locale.value === 'fr' ? 'fr_FR' : 'en_US'),
   ogSiteName: `${profile.name} - Portfolio`,
-  ogImage: computed(() => `${config.public.siteUrl}/images/moi/me.webp`),
+  ogImage: computed(() => `${config.public.siteUrl}/og-image.webp`),
   ogImageAlt: profile.name,
+  ogUrl: computed(() => config.public.siteUrl),
   // Twitter Card
   twitterCard: 'summary_large_image',
   twitterTitle: seoTitle,
   twitterDescription: seoDescription,
-  twitterImage: computed(() => `${config.public.siteUrl}/images/moi/me.webp`),
+  twitterImage: computed(() => `${config.public.siteUrl}/og-image.webp`),
   // Robots
   robots: 'index, follow',
 })
@@ -79,7 +80,7 @@ useHead({
         'name': profile.name,
         'jobTitle': profile.title,
         'url': config.public.siteUrl,
-        'image': `${config.public.siteUrl}/images/moi/me.webp`,
+        'image': `${config.public.siteUrl}/og-image.webp`,
         'sameAs': [
           'https://github.com/foufou-exe',
           'https://linkedin.com/in/thibaut-maurras',
@@ -101,6 +102,13 @@ useHead({
           'Kubernetes',
         ],
       }),
+    },
+  ],
+  link: [
+    {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico',
     },
   ],
 })

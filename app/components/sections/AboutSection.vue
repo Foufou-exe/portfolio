@@ -130,7 +130,7 @@ import { profile, skills, stats } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { t } = useI18n()
-const { elementRef, isVisible } = useElementAnimation()
+const { isVisible } = useElementAnimation()
 
 // Translated stats
 const translatedStats = computed(() => [

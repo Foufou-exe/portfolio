@@ -2,7 +2,6 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-
   // Modules
   modules: [
     '@nuxt/image',
@@ -12,6 +11,8 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/i18n',
   ],
+
+  // Devtools configuration
   devtools: {
     enabled: true,
     timeline: {
@@ -25,39 +26,42 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'fr',
       },
-      title: 'Portfolio - Thibaut Maurras',
+      title: process.env.NUXT_PUBLIC_SITE_NAME || 'Portfolio - Thibaut Maurras',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
+          content: process.env.NUXT_PUBLIC_SITE_DESCRIPTION || 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
         },
-        { name: 'author', content: 'Thibaut Maurras' },
+        { name: 'author', content: process.env.NUXT_PUBLIC_SITE_AUTHOR || 'Thibaut Maurras' },
         {
           name: 'keywords',
-          content: 'developpeur, ingenieur logiciel, full stack, vue, nuxt, typescript, portfolio, cloud, devops',
+          content: 'Thibaut Maurras, portfolio, ingenieur, projets, competences, developpement, web, logiciel, informatique',
         },
         // Open Graph
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'fr_FR' },
-        { property: 'og:site_name', content: 'Thibaut Maurras - Portfolio' },
-        { property: 'og:title', content: 'Portfolio - Thibaut Maurras' },
+        { property: 'og:site_name', content: process.env.NUXT_PUBLIC_SITE_NAME || 'Thibaut Maurras - Portfolio' },
+        { property: 'og:title', content: process.env.NUXT_PUBLIC_SITE_NAME || 'Portfolio - Thibaut Maurras' },
+        { property: 'og:url', content: process.env.NUXT_PUBLIC_SITE_URL || 'https://thibautm.com' },
+        { property: 'og:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/og-image.webp` },
         {
           property: 'og:description',
-          content: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
+          content: process.env.NUXT_PUBLIC_SITE_DESCRIPTION || 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
         },
         // Twitter Card
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:creator', content: '@MaurrasT' },
         // Theme color - Violet
         { name: 'theme-color', content: '#8b5cf6' },
+        { name: 'twitter:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/og-image.webp` },
         // Robots
         { name: 'robots', content: 'index, follow' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: 'https://thibautm.com' },
+        { rel: 'canonical', href: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000' },
         // Preconnect to external resources
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
         // DNS prefetch for faster resolution
@@ -94,12 +98,9 @@ export default defineNuxtConfig({
     // Client-side (public)
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      siteName: 'Thibaut Maurras - Portfolio',
-      siteDescription: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
-      siteAuthor: 'Thibaut Maurras',
-      enableContactForm: true,
-      enableAnalytics: false,
-      gaId: '',
+      siteName: process.env.NUXT_PUBLIC_SITE_NAME || 'Thibaut Maurras - Portfolio',
+      siteDescription: process.env.NUXT_PUBLIC_SITE_DESCRIPTION || 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
+      siteAuthor: process.env.NUXT_PUBLIC_SITE_AUTHOR || 'Thibaut Maurras',
     },
   },
   compatibilityDate: '2025-07-15',
