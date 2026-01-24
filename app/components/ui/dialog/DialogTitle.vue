@@ -4,7 +4,7 @@
     v-bind="forwardedProps"
     :class="cn('text-lg leading-none font-semibold', props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </DialogTitle>
 </template>
 

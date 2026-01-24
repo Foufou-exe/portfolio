@@ -5,7 +5,7 @@
     :data-orientation="props.orientation"
     :class="cn(buttonGroupVariants({ orientation: props.orientation }), props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <AlertDialogRoot v-slot="slotProps" data-slot="alert-dialog" v-bind="forwarded">
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </AlertDialogRoot>
 </template>
 

@@ -7,7 +7,7 @@
     )"
     v-bind="forwardedProps"
   >
-    <slot ></slot>
+    <slot></slot>
   </TabsTrigger>
 </template>
 

@@ -40,6 +40,8 @@ export interface GitHubRepo {
   pushedAt: string
   createdAt: string
   isRecent: boolean
+  imageUrl: string | null
+  isPinned: boolean
 }
 
 export interface Project {

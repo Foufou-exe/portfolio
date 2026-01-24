@@ -4,7 +4,7 @@
     data-slot="menubar-sub"
     v-bind="forwarded"
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </MenubarSub>
 </template>
 

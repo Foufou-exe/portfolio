@@ -4,7 +4,7 @@
     v-bind="forwardedProps"
     :class="cn('text-muted-foreground text-sm', props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </DialogDescription>
 </template>
 

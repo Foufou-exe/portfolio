@@ -3,7 +3,7 @@
     data-slot="dialog-trigger"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </DialogTrigger>
 </template>
 

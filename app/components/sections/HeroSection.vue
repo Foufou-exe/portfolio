@@ -3,62 +3,64 @@
     <!-- Aurora gradient meshes -->
     <div class="pointer-events-none absolute inset-0 -z-10">
       <!-- Primary gradient blob -->
-      <div 
+      <div
         class="absolute top-1/4 left-1/4 h-[600px] w-[600px] rounded-full opacity-30 blur-[120px]"
         style="background: radial-gradient(circle, oklch(0.6 0.25 285), transparent 70%);"
       ></div>
       <!-- Secondary gradient blob -->
-      <div 
+      <div
         class="absolute bottom-1/4 right-1/4 h-[500px] w-[500px] rounded-full opacity-25 blur-[100px]"
         style="background: radial-gradient(circle, oklch(0.6 0.2 320), transparent 70%); animation: float 8s ease-in-out infinite;"
       ></div>
       <!-- Accent gradient blob -->
-      <div 
+      <div
         class="absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-[80px]"
         style="background: radial-gradient(circle, oklch(0.7 0.15 350), transparent 70%); animation: float 10s ease-in-out infinite reverse;"
       ></div>
       <!-- Grid pattern overlay -->
-      <div 
+      <div
         class="absolute inset-0 opacity-[0.02]"
         style="background-image: linear-gradient(oklch(0.9 0.1 285) 1px, transparent 1px), linear-gradient(90deg, oklch(0.9 0.1 285) 1px, transparent 1px); background-size: 60px 60px;"
       ></div>
     </div>
 
-    <div 
+    <div
       ref="elementRef"
       class="container relative z-10 mx-auto px-4 py-20 text-center"
     >
       <!-- Avatar with glow -->
-      <div 
+      <div
         class="mb-8 flex justify-center opacity-0"
         :class="{ 'animate-slide-up': isVisible }"
       >
         <div class="relative">
-          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 opacity-75 blur-md" ></div>
+          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 opacity-75 blur-md"></div>
           <Avatar class="relative h-32 w-32 border-4 border-background shadow-2xl ring-2 ring-primary/30">
             <AvatarImage :src="profile.avatar" :alt="profile.name" />
-            <AvatarFallback class="text-3xl font-bold">{{ profile.initials }}</AvatarFallback>
+            <AvatarFallback class="text-3xl font-bold">
+              {{ profile.initials }}
+            </AvatarFallback>
           </Avatar>
         </div>
       </div>
 
       <!-- Status badge -->
-      <div 
-        v-if="profile.available" 
+      <div
+        v-if="profile.available"
         class="mb-6 flex justify-center opacity-0"
         :class="{ 'animate-slide-up stagger-1': isVisible }"
       >
         <Badge variant="outline" class="gap-2 border-primary/30 bg-primary/10 px-4 py-1.5 backdrop-blur-sm">
           <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" ></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500" ></span>
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
           </span>
           {{ $t('hero.available') }}
         </Badge>
       </div>
 
       <!-- Greeting -->
-      <p 
+      <p
         class="mb-2 text-lg text-muted-foreground opacity-0"
         :class="{ 'animate-slide-up stagger-2': isVisible }"
       >
@@ -66,7 +68,7 @@
       </p>
 
       <!-- Name with gradient -->
-      <h1 
+      <h1
         class="mb-4 text-4xl font-bold tracking-tight opacity-0 sm:text-5xl md:text-6xl lg:text-7xl"
         :class="{ 'animate-slide-up stagger-2': isVisible }"
       >
@@ -74,7 +76,7 @@
       </h1>
 
       <!-- Title -->
-      <p 
+      <p
         class="mb-6 text-xl text-primary opacity-0 sm:text-2xl"
         :class="{ 'animate-slide-up stagger-3': isVisible }"
       >
@@ -82,7 +84,7 @@
       </p>
 
       <!-- Tagline -->
-      <p 
+      <p
         class="mx-auto mb-8 max-w-2xl text-muted-foreground opacity-0"
         :class="{ 'animate-slide-up stagger-3': isVisible }"
       >
@@ -90,7 +92,7 @@
       </p>
 
       <!-- CTAs -->
-      <div 
+      <div
         class="mb-8 flex flex-wrap items-center justify-center gap-4 opacity-0"
         :class="{ 'animate-slide-up stagger-4': isVisible }"
       >
@@ -99,7 +101,8 @@
           class="group glow-sm"
           as="a"
           href="#projects"
-          @click.prevent="scrollToProjects">
+          @click.prevent="scrollToProjects"
+        >
           <Briefcase class="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
           {{ $t('hero.cta.projects') }}
         </Button>
@@ -109,14 +112,15 @@
           class="border-primary/30 backdrop-blur-sm hover:bg-primary/10"
           as="a"
           href="#contact"
-          @click.prevent="scrollToContact">
+          @click.prevent="scrollToContact"
+        >
           <Mail class="mr-2 h-5 w-5" />
           {{ $t('hero.cta.contact') }}
         </Button>
       </div>
 
       <!-- Social Links -->
-      <div 
+      <div
         class="flex justify-center opacity-0 mb-2"
         :class="{ 'animate-slide-up stagger-5': isVisible }"
       >
@@ -124,11 +128,11 @@
       </div>
 
       <!-- Scroll indicator -->
-      <div 
+      <div
         class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0"
         :class="{ 'animate-fade-in stagger-6': isVisible }"
       >
-        <button 
+        <button
           class="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
           @click="scrollToAbout"
         >

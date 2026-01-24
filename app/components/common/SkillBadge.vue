@@ -1,8 +1,8 @@
 <template>
   <HoverCard>
     <HoverCardTrigger as-child>
-      <Badge 
-        :variant="variant" 
+      <Badge
+        :variant="variant"
         class="cursor-pointer transition-transform hover:scale-105"
       >
         {{ skill.name }}
@@ -10,7 +10,9 @@
     </HoverCardTrigger>
     <HoverCardContent class="w-64">
       <div class="space-y-2">
-        <h4 class="text-sm font-semibold">{{ skill.name }}</h4>
+        <h4 class="text-sm font-semibold">
+          {{ skill.name }}
+        </h4>
         <p class="text-sm text-muted-foreground">
           {{ skill.description }}
         </p>

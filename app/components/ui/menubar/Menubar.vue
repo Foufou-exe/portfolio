@@ -10,7 +10,7 @@
       )
     "
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </MenubarRoot>
 </template>
 

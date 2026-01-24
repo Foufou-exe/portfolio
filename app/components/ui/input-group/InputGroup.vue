@@ -21,7 +21,7 @@
       props.class,
     )"
   >
-    <slot ></slot>
+    <slot></slot>
   </div>
 </template>
 

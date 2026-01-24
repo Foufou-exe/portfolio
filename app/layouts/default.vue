@@ -5,7 +5,7 @@
 
     <!-- Main content -->
     <main>
-      <slot ></slot>
+      <slot></slot>
     </main>
 
     <!-- Back to top button -->
@@ -18,8 +18,8 @@
         <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <!-- Logo & Description -->
           <div class="sm:col-span-2 lg:col-span-1">
-            <a 
-              href="#" 
+            <a
+              href="#"
               class="inline-flex items-center gap-2 text-2xl font-bold tracking-tight transition-colors hover:text-primary"
               @click.prevent="scrollToTop"
             >
@@ -39,7 +39,7 @@
             </h3>
             <ul class="space-y-3">
               <li v-for="link in translatedNavLinks" :key="link.href">
-                <a 
+                <a
                   :href="link.href"
                   class="flex text-sm text-muted-foreground transition-colors hover:text-primary"
                   @click.prevent="scrollToSection(link.href)"
@@ -57,7 +57,7 @@
             </h3>
             <ul class="space-y-3">
               <li v-for="social in socialLinks" :key="social.name">
-                <a 
+                <a
                   :href="social.url"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -77,7 +77,7 @@
             </h3>
             <ul class="space-y-3">
               <li>
-                <a 
+                <a
                   :href="`mailto:${contactInfo.email}`"
                   class="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
@@ -112,7 +112,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { Github, Linkedin, Twitter, Mail, MapPin, ArrowUpRight } from 'lucide-vue-next'
+import { Github, Linkedin, Twitter, Mail, MapPin } from 'lucide-vue-next'
 import NavBar from '~/components/common/NavBar.vue'
 import BackToTop from '~/components/common/BackToTop.vue'
 import { Separator } from '~/components/ui/separator'

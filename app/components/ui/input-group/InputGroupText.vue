@@ -5,7 +5,7 @@
       props.class,
     )"
   >
-    <slot ></slot>
+    <slot></slot>
   </span>
 </template>
 

@@ -9,7 +9,7 @@
     "mobileDescription": "Access the different sections of the portfolio",
     "menu": "Menu",
     "navigation": "Navigation",
-    "switchLanguage": "Switch to French"
+    "switchLanguage": "Passer en Francais"
   },
   "hero": {
     "greeting": "Hi, I'm",
@@ -91,7 +91,7 @@
   "projects": {
     "title": "Projects",
     "subtitle": "My latest work on GitHub",
-    "viewDemo": "View demo of {title}",
+    "viewDemo": "View demo",
     "viewSource": "Source code",
     "viewSourceCode": "View source code of {title}",
     "viewProject": "View project",
@@ -103,14 +103,24 @@
     "viewMore": "Want to see more projects?",
     "viewGithub": "View my GitHub",
     "loading": "Loading projects...",
-    "errorLoading": "Unable to load projects",
+    "errorLoading": "An error occurred while loading GitHub projects. Please check your connection or try again later.",
+    "errorTitle": "Loading error",
     "retry": "Retry",
     "recentBadge": "Recent",
+    "pinnedBadge": "Pinned",
     "stars": "Stars",
     "forks": "Forks",
     "totalStars": "Total stars",
     "recentProjects": "Recent projects",
-    "languages": "Languages"
+    "pinnedProjects": "Pinned projects",
+    "languages": "Languages",
+    "filters": {
+      "all": "All"
+    },
+    "sortByDate": "Date",
+    "sortByStars": "Stars",
+    "noResults": "No projects match the selected filters.",
+    "resetFilters": "Reset filters"
   },
   "experience": {
     "title": "Experience",

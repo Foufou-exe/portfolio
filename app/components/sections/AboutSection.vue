@@ -1,19 +1,18 @@
 <template>
   <section id="about" class="overflow-hidden py-20 min-h-screen">
-    <div 
+    <div
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
     >
-      <SectionTitle 
-        :title="$t('about.title')" 
+      <SectionTitle
+        :title="$t('about.title')"
         :subtitle="$t('about.subtitle')"
       />
 
       <!-- Bento Grid -->
       <div class="mx-auto max-w-5xl">
         <div class="grid gap-4 md:grid-cols-3 md:grid-rows-[auto_auto_auto]">
-          
           <!-- Main Card: Avatar + Info (col-span-2) -->
           <Card class="md:col-span-2 md:row-span-2">
             <CardContent class="flex h-full flex-col gap-6 p-6 sm:flex-row sm:p-8">
@@ -21,16 +20,18 @@
               <div class="flex shrink-0 flex-col items-center gap-4 sm:items-start">
                 <Avatar class="h-28 w-28 border-4 border-primary/20">
                   <AvatarImage :src="profile.avatar" :alt="profile.name" />
-                  <AvatarFallback class="text-2xl">{{ profile.initials }}</AvatarFallback>
+                  <AvatarFallback class="text-2xl">
+                    {{ profile.initials }}
+                  </AvatarFallback>
                 </Avatar>
-                
+
                 <!-- Status Badge -->
-                <Badge 
+                <Badge
                   v-if="profile.available"
-                  variant="outline" 
+                  variant="outline"
                   class="border-green-500/50 bg-green-500/10 text-green-600 dark:text-green-400"
                 >
-                  <span class="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-green-500" ></span>
+                  <span class="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-green-500"></span>
                   {{ $t('about.available') }}
                 </Badge>
               </div>
@@ -38,9 +39,13 @@
               <!-- Info -->
               <div class="flex flex-1 flex-col justify-between">
                 <div>
-                  <h3 class="text-2xl font-bold tracking-tight">{{ profile.name }}</h3>
-                  <p class="text-lg text-primary">{{ profile.title }}</p>
-                  
+                  <h3 class="text-2xl font-bold tracking-tight">
+                    {{ profile.name }}
+                  </h3>
+                  <p class="text-lg text-primary">
+                    {{ profile.title }}
+                  </p>
+
                   <div class="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
                     <MapPin class="h-4 w-4" />
                     <span>{{ profile.location }}</span>
@@ -57,7 +62,8 @@
                     v-if="profile.resumeUrl"
                     as="a"
                     :href="profile.resumeUrl"
-                    target="_blank">
+                    target="_blank"
+                  >
                     <FileText class="mr-2 h-4 w-4" />
                     {{ $t('about.downloadCv') }}
                   </Button>
@@ -72,10 +78,10 @@
 
           <!-- Stats Cards (2x2 grid on the right) -->
           <div class="grid grid-cols-2 gap-4 md:row-span-2">
-            <StatCard 
-              v-for="(stat, index) in translatedStats" 
-              :key="index" 
-              :stat="stat" 
+            <StatCard
+              v-for="(stat, index) in translatedStats"
+              :key="index"
+              :stat="stat"
             />
           </div>
 
@@ -84,12 +90,16 @@
             <CardContent class="p-6">
               <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h4 class="font-semibold">{{ $t('about.mainTech') }}</h4>
-                  <p class="text-sm text-muted-foreground">{{ $t('about.mainTechSubtitle') }}</p>
+                  <h4 class="font-semibold">
+                    {{ $t('about.mainTech') }}
+                  </h4>
+                  <p class="text-sm text-muted-foreground">
+                    {{ $t('about.mainTechSubtitle') }}
+                  </p>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                  <Badge 
-                    v-for="tech in mainTechnologies" 
+                  <Badge
+                    v-for="tech in mainTechnologies"
                     :key="tech.name"
                     variant="secondary"
                     class="transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
@@ -101,7 +111,6 @@
               </div>
             </CardContent>
           </Card>
-
         </div>
       </div>
     </div>

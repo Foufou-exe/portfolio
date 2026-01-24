@@ -1,6 +1,6 @@
 <template>
   <section id="contact" class="overflow-hidden py-20">
-    <div 
+    <div
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
@@ -53,9 +53,9 @@
               </div>
 
               <!-- Submit -->
-              <Button 
-                type="submit" 
-                class="h-12 w-full text-base" 
+              <Button
+                type="submit"
+                class="h-12 w-full text-base"
                 :disabled="isSubmitting"
               >
                 <Loader2 v-if="isSubmitting" class="mr-2 h-5 w-5 animate-spin" />
@@ -71,7 +71,7 @@
           <p class="text-sm text-muted-foreground">
             {{ $t('contact.alternative') }}
           </p>
-          <a 
+          <a
             :href="`mailto:${contactInfo.email}`"
             class="mt-1 inline-flex items-center gap-2 text-primary hover:underline"
           >
@@ -124,17 +124,20 @@ async function handleSubmit() {
         description: t('contact.success.message'),
       })
       resetForm()
-    } else {
+    }
+    else {
       throw new Error(response.error || 'Unknown error')
     }
-  } catch (error: unknown) {
+  }
+  catch (error: unknown) {
     console.error('Error sending message:', error)
-    
+
     const errorMsg = error instanceof Error ? error.message : t('contact.error.message')
     toast.error(t('contact.error.title'), {
       description: errorMsg,
     })
-  } finally {
+  }
+  finally {
     isSubmitting.value = false
   }
 }

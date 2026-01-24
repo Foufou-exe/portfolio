@@ -4,7 +4,7 @@
     data-slot="tooltip"
     v-bind="forwarded"
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </TooltipRoot>
 </template>
 

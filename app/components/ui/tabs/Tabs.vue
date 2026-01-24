@@ -5,7 +5,7 @@
     v-bind="forwarded"
     :class="cn('flex flex-col gap-2', props.class)"
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </TabsRoot>
 </template>
 

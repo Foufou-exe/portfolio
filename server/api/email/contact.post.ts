@@ -7,23 +7,23 @@ interface ContactBody {
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
-  
+
   // Verifier la configuration SMTP
   const smtpConfigured = config.smtpHost && config.smtpUser && config.smtpPass
 
   if (!smtpConfigured) {
     console.warn('SMTP not configured. Running in demo mode.')
-    
+
     // Mode demo : simuler l'envoi
     const body = await readBody<ContactBody>(event)
     console.info('Demo mode - Contact form submission:', {
       from: body.email,
-      message: `${body.message.substring(0, 100)  }...`,
+      message: `${body.message.substring(0, 100)}...`,
     })
-    
+
     // Simuler un delai
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     return {
       success: true,
       message: 'Message envoye (mode demo)',
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const body = await readBody<ContactBody>(event)
-    
+
     // Validation basique
     if (!body.email || !body.message) {
       throw createError({
@@ -129,12 +129,13 @@ Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
       message: 'Message envoye avec succes',
       id: info.messageId,
     }
-  } catch (error: unknown) {
+  }
+  catch (error: unknown) {
     // Re-throw si c'est deja une erreur HTTP
     if (error && typeof error === 'object' && 'statusCode' in error) {
       throw error
     }
-    
+
     console.error('Contact API error:', error)
     throw createError({
       statusCode: 500,

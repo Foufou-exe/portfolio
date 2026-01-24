@@ -2,8 +2,8 @@
   <div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4">
     <!-- Background gradient -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
-      <div class="absolute -left-1/4 -top-1/4 h-1/2 w-1/2 rounded-full bg-primary/10 blur-3xl" ></div>
-      <div class="absolute -bottom-1/4 -right-1/4 h-1/2 w-1/2 rounded-full bg-primary/5 blur-3xl" ></div>
+      <div class="absolute -left-1/4 -top-1/4 h-1/2 w-1/2 rounded-full bg-primary/10 blur-3xl"></div>
+      <div class="absolute -bottom-1/4 -right-1/4 h-1/2 w-1/2 rounded-full bg-primary/5 blur-3xl"></div>
     </div>
 
     <!-- Content -->
@@ -87,7 +87,6 @@ const errorDescription = computed(() => {
 function handleGoHome() {
   clearError({ redirect: '/' })
 }
-
 </script>
 
 <style scoped>

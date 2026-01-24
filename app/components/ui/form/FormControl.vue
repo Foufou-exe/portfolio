@@ -5,7 +5,7 @@
     :aria-describedby="!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`"
     :aria-invalid="!!error"
   >
-    <slot ></slot>
+    <slot></slot>
   </Slot>
 </template>
 

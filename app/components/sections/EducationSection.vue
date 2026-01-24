@@ -1,12 +1,12 @@
 <template>
   <section id="education" class="overflow-hidden py-20 min-h-screen">
-    <div 
+    <div
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
       :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
     >
-      <SectionTitle 
-        :title="$t('education.title')" 
+      <SectionTitle
+        :title="$t('education.title')"
         :subtitle="$t('education.subtitle')"
       />
 

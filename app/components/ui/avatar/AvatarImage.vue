@@ -4,7 +4,7 @@
     v-bind="props"
     class="aspect-square size-full"
   >
-    <slot ></slot>
+    <slot></slot>
   </AvatarImage>
 </template>
 

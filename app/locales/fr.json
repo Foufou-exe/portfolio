@@ -9,7 +9,7 @@
     "mobileDescription": "Accedez aux differentes sections du portfolio",
     "menu": "Menu",
     "navigation": "Navigation",
-    "switchLanguage": "Passer en Anglais"
+    "switchLanguage": "Switch to English"
   },
   "hero": {
     "greeting": "Bonjour, je suis",
@@ -85,7 +85,7 @@
   "projects": {
     "title": "Projets",
     "subtitle": "Mes dernieres realisations sur GitHub",
-    "viewDemo": "Voir la demo de {title}",
+    "viewDemo": "Voir la demo",
     "viewSource": "Code source",
     "viewSourceCode": "Voir le code source de {title}",
     "viewProject": "Voir le projet",
@@ -97,14 +97,24 @@
     "viewMore": "Envie de voir plus de projets ?",
     "viewGithub": "Voir mon GitHub",
     "loading": "Chargement des projets...",
-    "errorLoading": "Impossible de charger les projets",
+    "errorLoading": "Une erreur s'est produite lors du chargement des projets GitHub. Verifiez votre connexion ou reessayez plus tard.",
+    "errorTitle": "Erreur de chargement",
     "retry": "Reessayer",
     "recentBadge": "Recent",
+    "pinnedBadge": "Epingle",
     "stars": "Etoiles",
     "forks": "Forks",
     "totalStars": "Etoiles totales",
     "recentProjects": "Projets recents",
-    "languages": "Langages"
+    "pinnedProjects": "Projets epingles",
+    "languages": "Langages",
+    "filters": {
+      "all": "Tous"
+    },
+    "sortByDate": "Date",
+    "sortByStars": "Stars",
+    "noResults": "Aucun projet ne correspond aux filtres selectionnes.",
+    "resetFilters": "Reinitialiser les filtres"
   },
   "experience": {
     "title": "Experiences",

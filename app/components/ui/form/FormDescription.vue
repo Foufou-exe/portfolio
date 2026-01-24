@@ -4,7 +4,7 @@
     data-slot="form-description"
     :class="cn('text-muted-foreground text-sm', props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </p>
 </template>
 

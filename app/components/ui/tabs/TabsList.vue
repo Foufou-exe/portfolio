@@ -7,7 +7,7 @@
       props.class,
     )"
   >
-    <slot ></slot>
+    <slot></slot>
   </TabsList>
 </template>
 

@@ -3,7 +3,7 @@
     data-slot="menubar-group"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </MenubarGroup>
 </template>
 

@@ -3,7 +3,7 @@
     data-slot="form-item"
     :class="cn('grid gap-2', props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </div>
 </template>
 

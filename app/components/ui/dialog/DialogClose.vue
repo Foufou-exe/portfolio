@@ -3,7 +3,7 @@
     data-slot="dialog-close"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </DialogClose>
 </template>
 

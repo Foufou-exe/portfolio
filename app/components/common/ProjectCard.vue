@@ -1,25 +1,24 @@
 <template>
   <div class="gradient-border-card group">
-    <Card 
+    <Card
       class="relative overflow-hidden py-0 transition-all duration-300 hover:-translate-y-1"
     >
-
       <!-- Image du projet -->
       <div class="relative aspect-video overflow-hidden">
         <!-- Fallback gradient background -->
-        <div 
+        <div
           class="absolute inset-0 flex items-center justify-center"
           :style="{ background: `linear-gradient(135deg, ${projectColor} 0%, ${projectColorDark} 100%)` }"
         >
           <span class="text-2xl font-bold text-white/90 text-center px-4">{{ project.title }}</span>
         </div>
-        
+
         <!-- Skeleton loader -->
-        <div 
-          v-if="hasImage && !imageLoaded && !imageError" 
+        <div
+          v-if="hasImage && !imageLoaded && !imageError"
           class="skeleton absolute inset-0 z-[1]"
         ></div>
-        
+
         <!-- Image -->
         <img
           v-if="hasImage && !imageError"
@@ -34,7 +33,7 @@
           @load="imageLoaded = true"
           @error="imageError = true"
         />
-        
+
         <div v-if="project.featured" class="absolute right-2 top-2 z-20">
           <Badge variant="default" class="border-0 bg-primary/90 backdrop-blur-sm">
             <Star class="mr-1 h-3 w-3" />
@@ -42,7 +41,7 @@
           </Badge>
         </div>
         <!-- Gradient overlay on hover -->
-        <div class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" ></div>
+        <div class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
       </div>
 
       <CardHeader class="relative z-20">
@@ -57,16 +56,16 @@
       <CardContent class="relative z-20">
         <!-- Tags -->
         <div class="flex flex-wrap gap-1.5">
-          <Badge 
-            v-for="tag in project.tags.slice(0, 4)" 
-            :key="tag" 
+          <Badge
+            v-for="tag in project.tags.slice(0, 4)"
+            :key="tag"
             variant="outline"
             class="border-primary/20 text-xs transition-colors hover:border-primary/50 hover:bg-primary/10"
           >
             {{ tag }}
           </Badge>
-          <Badge 
-            v-if="project.tags.length > 4" 
+          <Badge
+            v-if="project.tags.length > 4"
             variant="outline"
             class="text-xs"
           >
@@ -86,12 +85,14 @@
           </DialogTrigger>
           <DialogContent class="max-w-2xl">
             <DialogHeader>
-              <DialogTitle class="text-xl">{{ project.title }}</DialogTitle>
+              <DialogTitle class="text-xl">
+                {{ project.title }}
+              </DialogTitle>
               <DialogDescription>
                 {{ project.description }}
               </DialogDescription>
             </DialogHeader>
-            
+
             <div class="space-y-4">
               <!-- Image -->
               <div v-if="hasImage" class="aspect-video overflow-hidden rounded-lg">
@@ -105,8 +106,8 @@
                   class="h-full w-full object-cover"
                 />
               </div>
-              <div 
-                v-else 
+              <div
+                v-else
                 class="aspect-video overflow-hidden rounded-lg flex items-center justify-center"
                 :style="{ background: `linear-gradient(135deg, ${projectColor} 0%, ${projectColorDark} 100%)` }"
               >
@@ -122,7 +123,9 @@
 
               <!-- Tags -->
               <div>
-                <h4 class="mb-2 text-sm font-semibold">{{ t('projects.technologies') }}</h4>
+                <h4 class="mb-2 text-sm font-semibold">
+                  {{ t('projects.technologies') }}
+                </h4>
                 <div class="flex flex-wrap gap-2">
                   <Badge v-for="tag in project.tags" :key="tag" variant="secondary">
                     {{ tag }}
@@ -236,7 +239,7 @@ const projectColor = computed(() => {
     'oklch(0.65 0.2 200)', // blue
     'oklch(0.65 0.2 150)', // teal
     'oklch(0.65 0.2 330)', // pink
-    'oklch(0.65 0.2 30)',  // orange
+    'oklch(0.65 0.2 30)', // orange
   ]
   const index = props.project.title.length % colors.length
   return colors[index]
@@ -248,7 +251,7 @@ const projectColorDark = computed(() => {
     'oklch(0.35 0.15 200)', // blue dark
     'oklch(0.35 0.15 150)', // teal dark
     'oklch(0.35 0.15 330)', // pink dark
-    'oklch(0.35 0.15 30)',  // orange dark
+    'oklch(0.35 0.15 30)', // orange dark
   ]
   const index = props.project.title.length % colors.length
   return colors[index]
@@ -273,7 +276,7 @@ const projectColorDark = computed(() => {
 
 .gradient-border-card:hover {
   animation: rotate-gradient 3s linear infinite;
-  box-shadow: 
+  box-shadow:
     0 8px 30px -10px oklch(0.7 0.25 285 / 40%),
     0 4px 15px -5px oklch(0.65 0.2 200 / 30%);
 }

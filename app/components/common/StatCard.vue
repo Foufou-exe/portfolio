@@ -1,13 +1,13 @@
 <template>
-  <div 
+  <div
     class="stat-card group flex flex-col items-center justify-center rounded-xl border bg-card p-4 text-center transition-all duration-300 hover:border-primary/50 hover:shadow-md"
   >
-    <div 
+    <div
       class="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20"
     >
       <component :is="iconComponent" class="h-5 w-5 text-primary" />
     </div>
-    <div 
+    <div
       class="text-2xl font-bold tracking-tight text-foreground transition-transform duration-300 group-hover:scale-110"
     >
       {{ stat.value }}

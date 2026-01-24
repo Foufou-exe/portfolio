@@ -3,7 +3,7 @@
     data-slot="tooltip-trigger"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </TooltipTrigger>
 </template>
 

@@ -14,7 +14,7 @@
         )
       "
     >
-      <slot ></slot>
+      <slot></slot>
     </AlertDialogContent>
   </AlertDialogPortal>
 </template>

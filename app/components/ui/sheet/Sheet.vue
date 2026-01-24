@@ -4,7 +4,7 @@
     data-slot="sheet"
     v-bind="forwarded"
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </DialogRoot>
 </template>
 

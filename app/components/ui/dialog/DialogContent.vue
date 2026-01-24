@@ -10,7 +10,7 @@
           props.class,
         )"
     >
-      <slot ></slot>
+      <slot></slot>
 
       <DialogClose
         v-if="showCloseButton"

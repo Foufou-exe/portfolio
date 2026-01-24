@@ -32,7 +32,8 @@ export function useScrollAnimation(options: ScrollAnimationOptions = {}) {
           if (once) {
             stop()
           }
-        } else if (!once) {
+        }
+        else if (!once) {
           isVisible.value = false
         }
       },
@@ -72,7 +73,8 @@ export function useElementAnimation(options: ScrollAnimationOptions = {}) {
       const entry = entries[0]
       if (entry?.isIntersecting) {
         isVisible.value = true
-      } else if (!once) {
+      }
+      else if (!once) {
         isVisible.value = false
       }
     },

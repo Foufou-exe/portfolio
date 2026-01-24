@@ -4,7 +4,7 @@
     data-slot="hover-card"
     v-bind="forwarded"
   >
-    <slot v-bind="slotProps" ></slot>
+    <slot v-bind="slotProps"></slot>
   </HoverCardRoot>
 </template>
 

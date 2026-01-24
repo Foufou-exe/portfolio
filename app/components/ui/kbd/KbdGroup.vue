@@ -3,7 +3,7 @@
     data-slot="kbd-group"
     :class="cn('inline-flex items-center gap-1', props.class)"
   >
-    <slot ></slot>
+    <slot></slot>
   </kbd>
 </template>
 

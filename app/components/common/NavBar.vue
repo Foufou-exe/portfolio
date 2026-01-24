@@ -4,15 +4,17 @@
     :class="[
       isScrolled
         ? 'bg-background/80 backdrop-blur-md border-b shadow-sm'
-        : 'bg-transparent'
-    ]">
+        : 'bg-transparent',
+    ]"
+  >
     <nav class="container mx-auto flex h-16 items-center justify-between px-4">
-      <!-- Logo -->
+      <!-- Logo animé -->
       <a
         href="#"
-        class="text-xl font-bold tracking-tight transition-colors hover:text-primary"
-        @click.prevent="scrollToTop">
-        {{ profile.initials }}.
+        class="text-xl font-bold tracking-tight transition-colors"
+        @click.prevent="scrollToTop"
+      >
+        <AnimatedLogo />
       </a>
 
       <!-- Desktop Navigation -->
@@ -24,7 +26,8 @@
           size="sm"
           as="a"
           :href="link.href"
-          @click.prevent="scrollToSection(link.href)">
+          @click.prevent="scrollToSection(link.href)"
+        >
           {{ link.name }}
         </Button>
       </div>
@@ -64,8 +67,6 @@
           </ClientOnly>
 
           <!-- Theme Toggle -->
-
-
         </TooltipProvider>
 
         <!-- Mobile Menu (Sheet) -->
@@ -91,7 +92,8 @@
                 class="justify-start"
                 as="a"
                 :href="link.href"
-                @click="handleMobileNavClick(link.href)">
+                @click="handleMobileNavClick(link.href)"
+              >
                 {{ link.name }}
               </Button>
               <Separator class="my-4" />
@@ -118,7 +120,7 @@ import {
   SheetTrigger,
 } from '~/components/ui/sheet'
 import SocialLinks from '~/components/common/SocialLinks.vue'
-import { profile } from '~/data/portfolio'
+import AnimatedLogo from '~/components/common/AnimatedLogo.vue'
 
 const { t, locale, setLocale } = useI18n()
 const colorMode = useColorMode()

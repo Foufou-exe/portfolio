@@ -14,7 +14,7 @@
         </slot>
       </MenubarItemIndicator>
     </span>
-    <slot ></slot>
+    <slot></slot>
   </MenubarRadioItem>
 </template>
 

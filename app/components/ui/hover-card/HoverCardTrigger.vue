@@ -3,7 +3,7 @@
     data-slot="hover-card-trigger"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </HoverCardTrigger>
 </template>
 

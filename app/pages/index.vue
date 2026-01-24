@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-// Import sections
 import HeroSection from '~/components/sections/HeroSection.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
 import SkillsSection from '~/components/sections/SkillsSection.vue'
@@ -19,4 +18,90 @@ import ProjectsSection from '~/components/sections/ProjectsSection.vue'
 import ExperienceSection from '~/components/sections/ExperienceSection.vue'
 import EducationSection from '~/components/sections/EducationSection.vue'
 import ContactSection from '~/components/sections/ContactSection.vue'
+import { profile } from '~/data/portfolio'
+
+const { locale } = useI18n()
+const config = useRuntimeConfig()
+
+// SEO dynamique basé sur la langue
+const seoTitle = computed(() =>
+  locale.value === 'fr'
+    ? `${profile.name} - ${profile.title} | Portfolio`
+    : `${profile.name} - Systems Engineer | Portfolio`,
+)
+
+const seoDescription = computed(() =>
+  locale.value === 'fr'
+    ? `Portfolio de ${profile.name}, ${profile.title}. Decouvrez mes projets, competences et experiences en developpement et infrastructure cloud.`
+    : `Portfolio of ${profile.name}, Systems Engineer. Discover my projects, skills and experience in development and cloud infrastructure.`,
+)
+
+const seoKeywords = computed(() =>
+  locale.value === 'fr'
+    ? 'developpeur, ingenieur systemes, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure'
+    : 'developer, systems engineer, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure',
+)
+
+// Utiliser useSeoMeta pour les meta tags dynamiques
+useSeoMeta({
+  title: seoTitle,
+  description: seoDescription,
+  keywords: seoKeywords,
+  author: profile.name,
+  // Open Graph
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogType: 'website',
+  ogLocale: computed(() => locale.value === 'fr' ? 'fr_FR' : 'en_US'),
+  ogSiteName: `${profile.name} - Portfolio`,
+  ogImage: computed(() => `${config.public.siteUrl}/images/moi/me.webp`),
+  ogImageAlt: profile.name,
+  // Twitter Card
+  twitterCard: 'summary_large_image',
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+  twitterImage: computed(() => `${config.public.siteUrl}/images/moi/me.webp`),
+  // Robots
+  robots: 'index, follow',
+})
+
+// Structured Data (JSON-LD) pour le SEO
+useHead({
+  htmlAttrs: {
+    lang: locale,
+  },
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        'name': profile.name,
+        'jobTitle': profile.title,
+        'url': config.public.siteUrl,
+        'image': `${config.public.siteUrl}/images/moi/me.webp`,
+        'sameAs': [
+          'https://github.com/foufou-exe',
+          'https://linkedin.com/in/thibaut-maurras',
+          'https://x.com/MaurrasT',
+        ],
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Montpellier',
+          'addressCountry': 'FR',
+        },
+        'knowsAbout': [
+          'Cloud Computing',
+          'DevOps',
+          'System Administration',
+          'Vue.js',
+          'TypeScript',
+          'Python',
+          'Docker',
+          'Kubernetes',
+        ],
+      }),
+    },
+  ],
+})
 </script>

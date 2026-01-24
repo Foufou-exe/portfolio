@@ -109,7 +109,7 @@ export default withNuxt(
       // ====================================
 
       // Pas d'imports dupliqués
-      //'no-duplicate-imports': 'error',
+      // 'no-duplicate-imports': 'error',
 
       // ====================================================
       // Stylistic (optionnel - peut être géré par Prettier)

@@ -6,7 +6,8 @@
         position="bottom-right"
         :expand="true"
         rich-colors
-        close-button />
+        close-button
+      />
     </NuxtLayout>
   </div>
 </template>

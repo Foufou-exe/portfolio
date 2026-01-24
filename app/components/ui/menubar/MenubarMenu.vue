@@ -3,7 +3,7 @@
     data-slot="menubar-menu"
     v-bind="props"
   >
-    <slot ></slot>
+    <slot></slot>
   </MenubarMenu>
 </template>
 

@@ -3,7 +3,7 @@
     data-slot="menubar-radio-group"
     v-bind="forwarded"
   >
-    <slot ></slot>
+    <slot></slot>
   </MenubarRadioGroup>
 </template>
 

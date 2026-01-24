@@ -8,7 +8,7 @@
     )"
     :for="formItemId"
   >
-    <slot ></slot>
+    <slot></slot>
   </Label>
 </template>
 

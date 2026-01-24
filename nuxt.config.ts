@@ -2,13 +2,6 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  devtools: {
-    enabled: true,
-    timeline: {
-      enabled: true,
-    },
-  },
 
   // Modules
   modules: [
@@ -19,58 +12,10 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/i18n',
   ],
-
-  // Global CSS
-  css: ['@/assets/css/tailwind.css'],
-
-  // Shadcn configuration
-  shadcn: {
-    prefix: '',
-    componentDir: '@/components/ui',
-  },
-
-  // ESLint configuration
-  eslint: {
-    config: {
-      stylistic: true, // <---
-    },
-  },
-
-  // Vite configuration
-  vite: {
-    plugins: [tailwindcss()],
-  },
-
-  // Color mode configuration
-  colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-    classPrefix: '',
-    classSuffix: '',
-    storage: 'sessionStorage',
-    storageKey: 'portfolio-theme',
-  },
-
-  // Runtime config
-  runtimeConfig: {
-    // Server-side only (private) - SMTP for Nodemailer
-    smtpHost: process.env.NUXT_SMTP_HOST || 'smtp.gmail.com',
-    smtpPort: process.env.NUXT_SMTP_PORT || '587',
-    smtpUser: process.env.NUXT_SMTP_USER || '',
-    smtpPass: process.env.NUXT_SMTP_PASS || '',
-    contactEmail: process.env.NUXT_CONTACT_EMAIL || '',
-    // GitHub API Token (increases rate limit from 60 to 5000 requests/hour)
-    githubToken: process.env.NUXT_GITHUB_TOKEN || '',
-    githubUsername: process.env.NUXT_GITHUB_USERNAME || '',
-    // Client-side (public)
-    public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-      siteName: 'Thibaut Maurras - Portfolio',
-      siteDescription: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
-      siteAuthor: 'Thibaut Maurras',
-      enableContactForm: true,
-      enableAnalytics: false,
-      gaId: '',
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
     },
   },
 
@@ -122,9 +67,47 @@ export default defineNuxtConfig({
     },
   },
 
+  // Global CSS
+  css: ['@/assets/css/tailwind.css'],
+
+  // Color mode configuration
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    classPrefix: '',
+    classSuffix: '',
+    storage: 'sessionStorage',
+    storageKey: 'portfolio-theme',
+  },
+
+  // Runtime config
+  runtimeConfig: {
+    // Server-side only (private) - SMTP for Nodemailer
+    smtpHost: process.env.NUXT_SMTP_HOST || 'smtp.gmail.com',
+    smtpPort: process.env.NUXT_SMTP_PORT || '587',
+    smtpUser: process.env.NUXT_SMTP_USER || '',
+    smtpPass: process.env.NUXT_SMTP_PASS || '',
+    contactEmail: process.env.NUXT_CONTACT_EMAIL || '',
+    // GitHub API Token (increases rate limit from 60 to 5000 requests/hour)
+    githubToken: process.env.NUXT_GITHUB_TOKEN || '',
+    githubUsername: process.env.NUXT_GITHUB_USERNAME || '',
+    // Client-side (public)
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      siteName: 'Thibaut Maurras - Portfolio',
+      siteDescription: 'Portfolio de Thibaut Maurras, venez decouvrir mes projets et competences en tant qu\'ingenieur.',
+      siteAuthor: 'Thibaut Maurras',
+      enableContactForm: true,
+      enableAnalytics: false,
+      gaId: '',
+    },
+  },
+  compatibilityDate: '2025-07-15',
+
   // Nitro configuration
   nitro: {
     compressPublicAssets: true,
+    minify: true,
     // Enable compression for all responses
     routeRules: {
       '/**': {
@@ -142,23 +125,37 @@ export default defineNuxtConfig({
           'Cache-Control': 'no-cache, no-store, must-revalidate',
         },
       },
+      '/api/github/repos': {
+        // Cache GitHub API for 5 minutes
+        cache: {
+          maxAge: 300,
+        },
+      },
     },
   },
 
-  // Image optimization configuration
-  image: {
-    // Quality for optimized images
-    quality: 80,
-    // Formats to generate
-    format: ['webp'],
-    // Screen sizes for responsive images
-    screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      '2xl': 1536,
+  // Vite configuration with optimizations
+  vite: {
+    plugins: [tailwindcss()],
+    build: {
+      // Enable CSS code splitting
+      cssCodeSplit: true,
+      // Optimize chunks
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'lucide': ['lucide-vue-next'],
+            'reka-ui': ['reka-ui'],
+          },
+        },
+      },
+    },
+  },
+
+  // ESLint configuration
+  eslint: {
+    config: {
+      stylistic: true, // <---
     },
   },
 
@@ -185,5 +182,28 @@ export default defineNuxtConfig({
       cookieKey: 'portfolio-locale',
       fallbackLocale: 'fr',
     },
+  },
+
+  // Image optimization configuration
+  image: {
+    // Quality for optimized images
+    quality: 80,
+    // Formats to generate
+    format: ['webp'],
+    // Screen sizes for responsive images
+    screens: {
+      'xs': 320,
+      'sm': 640,
+      'md': 768,
+      'lg': 1024,
+      'xl': 1280,
+      '2xl': 1536,
+    },
+  },
+
+  // Shadcn configuration
+  shadcn: {
+    prefix: '',
+    componentDir: '@/components/ui',
   },
 })

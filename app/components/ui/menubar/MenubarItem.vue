@@ -9,7 +9,7 @@
       props.class,
     )"
   >
-    <slot ></slot>
+    <slot></slot>
   </MenubarItem>
 </template>
 
