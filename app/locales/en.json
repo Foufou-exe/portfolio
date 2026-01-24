@@ -38,11 +38,19 @@
   "skills": {
     "title": "Skills",
     "subtitle": "Technologies and tools I master",
+    "hardSkills": "Technical Skills",
+    "softSkills": "Soft Skills",
     "filters": {
       "all": "All",
       "frontend": "Frontend",
       "backend": "Backend",
-      "devops": "DevOps"
+      "devops": "DevOps",
+      "database": "Database",
+      "system": "System",
+      "security": "Security",
+      "monitoring": "Monitoring",
+      "cloud": "Cloud",
+      "tools": "Tools"
     },
     "legend": {
       "size": "Size = Level",
@@ -58,7 +66,8 @@
     "stats": {
       "technologies": "Technologies",
       "mastered": "Mastered",
-      "domains": "Domains"
+      "domains": "Domains",
+      "softSkills": "Soft Skills"
     },
     "categories": {
       "frontend": "Frontend",
@@ -66,12 +75,22 @@
       "database": "Database",
       "cloud": "Cloud & Infrastructure",
       "devops": "DevOps & Automation",
-      "tools": "Tools & Management"
+      "tools": "Tools & Management",
+      "system": "System & Administration",
+      "security": "Security & Compliance",
+      "monitoring": "Monitoring & Performance"
+    },
+    "softCategories": {
+      "communication": "Communication",
+      "teamwork": "Teamwork",
+      "problem-solving": "Problem Solving",
+      "management": "Management",
+      "adaptability": "Adaptability"
     }
   },
   "projects": {
     "title": "Projects",
-    "subtitle": "A selection of my work",
+    "subtitle": "My latest work on GitHub",
     "viewDemo": "View demo of {title}",
     "viewSource": "Source code",
     "viewSourceCode": "View source code of {title}",
@@ -82,7 +101,16 @@
     "featuredBadge": "Featured",
     "others": "Other projects",
     "viewMore": "Want to see more projects?",
-    "viewGithub": "View my GitHub"
+    "viewGithub": "View my GitHub",
+    "loading": "Loading projects...",
+    "errorLoading": "Unable to load projects",
+    "retry": "Retry",
+    "recentBadge": "Recent",
+    "stars": "Stars",
+    "forks": "Forks",
+    "totalStars": "Total stars",
+    "recentProjects": "Recent projects",
+    "languages": "Languages"
   },
   "experience": {
     "title": "Experience",

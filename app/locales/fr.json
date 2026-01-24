@@ -38,6 +38,8 @@
   "skills": {
     "title": "Competences",
     "subtitle": "Les technologies et outils que je maitrise",
+    "hardSkills": "Competences techniques",
+    "softSkills": "Savoir-etre",
     "filters": {
       "all": "Tout",
       "frontend": "Frontend",
@@ -58,7 +60,8 @@
     "stats": {
       "technologies": "Technologies",
       "mastered": "Maitrisees",
-      "domains": "Domaines"
+      "domains": "Domaines",
+      "softSkills": "Soft Skills"
     },
     "categories": {
       "frontend": "Frontend",
@@ -66,12 +69,22 @@
       "database": "Base de donnees",
       "cloud": "Cloud & Infrastructure",
       "devops": "DevOps & Automatisation",
-      "tools": "Outils & Gestion"
+      "tools": "Outils & Gestion",
+      "system": "Systeme & Administration",
+      "security": "Securite & Conformite",
+      "monitoring": "Surveillance & Performance"
+    },
+    "softCategories": {
+      "communication": "Communication",
+      "teamwork": "Travail d'equipe",
+      "problem-solving": "Resolution",
+      "management": "Gestion",
+      "adaptability": "Adaptabilite"
     }
   },
   "projects": {
     "title": "Projets",
-    "subtitle": "Une selection de mes realisations",
+    "subtitle": "Mes dernieres realisations sur GitHub",
     "viewDemo": "Voir la demo de {title}",
     "viewSource": "Code source",
     "viewSourceCode": "Voir le code source de {title}",
@@ -82,7 +95,16 @@
     "featuredBadge": "Mis en avant",
     "others": "Autres projets",
     "viewMore": "Envie de voir plus de projets ?",
-    "viewGithub": "Voir mon GitHub"
+    "viewGithub": "Voir mon GitHub",
+    "loading": "Chargement des projets...",
+    "errorLoading": "Impossible de charger les projets",
+    "retry": "Reessayer",
+    "recentBadge": "Recent",
+    "stars": "Etoiles",
+    "forks": "Forks",
+    "totalStars": "Etoiles totales",
+    "recentProjects": "Projets recents",
+    "languages": "Langages"
   },
   "experience": {
     "title": "Experiences",

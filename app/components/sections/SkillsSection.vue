@@ -10,8 +10,12 @@
         :subtitle="$t('skills.subtitle')"
       />
 
-      <!-- Skills Grid by Category -->
+      <!-- Hard Skills Grid by Category -->
       <div class="mx-auto max-w-6xl">
+        <h3 class="mb-6 flex items-center gap-2 text-lg font-semibold text-muted-foreground">
+          <Code class="h-5 w-5 text-primary" />
+          {{ $t('skills.hardSkills') }}
+        </h3>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Card 
             v-for="(category, index) in categoriesWithSkills" 
@@ -62,6 +66,72 @@
         </div>
       </div>
 
+      <!-- Soft Skills Section -->
+      <div class="mx-auto mt-16 max-w-6xl">
+        <h3 class="mb-6 flex items-center gap-2 text-lg font-semibold text-muted-foreground">
+          <Heart class="h-5 w-5 text-pink-500" />
+          {{ $t('skills.softSkills') }}
+        </h3>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <Card 
+            v-for="(category, index) in softSkillCategoriesWithSkills" 
+            :key="category.id"
+            class="group relative overflow-hidden border-transparent bg-gradient-to-br transition-all duration-300 hover:shadow-lg"
+            :class="{ 'animate-slide-up': isVisible }"
+            :style="{ 
+              animationDelay: `${(categoriesWithSkills.length + index) * 0.1}s`,
+              background: `linear-gradient(135deg, ${category.color}15 0%, ${category.color}05 100%)`,
+              borderColor: `${category.color}30`
+            }"
+          >
+            <!-- Decorative gradient overlay -->
+            <div 
+              class="absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity duration-300 group-hover:opacity-40"
+              :style="{ backgroundColor: category.color }"
+            />
+
+            <CardHeader class="relative pb-3">
+              <div class="flex items-center gap-3">
+                <div 
+                  class="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
+                  :style="{ 
+                    backgroundColor: `${category.color}20`,
+                    color: category.color
+                  }"
+                >
+                  <component :is="getSoftSkillCategoryIcon(category.icon)" class="h-5 w-5" />
+                </div>
+                <CardTitle class="text-base">{{ $t(`skills.softCategories.${category.id}`) }}</CardTitle>
+              </div>
+            </CardHeader>
+            
+            <CardContent class="relative">
+              <div class="space-y-2">
+                <TooltipProvider>
+                  <Tooltip v-for="skill in category.skills" :key="skill.name">
+                    <TooltipTrigger as-child>
+                      <div 
+                        class="flex cursor-default items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm transition-all duration-200 hover:bg-background/50"
+                      >
+                        <component 
+                          :is="getSoftSkillIcon(skill.icon)" 
+                          class="h-3.5 w-3.5 flex-shrink-0"
+                          :style="{ color: category.color }"
+                        />
+                        <span class="truncate">{{ skill.name }}</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" class="max-w-xs">
+                      <p class="text-sm">{{ skill.description }}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
       <!-- Stats -->
       <div class="mx-auto mt-12 flex max-w-2xl flex-wrap justify-center gap-8 sm:gap-12">
         <div 
@@ -79,18 +149,25 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { Monitor, Server, Database, Cloud, GitBranch, Wrench } from 'lucide-vue-next'
+import { 
+  Monitor, Server, Database, Cloud, GitBranch, Wrench, Code, Heart,
+  // Soft skill category icons
+  MessageSquare, Users, Lightbulb, Target, Zap,
+  // Soft skill icons
+  Presentation, MessageCircle, FileText, GitPullRequest, GraduationCap,
+  Search, Bug, Calendar, ListOrdered, Compass, Radar, RefreshCw, Shield
+} from 'lucide-vue-next'
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
 import { Badge } from '~/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import SectionTitle from '~/components/common/SectionTitle.vue'
-import { skills, skillCategories, getSkillsByCategory } from '~/data/portfolio'
+import { skills, skillCategories, getSkillsByCategory, softSkills, softSkillCategories, getSoftSkillsByCategory } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { t } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
-// Map icon names to components
+// Map icon names to components - Hard Skills
 const iconMap = {
   Monitor,
   Server,
@@ -98,24 +175,70 @@ const iconMap = {
   Cloud,
   GitBranch,
   Wrench,
+  Code,
+}
+
+// Map icon names to components - Soft Skill Categories
+const softSkillCategoryIconMap = {
+  MessageSquare,
+  Users,
+  Lightbulb,
+  Target,
+  Zap,
+}
+
+// Map icon names to components - Soft Skills
+const softSkillIconMap = {
+  Presentation,
+  MessageCircle,
+  FileText,
+  Users,
+  GitPullRequest,
+  GraduationCap,
+  Search,
+  Bug,
+  Lightbulb,
+  Calendar,
+  ListOrdered,
+  Compass,
+  Radar,
+  RefreshCw,
+  Shield,
 }
 
 const getCategoryIcon = (iconName: string) => {
   return iconMap[iconName as keyof typeof iconMap] || Monitor
 }
 
-// Categories with their skills
+const getSoftSkillCategoryIcon = (iconName: string) => {
+  return softSkillCategoryIconMap[iconName as keyof typeof softSkillCategoryIconMap] || MessageSquare
+}
+
+const getSoftSkillIcon = (iconName: string) => {
+  return softSkillIconMap[iconName as keyof typeof softSkillIconMap] || Lightbulb
+}
+
+// Hard Skills categories with their skills
 const categoriesWithSkills = computed(() => 
   skillCategories.map(category => ({
     ...category,
     skills: getSkillsByCategory(category.id as any),
-  }))
+  })).filter(category => category.skills.length > 0)
+)
+
+// Soft Skills categories with their skills
+const softSkillCategoriesWithSkills = computed(() => 
+  softSkillCategories.map(category => ({
+    ...category,
+    skills: getSoftSkillsByCategory(category.id as any),
+  })).filter(category => category.skills.length > 0)
 )
 
 // Stats
 const skillStats = computed(() => [
   { value: skills.length, label: t('skills.stats.technologies') },
-  { value: skillCategories.length, label: t('skills.stats.domains') },
+  { value: softSkills.length, label: t('skills.stats.softSkills') },
+  { value: skillCategories.length + softSkillCategories.length, label: t('skills.stats.domains') },
 ])
 </script>
 

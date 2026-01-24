@@ -10,31 +10,48 @@
         :subtitle="$t('projects.subtitle')"
       />
 
-      <!-- Featured Projects -->
-      <div v-if="featuredProjects.length > 0" class="mb-12">
-        <h3 class="mb-6 text-lg font-semibold text-muted-foreground">
-          {{ $t('projects.featured') }}
-        </h3>
-        <div class="grid gap-6 md:grid-cols-2">
-          <ProjectCard 
-            v-for="project in featuredProjects" 
-            :key="project.id" 
-            :project="project"
-          />
+      <!-- Loading State -->
+      <div v-if="pending" class="flex items-center justify-center py-20">
+        <div class="flex flex-col items-center gap-4">
+          <div class="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <p class="text-muted-foreground">{{ $t('projects.loading') }}</p>
         </div>
       </div>
 
-      <!-- Other Projects -->
-      <div v-if="otherProjects.length > 0">
-        <h3 class="mb-6 text-lg font-semibold text-muted-foreground">
-          {{ $t('projects.others') }}
-        </h3>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <ProjectCard 
-            v-for="project in otherProjects" 
-            :key="project.id" 
-            :project="project"
-          />
+      <!-- Error State with Fallback -->
+      <div v-else-if="error" class="text-center py-12">
+        <p class="text-muted-foreground mb-4">{{ $t('projects.errorLoading') }}</p>
+        <Button variant="outline" @click="refresh()">
+          <RefreshCw class="mr-2 h-4 w-4" />
+          {{ $t('projects.retry') }}
+        </Button>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div v-else class="bento-grid mx-auto max-w-6xl">
+        <GitHubProjectCard 
+          v-for="(repo, index) in displayedRepos" 
+          :key="repo.id" 
+          :repo="repo"
+          :size="getCardSize(index)"
+          :index="index"
+          :is-visible="isVisible"
+        />
+      </div>
+
+      <!-- Stats GitHub -->
+      <div v-if="!pending && !error && displayedRepos.length > 0" class="mx-auto mt-12 flex max-w-2xl flex-wrap justify-center gap-8 sm:gap-12">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">{{ totalStars }}</div>
+          <div class="text-sm text-muted-foreground">{{ $t('projects.totalStars') }}</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">{{ displayedRepos.length }}</div>
+          <div class="text-sm text-muted-foreground">{{ $t('projects.recentProjects') }}</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">{{ uniqueLanguages }}</div>
+          <div class="text-sm text-muted-foreground">{{ $t('projects.languages') }}</div>
         </div>
       </div>
 
@@ -53,24 +70,76 @@
 </template>
 
 <script lang="ts" setup>
-import { Github } from 'lucide-vue-next'
+import { Github, RefreshCw } from 'lucide-vue-next'
 import { Button } from '~/components/ui/button'
 import SectionTitle from '~/components/common/SectionTitle.vue'
-import ProjectCard from '~/components/common/ProjectCard.vue'
-import { projects, socialLinks } from '~/data/portfolio'
+import GitHubProjectCard from '~/components/common/GitHubProjectCard.vue'
+import { socialLinks } from '~/data/portfolio'
+import type { GitHubRepo } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { elementRef, isVisible } = useElementAnimation()
 
-const featuredProjects = computed(() => 
-  projects.filter(p => p.featured)
+// Fetch GitHub repos depuis notre API
+const { data, pending, error, refresh } = await useFetch<{
+  success: boolean
+  data: GitHubRepo[]
+  meta: { username: string, fetchedAt: string, count: number }
+}>('/api/github/repos', {
+  // Cache côté client pendant 5 minutes
+  getCachedData(key, nuxtApp) {
+    const cached = nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+    if (cached) return cached
+    return null
+  },
+})
+
+// Repos à afficher
+const displayedRepos = computed(() => data.value?.data || [])
+
+// Stats calculées
+const totalStars = computed(() => 
+  displayedRepos.value.reduce((sum, repo) => sum + repo.stars, 0)
 )
 
-const otherProjects = computed(() => 
-  projects.filter(p => !p.featured)
-)
+const uniqueLanguages = computed(() => {
+  const languages = new Set(displayedRepos.value.map(r => r.language).filter(Boolean))
+  return languages.size
+})
+
+// Taille des cartes pour le Bento Grid
+const getCardSize = (index: number): 'large' | 'medium' | 'small' => {
+  // Premier projet = large (le plus récent / mis en avant)
+  if (index === 0) return 'large'
+  // Le 4ème projet = large aussi pour équilibrer
+  if (index === 3) return 'large'
+  // Autres = medium ou small
+  return 'medium'
+}
 
 const githubUrl = computed(() => 
-  socialLinks.find(l => l.icon === 'github')?.url || 'https://github.com'
+  socialLinks.find(l => l.icon === 'github')?.url || 'https://github.com/foufou-exe'
 )
 </script>
+
+<style scoped>
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  gap: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

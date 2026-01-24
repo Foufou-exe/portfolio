@@ -14,8 +14,32 @@ export interface SocialLink {
 export interface Skill {
   name: string
   description: string
-  category: 'frontend' | 'backend' | 'database' | 'cloud' | 'devops' | 'tools'
+  category: 'frontend' | 'backend' | 'devops' | 'database' | 'system' | 'security' | 'monitoring' | 'tools' | 'cloud'
   color?: string
+}
+
+export interface SoftSkill {
+  name: string
+  description: string
+  category: 'communication' | 'teamwork' | 'problem-solving' | 'management' | 'adaptability'
+  icon: string
+}
+
+// Type pour les repos GitHub (réponse de l'API)
+export interface GitHubRepo {
+  id: number
+  name: string
+  fullName: string
+  description: string
+  url: string
+  homepage: string | null
+  stars: number
+  forks: number
+  language: string | null
+  topics: string[]
+  pushedAt: string
+  createdAt: string
+  isRecent: boolean
 }
 
 export interface Project {
@@ -151,52 +175,63 @@ export const navLinks: NavLink[] = [
 // SKILLS - Compétences techniques
 // ============================================
 export const skills: Skill[] = [
-  // Frontend
-  { name: 'Vue.js', description: 'Framework JavaScript progressif pour construire des interfaces utilisateur', category: 'frontend', color: '#42b883' },
-  { name: 'Nuxt', description: 'Framework Vue.js pour applications universelles et SSR', category: 'frontend', color: '#00dc82' },
-  { name: 'React', description: 'Bibliothèque JavaScript pour construire des interfaces utilisateur', category: 'frontend', color: '#61dafb' },
+  // Frontend & UI
+  { name: 'Vue.js', description: 'Framework JavaScript progressif utilisé pour les interfaces', category: 'frontend', color: '#42b883' },
+  { name: 'React', description: 'Bibliothèque pour interfaces utilisateurs dynamiques', category: 'frontend', color: '#61dafb' },
+  { name: 'Angular', description: 'Plateforme de développement front-end complète', category: 'frontend', color: '#dd0031' },
   { name: 'TypeScript', description: 'Superset JavaScript avec typage statique', category: 'frontend', color: '#3178c6' },
-  { name: 'Tailwind CSS', description: 'Framework CSS utility-first pour un design rapide', category: 'frontend', color: '#38bdf8' },
-  { name: 'JavaScript', description: 'Langage de programmation du web, ES6+', category: 'frontend', color: '#f7df1e' },
-  { name: 'Next.js', description: 'Framework React pour applications full-stack', category: 'frontend', color: '#000000' },
-  { name: 'HTML/CSS', description: 'Fondamentaux du web, sémantique et responsive design', category: 'frontend', color: '#e34f26' },
+  { name: 'JavaScript', description: 'Langage de script pour le web et l\'automatisation', category: 'frontend', color: '#f7df1e' },
+  { name: 'Tailwind CSS', description: 'Framework CSS utilitaire pour le design rapide', category: 'frontend', color: '#38bdf8' },
+  { name: 'Bootstrap', description: 'Framework CSS pour le responsive design', category: 'frontend', color: '#7952b3' },
+  { name: 'Sass', description: 'Préprocesseur CSS pour des feuilles de style maintenables', category: 'frontend', color: '#cc6699' },
+  { name: 'HTML/CSS', description: 'Structure et style des pages web', category: 'frontend', color: '#e34f26' },
 
-  // Backend
-  { name: 'Node.js', description: 'Runtime JavaScript côté serveur', category: 'backend', color: '#339933' },
-  { name: 'Python', description: 'Langage polyvalent pour scripts, API et data science', category: 'backend', color: '#3776ab' },
-  { name: 'REST API', description: 'Conception et développement d\'APIs RESTful', category: 'backend', color: '#ff6c37' },
-  { name: 'GraphQL', description: 'Langage de requête flexible pour APIs', category: 'backend', color: '#e10098' },
-  { name: 'Express', description: 'Framework web minimaliste pour Node.js', category: 'backend', color: '#000000' },
-  { name: 'FastAPI', description: 'Framework Python moderne et performant pour APIs', category: 'backend', color: '#009688' },
+  // Backend & Langages Système
+  { name: 'Python', description: 'Scripting, automatisation et développement backend', category: 'backend', color: '#3776ab' },
+  { name: 'Java', description: 'Développement d\'applications robustes et orientées objet', category: 'backend', color: '#007396' },
+  { name: 'C# / .NET', description: 'Développement d\'applications Windows et web', category: 'backend', color: '#512bd4' },
+  { name: 'PHP', description: 'Langage de script côté serveur pour le web', category: 'backend', color: '#777bb4' },
+  { name: 'Go', description: 'Langage performant pour le cloud et le système', category: 'backend', color: '#00add8' },
+  { name: 'Rust', description: 'Langage système axé sur la sécurité et la performance', category: 'backend', color: '#dea584' },
+  { name: 'C++', description: 'Développement système haute performance', category: 'backend', color: '#00599c' },
+  { name: 'PowerShell', description: 'Automatisation et administration Windows', category: 'backend', color: '#5391fe' },
+  { name: 'Bash', description: 'Scripting shell pour l\'automatisation Linux', category: 'backend', color: '#4eaa25' },
 
-  // Base de données
-  { name: 'PostgreSQL', description: 'Base de données relationnelle robuste et performante', category: 'database', color: '#4169e1' },
+  // Base de données & Stockage
+  { name: 'PostgreSQL', description: 'SGBD relationnel objet puissant et open source', category: 'database', color: '#4169e1' },
+  { name: 'MySQL / MariaDB', description: 'Gestion de bases de données relationnelles', category: 'database', color: '#00758f' },
   { name: 'MongoDB', description: 'Base de données NoSQL orientée documents', category: 'database', color: '#47a248' },
-  { name: 'Redis', description: 'Base de données en mémoire pour cache et sessions', category: 'database', color: '#dc382d' },
-  { name: 'Prisma', description: 'ORM moderne pour Node.js et TypeScript', category: 'database', color: '#2d3748' },
-  { name: 'MySQL', description: 'Système de gestion de base de données relationnelle', category: 'database', color: '#4479a1' },
+  { name: 'Redis', description: 'Stockage de structure de données en mémoire', category: 'database', color: '#dc382d' },
+  { name: 'SQLite', description: 'Bibliothèque de base de données SQL légère', category: 'database', color: '#003b57' },
+  { name: 'Ceph', description: 'Solution de stockage distribué unifié', category: 'database', color: '#D53D42' },
 
-  // Cloud & Infrastructure
-  { name: 'AWS', description: 'Services cloud Amazon Web Services', category: 'cloud', color: '#ff9900' },
-  { name: 'Vercel', description: 'Plateforme de déploiement pour applications front-end', category: 'cloud', color: '#000000' },
-  { name: 'Linux', description: 'Système d\'exploitation open source', category: 'cloud', color: '#fcc624' },
-  { name: 'Nginx', description: 'Serveur web et reverse proxy haute performance', category: 'cloud', color: '#009639' },
+  // Cloud, Virtualisation & Infrastructure
+  { name: 'Linux', description: 'Administration (CentOS, Oracle Linux, Debian, Kali)', category: 'cloud', color: '#fcc624' },
+  { name: 'Windows Server', description: 'Administration système et Active Directory', category: 'cloud', color: '#0078d4' },
+  { name: 'VMware ESXi', description: 'Virtualisation de serveurs niveau entreprise', category: 'cloud', color: '#607078' },
+  { name: 'Proxmox', description: 'Plateforme de virtualisation open source', category: 'cloud', color: '#E57000' },
+  { name: 'Azure', description: 'Services cloud et infrastructure Microsoft', category: 'cloud', color: '#0078d4' },
+  { name: 'OpenStack', description: 'Plateforme cloud computing open source', category: 'cloud', color: '#ed1944' },
 
-  // DevOps & Automatisation
-  { name: 'Docker', description: 'Plateforme de conteneurisation d\'applications', category: 'devops', color: '#2496ed' },
-  { name: 'Kubernetes', description: 'Orchestration de conteneurs à grande échelle', category: 'devops', color: '#326ce5' },
-  { name: 'Git', description: 'Système de contrôle de version distribué', category: 'devops', color: '#f05032' },
-  { name: 'CI/CD', description: 'Intégration et déploiement continus (GitHub Actions, GitLab CI)', category: 'devops', color: '#fc6d26' },
-  { name: 'Terraform', description: 'Infrastructure as Code pour le cloud', category: 'devops', color: '#7b42bc' },
-  { name: 'Ansible', description: 'Automatisation de configuration et déploiement', category: 'devops', color: '#ee0000' },
+  // DevOps, Réseaux & CI/CD
+  { name: 'Docker', description: 'Conteneurisation d\'applications', category: 'devops', color: '#2496ed' },
+  { name: 'Kubernetes', description: 'Orchestration de conteneurs (K8s)', category: 'devops', color: '#326ce5' },
+  { name: 'Ansible', description: 'Gestion de configuration et déploiement', category: 'devops', color: '#ee0000' },
+  { name: 'Terraform', description: 'Infrastructure as Code (IaC)', category: 'devops', color: '#7b42bc' },
+  { name: 'Jenkins', description: 'Serveur d\'automatisation open source (CI/CD)', category: 'devops', color: '#d24939' },
+  { name: 'GitLab CI', description: 'Pipelines d\'intégration et déploiement continus', category: 'devops', color: '#fc6d26' },
+  { name: 'Git', description: 'Gestion de version décentralisée', category: 'devops', color: '#f05032' },
+  { name: 'Nginx', description: 'Serveur web, reverse proxy et load balancer', category: 'devops', color: '#009639' },
+  { name: 'HAProxy', description: 'Load balancing et proxying TCP/HTTP', category: 'devops', color: '#131e25' },
 
-  // Outils & Gestion
-  { name: 'VS Code', description: 'Éditeur de code source léger et extensible', category: 'tools', color: '#007acc' },
-  { name: 'Jira', description: 'Outil de gestion de projet et suivi de tickets', category: 'tools', color: '#0052cc' },
-  { name: 'Notion', description: 'Espace de travail collaboratif tout-en-un', category: 'tools', color: '#000000' },
-  { name: 'Figma', description: 'Outil de design collaboratif pour interfaces', category: 'tools', color: '#f24e1e' },
-  { name: 'Postman', description: 'Plateforme de développement et test d\'APIs', category: 'tools', color: '#ff6c37' },
-  { name: 'Slack', description: 'Plateforme de communication d\'équipe', category: 'tools', color: '#4a154b' },
+  // Outils, Sécurité & Monitoring
+  { name: 'VS Code', description: 'Éditeur de code source extensible', category: 'tools', color: '#007acc' },
+  { name: 'Zabbix', description: 'Supervision d\'infrastructure et réseaux', category: 'tools', color: '#d31f2b' },
+  { name: 'Grafana', description: 'Visualisation de données et monitoring', category: 'tools', color: '#F46800' },
+  { name: 'ELK Stack', description: 'Elasticsearch, Logstash, Kibana (Logs)', category: 'tools', color: '#005571' },
+  { name: 'Nagios / Centreon', description: 'Surveillance des systèmes et réseaux', category: 'tools', color: '#2d3e50' },
+  { name: 'OpenVPN', description: 'Solution VPN sécurisée', category: 'tools', color: '#ea7e20' },
+  { name: 'Jira', description: 'Gestion de tickets et suivi de projet', category: 'tools', color: '#0052cc' },
 ]
 
 // Helper pour récupérer les skills par catégorie
@@ -206,12 +241,57 @@ export const getSkillsByCategory = (category: Skill['category']) =>
 // Catégories de compétences avec métadonnées
 export const skillCategories = [
   { id: 'frontend', label: 'Frontend', icon: 'Monitor' },
-  { id: 'backend', label: 'Backend', icon: 'Server' },
-  { id: 'database', label: 'Base de données', icon: 'Database' },
-  { id: 'cloud', label: 'Cloud & Infrastructure', icon: 'Cloud' },
-  { id: 'devops', label: 'DevOps & Automatisation', icon: 'GitBranch' },
+  { id: 'backend', label: 'Backend & Scripting', icon: 'Code' },
+  { id: 'system', label: 'Système & Virtualisation', icon: 'Server' },
+  { id: 'security', label: 'Sécurité & Réseau', icon: 'ShieldCheck' },
+  { id: 'devops', label: 'DevOps & Cloud', icon: 'Cloud' },
+  { id: 'database', label: 'Data & Stockage', icon: 'Database' },
+  { id: 'monitoring', label: 'Supervision', icon: 'Activity' },
   { id: 'tools', label: 'Outils & Gestion', icon: 'Wrench' },
 ] as const
+
+// ============================================
+// SOFT SKILLS - Compétences transversales
+// ============================================
+export const softSkills: SoftSkill[] = [
+  // Communication
+  { name: 'Présentation', description: 'Capacité à présenter des sujets techniques de manière claire et engageante', category: 'communication', icon: 'Presentation' },
+  { name: 'Vulgarisation', description: 'Rendre accessible des concepts complexes à un public non-technique', category: 'communication', icon: 'MessageCircle' },
+  { name: 'Documentation', description: 'Rédaction de documentation technique claire et structurée', category: 'communication', icon: 'FileText' },
+
+  // Travail d'équipe
+  { name: 'Collaboration', description: 'Travailler efficacement en équipe sur des projets communs', category: 'teamwork', icon: 'Users' },
+  { name: 'Code Review', description: 'Révision de code constructive et partage de bonnes pratiques', category: 'teamwork', icon: 'GitPullRequest' },
+  { name: 'Mentorat', description: 'Accompagnement et transmission de connaissances aux juniors', category: 'teamwork', icon: 'GraduationCap' },
+
+  // Résolution de problèmes
+  { name: 'Analyse', description: 'Décomposition méthodique des problèmes complexes', category: 'problem-solving', icon: 'Search' },
+  { name: 'Debugging', description: 'Identification et résolution efficace des bugs et incidents', category: 'problem-solving', icon: 'Bug' },
+  { name: 'Innovation', description: 'Proposition de solutions créatives et originales', category: 'problem-solving', icon: 'Lightbulb' },
+
+  // Gestion
+  { name: 'Organisation', description: 'Structuration du travail et respect des délais', category: 'management', icon: 'Calendar' },
+  { name: 'Priorisation', description: 'Identification des tâches critiques et gestion des urgences', category: 'management', icon: 'ListOrdered' },
+  { name: 'Autonomie', description: 'Capacité à avancer seul tout en communiquant les avancements', category: 'management', icon: 'Compass' },
+
+  // Adaptabilité
+  { name: 'Veille Tech', description: 'Suivi constant des nouvelles technologies et tendances', category: 'adaptability', icon: 'Radar' },
+  { name: 'Flexibilité', description: 'Adaptation rapide aux changements de contexte ou de priorités', category: 'adaptability', icon: 'RefreshCw' },
+  { name: 'Résilience', description: 'Maintien de la motivation face aux difficultés et échecs', category: 'adaptability', icon: 'Shield' },
+]
+
+// Catégories de soft skills avec métadonnées
+export const softSkillCategories = [
+  { id: 'communication', label: 'Communication', icon: 'MessageSquare', color: '#60a5fa' },
+  { id: 'teamwork', label: 'Travail d\'équipe', icon: 'Users', color: '#34d399' },
+  { id: 'problem-solving', label: 'Résolution de problèmes', icon: 'Lightbulb', color: '#fbbf24' },
+  { id: 'management', label: 'Gestion', icon: 'Target', color: '#f472b6' },
+  { id: 'adaptability', label: 'Adaptabilité', icon: 'Zap', color: '#a78bfa' },
+] as const
+
+// Helper pour récupérer les soft skills par catégorie
+export const getSoftSkillsByCategory = (category: SoftSkill['category']) =>
+  softSkills.filter(skill => skill.category === category)
 
 // ============================================
 // PROJECTS - Projets réalisés
@@ -474,7 +554,7 @@ export const experiences: Experience[] = [
       logo: '/images/entreprise/ouiheberg.webp',
       website: 'https://www.ouiheberg.com',
       industry: 'Hébergement Web & Cloud',
-      size: '1-2 employés',
+      size: '1-5 employés',
       location: 'Montpellier, France',
     },
   },
@@ -501,7 +581,7 @@ export const experiences: Experience[] = [
       description: 'Entreprise spécialisée dans la vente, réparation et maintenance de matériel informatique et multimédia.',
       logo: '/images/entreprise/pro_cie.webp',
       industry: 'Services Informatiques',
-      size: '1-10 employés',
+      size: '1-5 employés',
       location: 'Pézenas, France',
     },
   },
@@ -613,7 +693,7 @@ export const education: Education[] = [
     period: '2013 - 2016',
     startYear: 2013,
     endYear: 2016,
-    description: 'Brevet des collèges.',
+    description: 'Collège public de l\'Éducation Nationale.',
     achievements: [
       'Mention Bien',
     ],
@@ -621,7 +701,7 @@ export const education: Education[] = [
     establishment: {
       name: 'Collège Jules Ferry',
       logo: '/images/ecoles/college_montagnac.webp',
-      description: 'Collège public de l\'Éducation Nationale.',
+      description: 'Collège public de l\'Éducation Nationale. Obtention du Diplôme National du Brevet.',
       industry: 'Éducation Nationale',
       location: 'Montagnac, France',
     },

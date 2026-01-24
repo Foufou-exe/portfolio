@@ -111,7 +111,7 @@ async function handleSubmit() {
   isSubmitting.value = true
 
   try {
-    const response = await $fetch('/api/contact', {
+    const response = await $fetch('/api/email/contact', {
       method: 'POST',
       body: {
         email: form.email,
@@ -125,10 +125,10 @@ async function handleSubmit() {
       })
       resetForm()
     } else {
-      throw new Error(response.error || 'Erreur inconnue')
+      throw new Error(response.error || 'Unknown error')
     }
   } catch (error: unknown) {
-    console.error('Erreur lors de l\'envoi:', error)
+    console.error('Error sending message:', error)
     
     const errorMsg = error instanceof Error ? error.message : t('contact.error.message')
     toast.error(t('contact.error.title'), {

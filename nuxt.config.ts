@@ -52,6 +52,9 @@ export default defineNuxtConfig({
     smtpUser: process.env.NUXT_SMTP_USER || '',
     smtpPass: process.env.NUXT_SMTP_PASS || '',
     contactEmail: process.env.NUXT_CONTACT_EMAIL || '',
+    // GitHub API Token (increases rate limit from 60 to 5000 requests/hour)
+    githubToken: process.env.NUXT_GITHUB_TOKEN || '',
+    githubUsername: process.env.NUXT_GITHUB_USERNAME || '',
     // Client-side (public)
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
