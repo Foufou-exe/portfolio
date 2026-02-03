@@ -47,12 +47,17 @@ export function useAnimatedLogo() {
   const isMouseInWindow = ref(true)
   const eyesBeforeBlink = ref(defaultExpression.eyes)
 
+  // ID unique pour chaque clignement (évite les race conditions)
+  let blinkId = 0
+
   // ===========================================================================
   // TIMERS (gestion centralisée)
   // ===========================================================================
 
   const timers = {
     blink: null as ReturnType<typeof setTimeout> | null,
+    blinkWatchdog: null as ReturnType<typeof setTimeout> | null,
+    eyesSafetyCheck: null as ReturnType<typeof setInterval> | null,
     mouseOut: null as ReturnType<typeof setTimeout> | null,
     typing: null as ReturnType<typeof setTimeout> | null,
   }
@@ -61,7 +66,12 @@ export function useAnimatedLogo() {
 
   function clearTimer(key: keyof typeof timers) {
     if (timers[key]) {
-      clearTimeout(timers[key]!)
+      // eyesSafetyCheck est un setInterval, les autres sont setTimeout
+      if (key === 'eyesSafetyCheck') {
+        clearInterval(timers[key]!)
+      } else {
+        clearTimeout(timers[key]!)
+      }
       timers[key] = null
     }
   }
@@ -221,6 +231,12 @@ export function useAnimatedLogo() {
     // Ne pas changer pendant le clignement
     if (isBlinking.value) return
 
+    // Sécurité : si les yeux sont fermés mais isBlinking est false, forcer reset
+    if (currentEyes.value === SPECIAL_EYES.closed && !isBlinking.value) {
+      // Les yeux sont bloqués, on force la mise à jour
+      console.warn('[Logo] Eyes stuck on closed, forcing update')
+    }
+
     const rect = logoRef.value.getBoundingClientRect()
     const centerX = rect.left + rect.width / 2
     const centerY = rect.top + rect.height / 2
@@ -244,11 +260,19 @@ export function useAnimatedLogo() {
   }
 
   // Watch avec RAF pour fluidité max (client-side only)
+  // + Watch sur le scroll pour recalculer la position
   if (import.meta.client) {
     watch([mouseX, mouseY], () => {
       if (mouseRAF) cancelAnimationFrame(mouseRAF)
       mouseRAF = requestAnimationFrame(updateEyeDirection)
     }, { immediate: true })
+  }
+
+  // Handler pour le scroll
+  function handleScroll() {
+    if (!isBlinking.value) {
+      updateEyeDirection()
+    }
   }
 
   // ===========================================================================
@@ -259,17 +283,30 @@ export function useAnimatedLogo() {
     const blockedStates: LogoState[] = ['sleeping', 'yawning']
     if (blockedStates.includes(currentState.value) || isBlinking.value) return
 
+    // ID unique pour ce clignement (évite les race conditions)
+    const currentBlinkId = ++blinkId
     isBlinking.value = true
     eyesBeforeBlink.value = currentEyes.value
 
-    // Fermer avec animation
+    // Watchdog de sécurité : reset isBlinking après 500ms max
+    clearTimer('blinkWatchdog')
+    timers.blinkWatchdog = setTimeout(() => {
+      if (isBlinking.value) {
+        isBlinking.value = false
+        updateEyeDirection()
+      }
+    }, 500)
+
+    // Fermer les yeux
     currentEyes.value = SPECIAL_EYES.closed
 
     // Rouvrir après un court délai
     await sleep(CONFIG.blink.duration)
 
-    if (isBlinking.value) {
+    // Vérifier que c'est toujours le même clignement
+    if (isBlinking.value && blinkId === currentBlinkId) {
       isBlinking.value = false
+      clearTimer('blinkWatchdog')
       // Forcer la mise à jour de la direction des yeux immédiatement
       updateEyeDirection()
     }
@@ -329,7 +366,8 @@ export function useAnimatedLogo() {
       if (!isUserIdle.value) return
       await yawn()
       setExpression({ eyes: SPECIAL_EYES.closed, mouth: MOUTHS.smallSmile }, 'sleeping')
-    } else if (!idle && currentState.value === 'sleeping') {
+    }
+    else if (!idle && currentState.value === 'sleeping') {
       await wakeUp()
     }
   })
@@ -401,13 +439,26 @@ export function useAnimatedLogo() {
   onMounted(() => {
     startBlinkLoop()
     window.addEventListener('keydown', handleKeydown)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('mouseenter', handleMouseEnter)
+
+    // Safety check : toutes les 200ms, vérifier si les yeux sont bloqués sur "-"
+    timers.eyesSafetyCheck = setInterval(() => {
+      if (currentEyes.value === SPECIAL_EYES.closed && !isBlinking.value) {
+        const blockedStates: LogoState[] = ['sleeping', 'yawning']
+        if (!blockedStates.includes(currentState.value)) {
+          // Forcer la mise à jour
+          updateEyeDirection()
+        }
+      }
+    }, 200)
   })
 
   onUnmounted(() => {
     clearAllTimers()
     window.removeEventListener('keydown', handleKeydown)
+    window.removeEventListener('scroll', handleScroll)
     document.removeEventListener('mouseleave', handleMouseLeave)
     document.removeEventListener('mouseenter', handleMouseEnter)
     // Cleanup anime.js

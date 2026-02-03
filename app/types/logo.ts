@@ -7,24 +7,24 @@
 // =============================================================================
 
 /** États possibles du logo */
-export type LogoState =
-  | 'idle'
-  | 'typing'
-  | 'sleeping'
-  | 'yawning'
-  | 'mouseOut'
+export type LogoState
+  = | 'idle'
+    | 'typing'
+    | 'sleeping'
+    | 'yawning'
+    | 'mouseOut'
 
 /** Directions des yeux (8 directions + centre) */
-export type EyeDirection =
-  | 'center'
-  | 'up'
-  | 'upRight'
-  | 'right'
-  | 'downRight'
-  | 'down'
-  | 'downLeft'
-  | 'left'
-  | 'upLeft'
+export type EyeDirection
+  = | 'center'
+    | 'up'
+    | 'upRight'
+    | 'right'
+    | 'downRight'
+    | 'down'
+    | 'downLeft'
+    | 'left'
+    | 'upLeft'
 
 /** Période de la journée */
 export type TimeOfDay = 'morning' | 'day' | 'evening' | 'night'
