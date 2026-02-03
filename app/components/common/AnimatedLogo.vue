@@ -3,13 +3,21 @@
     <Tooltip v-model:open="isTooltipOpen">
       <TooltipTrigger as-child>
         <span
-          ref="logoRef"
-          class="logo relative inline-block cursor-pointer select-none font-mono whitespace-nowrap"
+          class="logo relative inline-flex items-center cursor-pointer select-none"
           @click="handleClick"
         >
-          <span class="logo__head text-primary font-bold rotate-90">{</span><!--
-          --><span ref="eyesRef" class="logo__eyes">{{ currentEyes }}</span><!--
-          --><span ref="mouthRef" class="logo__mouth text-primary font-bold">{{ currentMouth }}</span>
+          <!-- SVG animé côté client uniquement -->
+          <ClientOnly>
+            <AnimatedLogoSVG ref="logoSVGRef" :size="size" />
+
+            <!-- Fallback texte pour SSR -->
+            <template #fallback>
+              <span class="logo-fallback font-mono whitespace-nowrap">
+                <span class="text-primary font-bold">{</span><!--
+                -->:<span class="text-primary font-bold">}</span>
+              </span>
+            </template>
+          </ClientOnly>
         </span>
       </TooltipTrigger>
       <TooltipContent side="right" :side-offset="8">
@@ -20,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAnimatedLogo } from '~/composables/useAnimatedLogo'
+import { ref } from 'vue'
 import { useLogoTooltip } from '~/composables/useLogoTooltip'
 import {
   Tooltip,
@@ -28,14 +36,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '~/components/ui/tooltip'
+import AnimatedLogoSVG from '~/components/common/AnimatedLogoSVG.vue'
 
-const { currentEyes, currentMouth, handleLogoClick, animations } = useAnimatedLogo()
+withDefaults(defineProps<{
+  size?: number
+}>(), {
+  size: 34,
+})
+
+const logoSVGRef = ref<InstanceType<typeof AnimatedLogoSVG> | null>(null)
 const { currentMessage, isTooltipOpen, triggerClickMessage } = useLogoTooltip()
 
 function handleClick() {
-  handleLogoClick()
   triggerClickMessage()
-  animations.shake()
+  logoSVGRef.value?.animations.shake()
 }
 </script>
 
@@ -45,23 +59,7 @@ function handleClick() {
   line-height: 1;
 }
 
-.logo__eyes {
-  display: inline-block;
-  width: 2ch;
-  text-align: center;
-  transition: transform 75ms ease-out;
-}
-
-.logo__mouth {
-  transition: transform 150ms ease-out;
-}
-
-.logo:hover .logo__head {
-  color: hsl(var(--primary) / 0.8);
-}
-
-.logo:active .logo__eyes,
-.logo:active .logo__mouth {
-  transform: scale(0.95);
+.logo-fallback {
+  font-size: inherit;
 }
 </style>
