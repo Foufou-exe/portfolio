@@ -41,7 +41,7 @@ import AnimatedLogoSVG from '~/components/common/AnimatedLogoSVG.vue'
 withDefaults(defineProps<{
   size?: number
 }>(), {
-  size: 34,
+  size: 40,
 })
 
 const logoSVGRef = ref<InstanceType<typeof AnimatedLogoSVG> | null>(null)

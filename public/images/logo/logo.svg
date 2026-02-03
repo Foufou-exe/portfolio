@@ -22,7 +22,7 @@
     cx="38"
     cy="50"
     r="6"
-    fill="currentColor"
+    fill="white"
   />
   
   <!-- Œil droit -->
@@ -31,7 +31,7 @@
     cx="62"
     cy="50"
     r="6"
-    fill="currentColor"
+    fill="white"
   />
   
   <!-- Bas du visage } tourné 90° (bouche) -->

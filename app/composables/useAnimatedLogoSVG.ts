@@ -16,9 +16,9 @@ export function useAnimatedLogoSVG() {
 
   const CONFIG = {
     // Déplacement max des yeux en pixels (relatif au viewBox 100x100)
-    eyeMovementRange: 3,
+    eyeMovementRange: 10,
     // Seuil de distance pour commencer à bouger les yeux
-    mouseFollowThreshold: 20,
+    mouseFollowThreshold: 10,
     // Clignement
     blink: {
       duration: 100, // ms
