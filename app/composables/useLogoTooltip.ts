@@ -1,9 +1,4 @@
 import { ref, onMounted, onUnmounted } from 'vue'
-import {
-  type SpeechTrigger,
-  CONFIG,
-  SPEECH_MESSAGES,
-} from '~/types/logo'
 
 /**
  * Composable pour gérer le tooltip du logo avec messages aléatoires
@@ -11,11 +6,31 @@ import {
  * Features:
  * - Message de bienvenue au chargement
  * - Messages aléatoires au clic
- * - Messages contextuels selon l'heure
- * - Cooldown entre les messages
  */
 export function useLogoTooltip() {
   const { t } = useI18n()
+
+  // ===========================================================================
+  // CONFIG
+  // ===========================================================================
+
+  const CONFIG = {
+    loadDelay: 1500, // Délai avant le message de bienvenue
+    defaultDuration: 3000, // Durée d'affichage par défaut
+  }
+
+  const MESSAGES = {
+    load: [
+      'logo.speech.load.greeting',
+      'logo.speech.load.welcome',
+      'logo.speech.load.hey',
+    ],
+    click: [
+      'logo.speech.click.ouch',
+      'logo.speech.click.hey',
+      'logo.speech.click.tickles',
+    ],
+  }
 
   // ===========================================================================
   // STATE
@@ -38,17 +53,15 @@ export function useLogoTooltip() {
 
   function canShowMessage(): boolean {
     const now = Date.now()
-    // Cooldown plus court pour le tooltip (2 secondes)
     return now - lastMessageTime.value > 2000
   }
 
-  function showMessage(messageKey: string, duration: number = CONFIG.speech.defaultDuration) {
+  function showMessage(messageKey: string, duration: number = CONFIG.defaultDuration) {
     if (!canShowMessage() && isTooltipOpen.value) return
 
     const message = t(messageKey)
     if (!message || message === messageKey) return
 
-    // Clear previous timeout
     if (hideTimeout) {
       clearTimeout(hideTimeout)
       hideTimeout = null
@@ -58,41 +71,36 @@ export function useLogoTooltip() {
     isTooltipOpen.value = true
     lastMessageTime.value = Date.now()
 
-    // Auto-hide after duration
     hideTimeout = setTimeout(() => {
       isTooltipOpen.value = false
     }, duration)
   }
 
-  function showRandomMessage(trigger: SpeechTrigger, duration?: number) {
-    const messages = SPEECH_MESSAGES[trigger]
+  function showRandomMessage(trigger: 'load' | 'click', duration?: number) {
+    const messages = MESSAGES[trigger]
     if (!messages.length) return
 
     const key = pickRandom(messages)
-    if (key) showMessage(key, duration ?? CONFIG.speech.defaultDuration)
+    if (key) showMessage(key, duration ?? CONFIG.defaultDuration)
   }
 
   // ===========================================================================
   // TRIGGERS
   // ===========================================================================
 
-  // Au chargement - message de bienvenue
   function triggerLoadMessage() {
     loadTimeout = setTimeout(() => {
       showRandomMessage('load', 4000)
-    }, CONFIG.speech.loadDelay)
+    }, CONFIG.loadDelay)
   }
 
-  // Au clic - messages rigolos
   function triggerClickMessage() {
-    // Force le message même si déjà ouvert
     if (hideTimeout) {
       clearTimeout(hideTimeout)
       hideTimeout = null
     }
     isTooltipOpen.value = false
 
-    // Petit délai pour réouvrir
     setTimeout(() => {
       showRandomMessage('click', 2500)
     }, 100)
@@ -116,11 +124,8 @@ export function useLogoTooltip() {
   // ===========================================================================
 
   return {
-    // State
     currentMessage,
     isTooltipOpen,
-
-    // Actions
     showMessage,
     triggerClickMessage,
     showRandomMessage,

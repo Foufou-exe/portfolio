@@ -47,9 +47,17 @@ withDefaults(defineProps<{
 const logoSVGRef = ref<InstanceType<typeof AnimatedLogoSVG> | null>(null)
 const { currentMessage, isTooltipOpen, triggerClickMessage } = useLogoTooltip()
 
+// Animations aléatoires au clic
+const clickAnimations = ['squash', 'shake', 'bounce', 'wobble', 'wink', 'surprised'] as const
+
 function handleClick() {
   triggerClickMessage()
-  logoSVGRef.value?.animations.shake()
+  // Animation aléatoire
+  const randomAnim = clickAnimations[Math.floor(Math.random() * clickAnimations.length)]
+  const animations = logoSVGRef.value?.animations
+  if (animations && randomAnim in animations) {
+    (animations as Record<string, () => void>)[randomAnim]()
+  }
 }
 </script>
 
