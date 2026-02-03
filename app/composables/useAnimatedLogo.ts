@@ -1,5 +1,7 @@
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import { useMouse, useIdle } from '@vueuse/core'
+import { animate } from 'animejs'
+import type { JSAnimation } from 'animejs'
 import {
   type LogoState,
   type LogoExpression,
@@ -13,15 +15,16 @@ import {
 } from '~/types/logo'
 
 /**
- * Composable pour gérer l'animation du logo {:]
+ * Composable pour gérer l'animation du logo {:}
  *
  * Features:
- * - Suivi souris 360°
+ * - Suivi souris 360° avec Anime.js
  * - Clignement naturel
  * - Inactivité/Dodo avec bâillement
  * - Expression selon l'heure
  * - Triste quand souris quitte
  * - Réaction au typing
+ * - Animations fluides avec Anime.js
  */
 export function useAnimatedLogo() {
   // ===========================================================================
@@ -29,6 +32,8 @@ export function useAnimatedLogo() {
   // ===========================================================================
 
   const logoRef = ref<HTMLElement | null>(null)
+  const eyesRef = ref<HTMLElement | null>(null)
+  const mouthRef = ref<HTMLElement | null>(null)
   const currentState = ref<LogoState>('idle')
 
   // Expression par défaut selon l'heure
@@ -73,8 +78,116 @@ export function useAnimatedLogo() {
   // COMPOSABLES VUEUSE
   // ===========================================================================
 
-  const { x: mouseX, y: mouseY } = useMouse()
+  // Utiliser 'client' pour avoir les coordonnées relatives au viewport (pas affectées par le scroll)
+  const { x: mouseX, y: mouseY } = useMouse({ type: 'client' })
   const { idle: isUserIdle } = useIdle(CONFIG.idleTimeout)
+
+  // ===========================================================================
+  // ANIME.JS ANIMATIONS
+  // ===========================================================================
+
+  // Store active animations for cleanup
+  let sleepyAnimation: JSAnimation | null = null
+
+  function animateBounce() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      scale: [1, 1.15, 1],
+      duration: 300,
+      ease: 'outElastic(1, .5)',
+    })
+  }
+
+  function animateShake() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      translateX: [0, -3, 3, -3, 3, 0],
+      duration: 400,
+      ease: 'inOutSine',
+    })
+  }
+
+  function animateWobble() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      rotate: [0, -5, 5, -3, 3, 0],
+      duration: 500,
+      ease: 'outElastic(1, .6)',
+    })
+  }
+
+  function animatePulse() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      scale: [1, 1.05, 1],
+      duration: 600,
+      ease: 'inOutSine',
+    })
+  }
+
+  function animateSleepy() {
+    if (!logoRef.value) return
+    sleepyAnimation = animate(logoRef.value, {
+      translateY: [0, 2, 0],
+      duration: 2000,
+      ease: 'inOutSine',
+      loop: true,
+    })
+  }
+
+  function stopSleepyAnimation() {
+    if (!logoRef.value) return
+    if (sleepyAnimation) {
+      sleepyAnimation.pause()
+      sleepyAnimation = null
+    }
+    animate(logoRef.value, {
+      translateY: 0,
+      duration: 200,
+      ease: 'outSine',
+    })
+  }
+
+  function animateWakeUp() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      scale: [0.95, 1.1, 1],
+      translateY: [2, -3, 0],
+      duration: 400,
+      ease: 'outElastic(1, .5)',
+    })
+  }
+
+  function animateHappy() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      scale: [1, 1.1, 1],
+      rotate: [0, 3, -3, 0],
+      duration: 500,
+      ease: 'outElastic(1, .6)',
+    })
+  }
+
+  function animateSad() {
+    if (!logoRef.value) return
+    animate(logoRef.value, {
+      scale: [1, 0.95],
+      translateY: [0, 2],
+      duration: 300,
+      ease: 'outSine',
+    })
+  }
+
+  function animateClick() {
+    if (!logoRef.value) return
+    // Effet de squash & stretch au clic
+    animate(logoRef.value, {
+      scaleX: [1, 1.2, 0.9, 1],
+      scaleY: [1, 0.8, 1.1, 1],
+      duration: 300,
+      ease: 'outElastic(1, .5)',
+    })
+  }
 
   // ===========================================================================
   // HELPERS
@@ -139,7 +252,7 @@ export function useAnimatedLogo() {
   }
 
   // ===========================================================================
-  // CLIGNEMENT
+  // CLIGNEMENT avec Anime.js
   // ===========================================================================
 
   async function blink() {
@@ -149,10 +262,10 @@ export function useAnimatedLogo() {
     isBlinking.value = true
     eyesBeforeBlink.value = currentEyes.value
 
-    // Fermer
+    // Fermer avec animation
     currentEyes.value = SPECIAL_EYES.closed
 
-    // Rouvrir
+    // Rouvrir après un court délai
     await sleep(CONFIG.blink.duration)
 
     if (isBlinking.value) {
@@ -176,7 +289,7 @@ export function useAnimatedLogo() {
   }
 
   // ===========================================================================
-  // BÂILLEMENT & SOMMEIL
+  // BÂILLEMENT & SOMMEIL avec Anime.js
   // ===========================================================================
 
   async function yawn() {
@@ -188,6 +301,7 @@ export function useAnimatedLogo() {
 
     // Phase 2: pic du bâillement
     setExpression({ mouth: MOUTHS.surprised })
+    animatePulse()
     await sleep(CONFIG.animation.yawnPeak)
 
     // Phase 3: fin
@@ -195,12 +309,15 @@ export function useAnimatedLogo() {
     await sleep(CONFIG.animation.yawnEnd)
 
     currentState.value = 'sleeping'
+    animateSleepy()
   }
 
   async function wakeUp() {
+    stopSleepyAnimation()
     setExpression({ eyes: SPECIAL_EYES.closed, mouth: defaultExpression.mouth }, 'idle')
     await sleep(CONFIG.animation.wakeUp)
     setExpression({ eyes: SPECIAL_EYES.wide, mouth: MOUTHS.bigSmile })
+    animateWakeUp()
     await sleep(CONFIG.animation.wakeUp * 2)
     resetToDefault()
   }
@@ -228,6 +345,7 @@ export function useAnimatedLogo() {
     timers.mouseOut = setTimeout(() => {
       if (!isMouseInWindow.value && currentState.value !== 'sleeping') {
         setExpression({ eyes: SPECIAL_EYES.sad, mouth: MOUTHS.sad }, 'mouseOut')
+        animateSad()
       }
     }, CONFIG.animation.mouseOutDelay)
   }
@@ -239,6 +357,7 @@ export function useAnimatedLogo() {
     if (currentState.value === 'mouseOut') {
       // Content de revoir la souris
       setExpression({ eyes: SPECIAL_EYES.wide, mouth: MOUTHS.bigSmile }, 'idle')
+      animateHappy()
       setTimeout(resetToDefault, CONFIG.animation.happyAfterReturn)
     }
   }
@@ -268,6 +387,14 @@ export function useAnimatedLogo() {
   }
 
   // ===========================================================================
+  // CLICK HANDLER
+  // ===========================================================================
+
+  function handleLogoClick() {
+    animateClick()
+  }
+
+  // ===========================================================================
   // LIFECYCLE
   // ===========================================================================
 
@@ -283,6 +410,11 @@ export function useAnimatedLogo() {
     window.removeEventListener('keydown', handleKeydown)
     document.removeEventListener('mouseleave', handleMouseLeave)
     document.removeEventListener('mouseenter', handleMouseEnter)
+    // Cleanup anime.js
+    if (sleepyAnimation) {
+      sleepyAnimation.pause()
+      sleepyAnimation = null
+    }
   })
 
   // ===========================================================================
@@ -292,10 +424,25 @@ export function useAnimatedLogo() {
   return {
     // Refs pour le template
     logoRef,
+    eyesRef,
+    mouthRef,
     currentEyes: computed(() => currentEyes.value),
     currentMouth: computed(() => currentMouth.value),
 
     // État (pour debug si besoin)
     currentState: computed(() => currentState.value),
+
+    // Actions
+    handleLogoClick,
+
+    // Animations exposées pour usage externe
+    animations: {
+      bounce: animateBounce,
+      shake: animateShake,
+      wobble: animateWobble,
+      pulse: animatePulse,
+      happy: animateHappy,
+      click: animateClick,
+    },
   }
 }

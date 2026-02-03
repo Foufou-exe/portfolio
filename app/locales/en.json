@@ -11,6 +11,32 @@
     "navigation": "Navigation",
     "switchLanguage": "Passer en Francais"
   },
+  "logo": {
+    "speech": {
+      "load": {
+        "greeting": "Hi there!",
+        "welcome": "Welcome!",
+        "hey": "Hey, over here!"
+      },
+      "idle": {
+        "stillThere": "Still there?",
+        "bored": "I'm bored...",
+        "sleepy": "Zzz..."
+      },
+      "click": {
+        "ouch": "Ouch!",
+        "hey": "Hey!",
+        "tickles": "That tickles!"
+      },
+      "section": {
+        "hero": "That's me!",
+        "about": "My story",
+        "experience": "My journey",
+        "projects": "My creations",
+        "contact": "Write to me!"
+      }
+    }
+  },
   "hero": {
     "greeting": "Hi, I'm",
     "available": "Available for opportunities",

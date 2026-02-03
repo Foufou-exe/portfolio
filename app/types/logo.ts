@@ -35,6 +35,21 @@ export interface LogoExpression {
   mouth: string
 }
 
+/** Contexte de déclenchement des dialogues */
+export type SpeechTrigger = 'load' | 'idle' | 'click' | 'scroll'
+
+/** Section du portfolio */
+export type PortfolioSection = 'hero' | 'about' | 'experience' | 'projects' | 'contact'
+
+/** Message de dialogue */
+export interface SpeechMessage {
+  key: string // Clé i18n (ex: 'logo.speech.greeting')
+  trigger: SpeechTrigger
+  section?: PortfolioSection // Pour les messages liés au scroll
+  expression?: Partial<LogoExpression> // Expression pendant le message
+  duration?: number // Durée d'affichage (ms)
+}
+
 // =============================================================================
 // CONSTANTES - EXPRESSIONS
 // =============================================================================
@@ -98,7 +113,50 @@ export const CONFIG = {
 
   /** Seuil de distance pour le suivi souris (px) */
   mouseFollowThreshold: 30,
+
+  /** Configuration des bulles de dialogue */
+  speech: {
+    /** Délai avant le premier message au chargement (ms) */
+    loadDelay: 1500,
+    /** Durée d'affichage par défaut (ms) */
+    defaultDuration: 3000,
+    /** Délai minimum entre deux messages (ms) */
+    cooldown: 10000,
+    /** Délai avant message d'inactivité (ms) */
+    idleDelay: 20000,
+    /** Animation */
+    animationDuration: 300,
+  },
 } as const
+
+/** Messages de dialogue par défaut (clés i18n) */
+export const SPEECH_MESSAGES: Record<SpeechTrigger, string[]> = {
+  load: [
+    'logo.speech.load.greeting',
+    'logo.speech.load.welcome',
+    'logo.speech.load.hey',
+  ],
+  idle: [
+    'logo.speech.idle.stillThere',
+    'logo.speech.idle.bored',
+    'logo.speech.idle.sleepy',
+  ],
+  click: [
+    'logo.speech.click.ouch',
+    'logo.speech.click.hey',
+    'logo.speech.click.tickles',
+  ],
+  scroll: [], // Les messages de scroll sont définis par section
+}
+
+/** Messages par section (clés i18n) */
+export const SECTION_MESSAGES: Record<PortfolioSection, string> = {
+  hero: 'logo.speech.section.hero',
+  about: 'logo.speech.section.about',
+  experience: 'logo.speech.section.experience',
+  projects: 'logo.speech.section.projects',
+  contact: 'logo.speech.section.contact',
+}
 
 // =============================================================================
 // HELPERS

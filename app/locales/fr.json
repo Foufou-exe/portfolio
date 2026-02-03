@@ -11,6 +11,32 @@
     "navigation": "Navigation",
     "switchLanguage": "Switch to English"
   },
+  "logo": {
+    "speech": {
+      "load": {
+        "greeting": "Salut !",
+        "welcome": "Bienvenue !",
+        "hey": "Hey, par ici !"
+      },
+      "idle": {
+        "stillThere": "Tu es encore la ?",
+        "bored": "Je m'ennuie...",
+        "sleepy": "Zzz..."
+      },
+      "click": {
+        "ouch": "Aie !",
+        "hey": "Hey !",
+        "tickles": "Ca chatouille !"
+      },
+      "section": {
+        "hero": "C'est moi !",
+        "about": "Mon histoire",
+        "experience": "Mon parcours",
+        "projects": "Mes creations",
+        "contact": "Ecris-moi !"
+      }
+    }
+  },
   "hero": {
     "greeting": "Bonjour, je suis",
     "available": "Disponible pour des opportunites",

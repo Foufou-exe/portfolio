@@ -1,18 +1,42 @@
 <template>
-  <span
-    ref="logoRef"
-    class="logo inline-block cursor-pointer select-none font-mono whitespace-nowrap"
-  >
-    <span class="logo__head text-primary font-bold">{</span><!--
-    --><span class="logo__eyes">{{ currentEyes }}</span><!--
-    --><span class="logo__mouth text-primary font-bold">{{ currentMouth }}</span>
-  </span>
+  <TooltipProvider :delay-duration="0">
+    <Tooltip v-model:open="isTooltipOpen">
+      <TooltipTrigger as-child>
+        <span
+          ref="logoRef"
+          class="logo relative inline-block cursor-pointer select-none font-mono whitespace-nowrap"
+          @click="handleClick"
+        >
+          <span class="logo__head text-primary font-bold rotate-90">{</span><!--
+          --><span ref="eyesRef" class="logo__eyes">{{ currentEyes }}</span><!--
+          --><span ref="mouthRef" class="logo__mouth text-primary font-bold">{{ currentMouth }}</span>
+        </span>
+      </TooltipTrigger>
+      <TooltipContent side="right" :side-offset="8">
+        {{ currentMessage }}
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 </template>
 
 <script lang="ts" setup>
 import { useAnimatedLogo } from '~/composables/useAnimatedLogo'
+import { useLogoTooltip } from '~/composables/useLogoTooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '~/components/ui/tooltip'
 
-const { logoRef, currentEyes, currentMouth } = useAnimatedLogo()
+const { currentEyes, currentMouth, handleLogoClick, animations } = useAnimatedLogo()
+const { currentMessage, isTooltipOpen, triggerClickMessage } = useLogoTooltip()
+
+function handleClick() {
+  handleLogoClick()
+  triggerClickMessage()
+  animations.shake()
+}
 </script>
 
 <style scoped>
