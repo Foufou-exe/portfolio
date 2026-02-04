@@ -1,7 +1,7 @@
 name: Analyze with SonarQube
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop , dev]
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
