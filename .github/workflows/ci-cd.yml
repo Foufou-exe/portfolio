@@ -1,17 +1,21 @@
-name: CI
+name: CI/CD - Build, Test, and Deploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, develop]
   pull_request:
-    branches: [main, dev]
+    branches: [main]
+
+permissions:
+  contents: write
 
 jobs:
-  build-test-lint:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -31,3 +35,4 @@ jobs:
 
       - name: Build
         run: npm run build
+
