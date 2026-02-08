@@ -1,12 +1,21 @@
 <template>
   <div>
     <HeroSection />
-    <AboutSection />
-    <SkillsSection />
-    <ProjectsSection />
-    <ExperienceSection />
-    <EducationSection />
-    <ContactSection />
+
+    <!-- Lazy-loaded sections: rendered when approaching the viewport -->
+    <template v-for="section in lazySections" :key="section.id">
+      <div :ref="(el) => section.setSentinel(el as HTMLElement)" :id="section.shouldRender ? undefined : section.id">
+        <component
+          v-if="section.shouldRender"
+          :is="section.component"
+        />
+        <div
+          v-else
+          :class="section.placeholderClass"
+          aria-hidden="true"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -19,6 +28,28 @@ import ExperienceSection from '~/components/sections/ExperienceSection.vue'
 import EducationSection from '~/components/sections/EducationSection.vue'
 import ContactSection from '~/components/sections/ContactSection.vue'
 import { profile } from '~/data/portfolio'
+
+// Lazy-loading for below-fold sections
+const createLazySection = (id: string, component: Component, placeholderClass: string) => {
+  const { sentinelRef, shouldRender } = useLazySection(id)
+  return {
+    id,
+    component: markRaw(component),
+    placeholderClass,
+    sentinelRef,
+    shouldRender,
+    setSentinel: (el: HTMLElement | null) => { sentinelRef.value = el },
+  }
+}
+
+const lazySections = [
+  createLazySection('about', AboutSection, 'min-h-[600px]'),
+  createLazySection('skills', SkillsSection, 'min-h-[800px]'),
+  createLazySection('projects', ProjectsSection, 'min-h-[800px]'),
+  createLazySection('experience', ExperienceSection, 'min-h-[400px]'),
+  createLazySection('education', EducationSection, 'min-h-[400px]'),
+  createLazySection('contact', ContactSection, 'min-h-[500px]'),
+]
 
 const { locale } = useI18n()
 const config = useRuntimeConfig()
