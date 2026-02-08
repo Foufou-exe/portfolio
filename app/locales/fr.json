@@ -53,6 +53,12 @@
     "philosophy": "J'aime concevoir des architectures fiables, automatiser ce qui peut l'etre et partager ce que j'apprends. Je crois qu'un bon ingenieur est avant tout quelqu'un de curieux, rigoureux et pragmatique.",
     "degree": "Master Infrastructure & Cloud",
     "role": "Ingenieur Systemes en alternance",
+    "funFacts": {
+      "coffees": "Cafes bus",
+      "commits": "Commits",
+      "technologies": "Technologies",
+      "years": "Annees d'XP"
+    },
     "drives": {
       "title": "Ce qui me motive",
       "innovation": {

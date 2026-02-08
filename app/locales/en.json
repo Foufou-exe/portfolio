@@ -53,6 +53,12 @@
     "philosophy": "I enjoy designing reliable architectures, automating what can be automated and sharing what I learn. I believe a good engineer is above all curious, rigorous and pragmatic.",
     "degree": "Master's in Infrastructure & Cloud",
     "role": "Systems Engineer (apprenticeship)",
+    "funFacts": {
+      "coffees": "Coffees drunk",
+      "commits": "Commits",
+      "technologies": "Technologies",
+      "years": "Years of XP"
+    },
     "drives": {
       "title": "What drives me",
       "innovation": {
