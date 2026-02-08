@@ -11,6 +11,7 @@
     </NuxtLayout>
   </div>
   <SpeedInsights />
+  <Analytics />
 </template>
 
 <script lang="ts" setup>
@@ -19,4 +20,5 @@ import 'vue-sonner/style.css'
 import { Toaster } from '~/components/ui/sonner'
 // analytics component for Vercel Speed Insights
 import { SpeedInsights } from '@vercel/speed-insights/vue'
+import { Analytics } from '@vercel/analytics/nuxt'
 </script>
