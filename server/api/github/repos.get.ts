@@ -44,29 +44,9 @@ export interface GitHubRepo {
   createdAt: string
   isRecent: boolean // Push dans les 30 derniers jours
   imageUrl: string | null // Social preview ou image README
+  hasCustomImage: boolean // true si social preview personnalisée (pas le fallback GitHub)
   isPinned: boolean // Repo épinglé sur le profil
-}
-
-// Mapping des couleurs par langage (GitHub style)
-export const languageColors: Record<string, string> = {
-  'TypeScript': '#3178c6',
-  'JavaScript': '#f7df1e',
-  'Python': '#3776ab',
-  'Vue': '#42b883',
-  'Go': '#00add8',
-  'Rust': '#dea584',
-  'Java': '#007396',
-  'C#': '#512bd4',
-  'PHP': '#777bb4',
-  'Ruby': '#cc342d',
-  'Swift': '#fa7343',
-  'Kotlin': '#a97bff',
-  'Dart': '#0175c2',
-  'HTML': '#e34f26',
-  'CSS': '#563d7c',
-  'Shell': '#89e051',
-  'Dockerfile': '#384d54',
-  'SCSS': '#c6538c',
+  contributors: { login: string, avatarUrl: string }[] // Top 5 contributeurs
 }
 
 // Cache simple en mémoire pour éviter les appels répétés
@@ -172,15 +152,17 @@ export default defineEventHandler(async (_event) => {
     const now = new Date()
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-    // Récupérer les images social preview pour chaque repo (si token disponible)
+    // Récupérer les images social preview et contributeurs pour chaque repo
     const transformedRepos: GitHubRepo[] = await Promise.all(
       filteredRepos.slice(0, 10).map(async (repo) => {
         let imageUrl: string | null = null
+        let hasCustomImage = false
+        let contributors: { login: string, avatarUrl: string }[] = []
 
-        // Essayer de récupérer l'image social preview via l'API
         if (githubToken) {
-          try {
-            const detailsResponse = await fetch(
+          // Récupérer social preview et contributeurs en parallèle
+          const [detailsResult, contributorsResult] = await Promise.allSettled([
+            fetch(
               `https://api.github.com/repos/${repo.full_name}`,
               {
                 headers: {
@@ -188,14 +170,32 @@ export default defineEventHandler(async (_event) => {
                   Accept: 'application/vnd.github.v3+json',
                 },
               },
-            )
-            if (detailsResponse.ok) {
-              const details: GitHubRepoDetails = await detailsResponse.json()
-              imageUrl = details.open_graph_image_url || null
+            ).then(r => r.ok ? r.json() : null),
+            fetch(
+              `https://api.github.com/repos/${repo.full_name}/contributors?per_page=5`,
+              { headers },
+            ).then(r => r.ok ? r.json() : []),
+          ])
+
+          // Social preview
+          if (detailsResult.status === 'fulfilled' && detailsResult.value) {
+            const details = detailsResult.value as GitHubRepoDetails
+            const ogUrl = details.open_graph_image_url || null
+            if (ogUrl && !ogUrl.includes('opengraph.githubassets.com')) {
+              imageUrl = ogUrl
+              hasCustomImage = true
             }
           }
-          catch (e) {
-            console.warn(`Failed to fetch social preview for ${repo.name}:`, e)
+
+          // Contributors
+          if (contributorsResult.status === 'fulfilled' && Array.isArray(contributorsResult.value)) {
+            contributors = contributorsResult.value
+              .filter((c: { type?: string }) => c.type !== 'Bot')
+              .slice(0, 5)
+              .map((c: { login: string, avatar_url: string }) => ({
+                login: c.login,
+                avatarUrl: c.avatar_url,
+              }))
           }
         }
 
@@ -219,7 +219,9 @@ export default defineEventHandler(async (_event) => {
           createdAt: repo.created_at,
           isRecent: new Date(repo.pushed_at) > thirtyDaysAgo,
           imageUrl,
+          hasCustomImage,
           isPinned: pinnedRepoNames.includes(repo.name),
+          contributors,
         }
       }),
     )

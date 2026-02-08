@@ -13,14 +13,41 @@
 
     <!-- Card Content -->
     <div class="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-xl group-hover:shadow-primary/5">
-      <!-- Project Image (if available and large card) -->
-      <div v-if="repo.imageUrl && size === 'large'" class="relative h-32 overflow-hidden rounded-t-xl">
+      <!-- Project Image / Fallback Banner -->
+      <div
+        :class="[
+          'relative overflow-hidden rounded-t-xl',
+          size === 'large' ? 'h-36' : 'h-24',
+        ]"
+      >
+        <!-- Custom social preview image -->
         <NuxtImg
+          v-if="repo.hasCustomImage && repo.imageUrl"
           :src="repo.imageUrl"
           :alt="repo.name"
           class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
+        <!-- Gradient fallback banner -->
+        <div
+          v-else
+          class="flex h-full w-full items-center justify-center"
+          :style="{
+            background: `linear-gradient(135deg, ${languageColor}33 0%, ${languageColor}11 50%, ${languageColor}22 100%)`,
+          }"
+        >
+          <div class="flex items-center gap-3 px-4">
+            <span
+              class="h-8 w-8 rounded-lg flex items-center justify-center text-sm font-bold"
+              :style="{ backgroundColor: languageColor, color: '#fff' }"
+            >
+              {{ repo.language ? repo.language.charAt(0) : '#' }}
+            </span>
+            <span class="text-sm font-semibold text-foreground/70 truncate max-w-[200px]">
+              {{ formatRepoName(repo.name) }}
+            </span>
+          </div>
+        </div>
         <div class="absolute inset-0 bg-gradient-to-t from-card/90 to-transparent"></div>
 
         <!-- Badges overlay -->
@@ -45,14 +72,7 @@
         </div>
       </div>
 
-      <!-- Header with Language Color Bar (for non-large cards or cards without image) -->
-      <div
-        v-if="!repo.imageUrl || size !== 'large'"
-        class="h-1.5 rounded-t-xl transition-all duration-300 group-hover:h-2"
-        :style="{ backgroundColor: languageColor }"
-      ></div>
-
-      <div :class="['flex flex-col p-5', repo.imageUrl && size === 'large' ? 'h-[calc(100%-128px)]' : 'h-[calc(100%-6px)]']">
+      <div :class="['flex flex-col p-5', size === 'large' ? 'h-[calc(100%-144px)]' : 'h-[calc(100%-96px)]']">
         <!-- Top Row: Title + Badges -->
         <div class="mb-3 flex items-start justify-between gap-3">
           <div class="flex-1 min-w-0">
@@ -60,28 +80,8 @@
               {{ formatRepoName(repo.name) }}
             </h3>
             <div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-              <span v-if="repo.language && (!repo.imageUrl || size !== 'large')" class="flex items-center gap-1">
-                <span
-                  class="h-2.5 w-2.5 rounded-full"
-                  :style="{ backgroundColor: languageColor }"
-                ></span>
-                {{ repo.language }}
-              </span>
-              <span v-if="repo.language && (!repo.imageUrl || size !== 'large')" class="text-border">|</span>
               <span>{{ formatDate(repo.pushedAt) }}</span>
             </div>
-          </div>
-
-          <!-- Badges (for non-large cards) -->
-          <div v-if="!repo.imageUrl || size !== 'large'" class="flex flex-shrink-0 items-center gap-2">
-            <Badge v-if="repo.isPinned" variant="secondary" class="bg-primary/90 text-primary-foreground text-xs">
-              <Pin class="mr-1 h-3 w-3" />
-              {{ $t('projects.pinnedBadge') }}
-            </Badge>
-            <Badge v-else-if="repo.isRecent" variant="default" class="bg-green-500/90 text-xs">
-              <Zap class="mr-1 h-3 w-3" />
-              {{ $t('projects.recentBadge') }}
-            </Badge>
           </div>
         </div>
 
@@ -116,9 +116,9 @@
           </div>
         </div>
 
-        <!-- Footer: Stats + Actions -->
+        <!-- Footer: Stats + Contributors + Actions -->
         <div class="mt-4 flex items-center justify-between border-t border-border/50 pt-4">
-          <!-- Stats -->
+          <!-- Stats + Contributors -->
           <div class="flex items-center gap-4 text-sm text-muted-foreground">
             <TooltipProvider>
               <Tooltip>
@@ -143,6 +143,29 @@
                 <TooltipContent>{{ $t('projects.forks') }}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
+
+            <!-- Contributors Avatars -->
+            <div v-if="repo.contributors && repo.contributors.length > 0" class="flex items-center -space-x-2">
+              <TooltipProvider v-for="contributor in repo.contributors.slice(0, 4)" :key="contributor.login">
+                <Tooltip>
+                  <TooltipTrigger as-child>
+                    <img
+                      :src="`${contributor.avatarUrl}&s=32`"
+                      :alt="contributor.login"
+                      class="h-6 w-6 rounded-full border-2 border-card ring-0 transition-transform hover:z-10 hover:scale-110"
+                      loading="lazy"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>{{ contributor.login }}</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <span
+                v-if="repo.contributors.length > 4"
+                class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-card bg-muted text-[10px] font-medium"
+              >
+                +{{ repo.contributors.length - 4 }}
+              </span>
+            </div>
           </div>
 
           <!-- Action Buttons -->
@@ -224,6 +247,8 @@ import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import type { GitHubRepo } from '~/data/portfolio'
+import { getLanguageColor } from '~/utils/languageColors'
+import { formatRepoName, formatRelativeDate } from '~/utils/formatters'
 
 const props = defineProps<{
   repo: GitHubRepo
@@ -236,33 +261,8 @@ defineEmits<{
   openDetails: [repo: GitHubRepo]
 }>()
 
-// Mapping des couleurs par langage (GitHub style)
-const languageColors: Record<string, string> = {
-  'TypeScript': '#3178c6',
-  'JavaScript': '#f7df1e',
-  'Python': '#3776ab',
-  'Vue': '#42b883',
-  'Go': '#00add8',
-  'Rust': '#dea584',
-  'Java': '#007396',
-  'C#': '#512bd4',
-  'C++': '#00599c',
-  'PHP': '#777bb4',
-  'Ruby': '#cc342d',
-  'Swift': '#fa7343',
-  'Kotlin': '#a97bff',
-  'Dart': '#0175c2',
-  'HTML': '#e34f26',
-  'CSS': '#563d7c',
-  'Shell': '#89e051',
-  'Dockerfile': '#384d54',
-  'SCSS': '#c6538c',
-  'Makefile': '#427819',
-  'HCL': '#844fba',
-}
-
 const languageColor = computed(() =>
-  props.repo.language ? (languageColors[props.repo.language] || '#6b7280') : '#6b7280',
+  props.repo.language ? getLanguageColor(props.repo.language) : '#6b7280',
 )
 
 // Classes de taille pour le Bento Grid
@@ -271,7 +271,6 @@ const sizeClasses = computed(() => {
     case 'large':
       return 'md:col-span-2 md:row-span-1'
     case 'medium':
-      return 'col-span-1 row-span-1'
     case 'small':
       return 'col-span-1 row-span-1'
     default:
@@ -279,44 +278,18 @@ const sizeClasses = computed(() => {
   }
 })
 
-// Nombre de topics à afficher selon la taille
+// Nombre de topics a afficher selon la taille
 const maxTopics = computed(() => props.size === 'large' ? 6 : 3)
 
 const displayedTopics = computed(() =>
   props.repo.topics.slice(0, maxTopics.value),
 )
 
-// Formatter le nom du repo (remplacer - et _ par des espaces, capitaliser)
-const formatRepoName = (name: string): string => {
-  return name
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, l => l.toUpperCase())
-}
-
 // Formatter la date relative avec i18n
 const { locale } = useI18n()
 
 const formatDate = (dateString: string): string => {
-  const date = new Date(dateString)
-  const now = new Date()
-  const diffTime = Math.abs(now.getTime() - date.getTime())
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-  const isFr = locale.value === 'fr'
-
-  if (diffDays < 1) return isFr ? 'Aujourd\'hui' : 'Today'
-  if (diffDays === 1) return isFr ? 'Hier' : 'Yesterday'
-  if (diffDays < 7) return isFr ? `Il y a ${diffDays} jours` : `${diffDays} days ago`
-  if (diffDays < 30) {
-    const weeks = Math.floor(diffDays / 7)
-    return isFr ? `Il y a ${weeks} semaine${weeks > 1 ? 's' : ''}` : `${weeks} week${weeks > 1 ? 's' : ''} ago`
-  }
-  if (diffDays < 365) {
-    const months = Math.floor(diffDays / 30)
-    return isFr ? `Il y a ${months} mois` : `${months} month${months > 1 ? 's' : ''} ago`
-  }
-  const years = Math.floor(diffDays / 365)
-  return isFr ? `Il y a ${years} an${years > 1 ? 's' : ''}` : `${years} year${years > 1 ? 's' : ''} ago`
+  return formatRelativeDate(dateString, locale.value)
 }
 </script>
 

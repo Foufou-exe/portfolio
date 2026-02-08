@@ -28,13 +28,14 @@
       ref="elementRef"
       class="container relative z-10 mx-auto px-4 py-20 text-center"
     >
-      <!-- Avatar with glow -->
+      <!-- Avatar with rotating glow + float -->
       <div
         class="mb-8 flex justify-center opacity-0"
         :class="{ 'animate-slide-up': isVisible }"
       >
-        <div class="relative">
-          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 opacity-75 blur-md"></div>
+        <div class="avatar-float relative">
+          <!-- Rotating gradient glow -->
+          <div class="avatar-glow absolute -inset-2 rounded-full opacity-75 blur-md"></div>
           <Avatar class="relative h-32 w-32 border-4 border-background shadow-2xl ring-2 ring-primary/30">
             <AvatarImage :src="profile.avatar" :alt="profile.name" />
             <AvatarFallback class="text-3xl font-bold">
@@ -154,33 +155,54 @@ import { profile } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { elementRef, isVisible } = useElementAnimation({ threshold: 0.1 })
+const { scrollToSection } = useScrollToSection()
 
-function scrollToSection(selector: string) {
-  const element = document.querySelector(selector)
-  if (element) {
-    const offset = 80
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - offset
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
-  }
-}
-
-function scrollToProjects() {
-  scrollToSection('#projects')
-}
-
-function scrollToContact() {
-  scrollToSection('#contact')
-}
-
-function scrollToAbout() {
-  scrollToSection('#about')
-}
+const scrollToProjects = () => scrollToSection('#projects')
+const scrollToContact = () => scrollToSection('#contact')
+const scrollToAbout = () => scrollToSection('#about')
 </script>
 
 <style scoped>
 @keyframes float {
   0%, 100% { transform: translateY(0px) scale(1); }
   50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* Avatar floating animation */
+.avatar-float {
+  animation: avatar-float 4s ease-in-out infinite;
+}
+
+@keyframes avatar-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+/* Rotating gradient glow */
+.avatar-glow {
+  background: conic-gradient(
+    from var(--glow-angle, 0deg),
+    oklch(0.65 0.25 285),
+    oklch(0.6 0.2 320),
+    oklch(0.65 0.2 350),
+    oklch(0.65 0.25 285)
+  );
+  animation: rotate-glow 4s linear infinite;
+}
+
+@keyframes rotate-glow {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 </style>

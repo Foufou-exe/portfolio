@@ -107,7 +107,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Menu, Moon, Sun } from 'lucide-vue-next'
 import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
@@ -122,20 +121,13 @@ import {
 import SocialLinks from '~/components/common/SocialLinks.vue'
 import AnimatedLogo from '~/components/common/AnimatedLogo.vue'
 
-const { t, locale, setLocale } = useI18n()
+const { locale, setLocale } = useI18n()
 const colorMode = useColorMode()
 const isScrolled = ref(false)
 const isMenuOpen = ref(false)
 
-// Navigation links with i18n
-const translatedNavLinks = computed(() => [
-  { name: t('nav.about'), href: '#about' },
-  { name: t('nav.skills'), href: '#skills' },
-  { name: t('nav.projects'), href: '#projects' },
-  { name: t('nav.experience'), href: '#experience' },
-  { name: t('nav.education'), href: '#education' },
-  { name: t('nav.contact'), href: '#contact' },
-])
+const { translatedNavLinks } = useNavLinks()
+const { scrollToSection, scrollToTop } = useScrollToSection()
 
 function toggleColorMode() {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
@@ -143,24 +135,6 @@ function toggleColorMode() {
 
 function toggleLocale() {
   setLocale(locale.value === 'fr' ? 'en' : 'fr')
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-function scrollToSection(href: string) {
-  const element = document.querySelector(href)
-  if (element) {
-    const offset = 80 // Header height
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - offset
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth',
-    })
-  }
 }
 
 function handleMobileNavClick(href: string) {

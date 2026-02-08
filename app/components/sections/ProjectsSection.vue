@@ -19,10 +19,10 @@
             <Button
               v-for="lang in availableLanguages"
               :key="lang"
-              :variant="selectedLanguage === lang ? 'default' : 'outline'"
+              :variant="lang === 'all' ? (!selectedLanguage ? 'default' : 'outline') : (selectedLanguage === lang ? 'default' : 'outline')"
               size="sm"
               class="shrink-0 transition-all"
-              @click="selectedLanguage = selectedLanguage === lang ? null : lang"
+              @click="selectedLanguage = lang === 'all' ? null : (selectedLanguage === lang ? null : lang)"
             >
               <span
                 v-if="lang !== 'all'"
@@ -207,7 +207,7 @@
             </div>
             <div class="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar class="h-4 w-4" />
-              <span>{{ selectedProject ? formatFullDate(selectedProject.pushedAt) : '' }}</span>
+              <span>{{ selectedProject ? formatFullDate(selectedProject.pushedAt, locale) : '' }}</span>
             </div>
           </div>
 
@@ -224,6 +224,31 @@
               >
                 {{ topic }}
               </Badge>
+            </div>
+          </div>
+
+          <!-- Contributors -->
+          <div v-if="selectedProject?.contributors && selectedProject.contributors.length > 0">
+            <h4 class="mb-2 text-sm font-medium">
+              {{ $t('projects.contributors') }}
+            </h4>
+            <div class="flex flex-wrap gap-3">
+              <a
+                v-for="contributor in selectedProject.contributors"
+                :key="contributor.login"
+                :href="`https://github.com/${contributor.login}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 rounded-full border border-border/50 px-3 py-1.5 text-sm transition-colors hover:border-primary/50 hover:bg-primary/5"
+              >
+                <img
+                  :src="`${contributor.avatarUrl}&s=32`"
+                  :alt="contributor.login"
+                  class="h-5 w-5 rounded-full"
+                  loading="lazy"
+                />
+                {{ contributor.login }}
+              </a>
             </div>
           </div>
 
@@ -268,7 +293,10 @@ import ProjectCardSkeleton from '~/components/common/ProjectCardSkeleton.vue'
 import { socialLinks } from '~/data/portfolio'
 import type { GitHubRepo } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
+import { getLanguageColor } from '~/utils/languageColors'
+import { formatRepoName, formatFullDate } from '~/utils/formatters'
 
+const { t, locale } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
 // Fetch GitHub repos depuis notre API
@@ -347,51 +375,6 @@ const getCardSize = (index: number): 'large' | 'medium' | 'small' => {
 const githubUrl = computed(() =>
   socialLinks.find(l => l.icon === 'github')?.url || 'https://github.com/foufou-exe',
 )
-
-// Mapping des couleurs par langage (GitHub style)
-const languageColors: Record<string, string> = {
-  'TypeScript': '#3178c6',
-  'JavaScript': '#f7df1e',
-  'Python': '#3776ab',
-  'Vue': '#42b883',
-  'Go': '#00add8',
-  'Rust': '#dea584',
-  'Java': '#007396',
-  'C#': '#512bd4',
-  'C++': '#00599c',
-  'PHP': '#777bb4',
-  'Ruby': '#cc342d',
-  'Swift': '#fa7343',
-  'Kotlin': '#a97bff',
-  'Dart': '#0175c2',
-  'HTML': '#e34f26',
-  'CSS': '#563d7c',
-  'Shell': '#89e051',
-  'Dockerfile': '#384d54',
-  'SCSS': '#c6538c',
-  'Makefile': '#427819',
-  'HCL': '#844fba',
-}
-
-const getLanguageColor = (lang: string): string => {
-  return languageColors[lang] || '#6b7280'
-}
-
-// Fonctions utilitaires
-const formatRepoName = (name: string): string => {
-  return name
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, l => l.toUpperCase())
-}
-
-const formatFullDate = (dateString: string): string => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
 
 // Actions
 const resetFilters = () => {

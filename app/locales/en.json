@@ -48,17 +48,25 @@
   },
   "about": {
     "title": "About",
-    "subtitle": "Discover my journey and passion for development",
-    "available": "Available",
-    "downloadCv": "Download CV",
-    "contactMe": "Contact me",
-    "mainTech": "Main technologies",
-    "mainTechSubtitle": "What I use daily",
-    "stats": {
-      "years": "Years of experience",
-      "projects": "Projects completed",
-      "technologies": "Technologies",
-      "coffees": "Coffees consumed"
+    "subtitle": "Who am I?",
+    "intro": "Systems engineer in apprenticeship, I'm passionate about cloud infrastructure, automation and building robust solutions. From vocational diploma to Master's degree, every step reinforced my belief: technology should serve real needs.",
+    "philosophy": "I enjoy designing reliable architectures, automating what can be automated and sharing what I learn. I believe a good engineer is above all curious, rigorous and pragmatic.",
+    "degree": "Master's in Infrastructure & Cloud",
+    "role": "Systems Engineer (apprenticeship)",
+    "drives": {
+      "title": "What drives me",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Exploring new technologies to create ever more performant solutions."
+      },
+      "problemSolving": {
+        "title": "Problem Solving",
+        "description": "Breaking down complex challenges into elegant and maintainable solutions."
+      },
+      "openSource": {
+        "title": "Open Source",
+        "description": "Contributing to the community and sharing knowledge with other developers."
+      }
     }
   },
   "skills": {
@@ -146,7 +154,8 @@
     "sortByDate": "Date",
     "sortByStars": "Stars",
     "noResults": "No projects match the selected filters.",
-    "resetFilters": "Reset filters"
+    "resetFilters": "Reset filters",
+    "contributors": "Contributors"
   },
   "experience": {
     "title": "Experience",

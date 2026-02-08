@@ -41,19 +41,9 @@ export interface GitHubRepo {
   createdAt: string
   isRecent: boolean
   imageUrl: string | null
+  hasCustomImage: boolean
   isPinned: boolean
-}
-
-export interface Project {
-  id: number
-  title: string
-  description: string
-  longDescription: string
-  image: string
-  tags: string[]
-  demoUrl?: string
-  sourceUrl?: string
-  featured?: boolean
+  contributors: { login: string, avatarUrl: string }[]
 }
 
 export interface Establishment {
@@ -294,127 +284,6 @@ export const softSkillCategories = [
 // Helper pour récupérer les soft skills par catégorie
 export const getSoftSkillsByCategory = (category: SoftSkill['category']) =>
   softSkills.filter(skill => skill.category === category)
-
-// ============================================
-// PROJECTS - Projets réalisés
-// ============================================
-export const projects: Project[] = [
-  {
-    id: 1,
-    title: 'TaskFlow',
-    description: 'Application de gestion de tâches collaborative avec drag & drop et temps réel.',
-    longDescription: `TaskFlow est une application de gestion de tâches moderne conçue pour les équipes. 
-    
-Elle permet de créer des tableaux Kanban, d'assigner des tâches, de suivre les deadlines et de collaborer en temps réel grâce aux WebSockets.
-
-Fonctionnalités principales :
-- Tableaux Kanban avec drag & drop
-- Collaboration en temps réel
-- Notifications et rappels
-- Filtres et recherche avancée
-- Mode sombre/clair`,
-    image: '',
-    tags: ['Vue.js', 'Nuxt', 'Supabase', 'Tailwind CSS', 'WebSocket'],
-    demoUrl: 'https://taskflow-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/taskflow',
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'CloudDeploy',
-    description: 'Plateforme de déploiement automatisé avec infrastructure as code.',
-    longDescription: `CloudDeploy simplifie le déploiement d'applications sur le cloud avec une interface intuitive.
-
-L'application génère automatiquement les configurations Terraform et déploie sur AWS, GCP ou Azure.
-
-Fonctionnalités :
-- Déploiement one-click
-- Gestion multi-cloud
-- Monitoring intégré
-- Rollback automatique
-- Logs en temps réel`,
-    image: '',
-    tags: ['Python', 'Terraform', 'AWS', 'Docker', 'FastAPI'],
-    demoUrl: 'https://clouddeploy-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/clouddeploy',
-    featured: true,
-  },
-  {
-    id: 3,
-    title: 'DevBlog',
-    description: 'Blog technique avec CMS intégré, MDX et optimisation SEO.',
-    longDescription: `DevBlog est un blog technique personnel construit avec Nuxt Content.
-
-Il permet d'écrire des articles en Markdown/MDX avec coloration syntaxique, et inclut un système de tags, une recherche full-text et une optimisation SEO automatique.
-
-Fonctionnalités :
-- Écriture en Markdown/MDX
-- Coloration syntaxique
-- Système de tags et catégories
-- Recherche full-text
-- RSS feed et sitemap automatique
-- Optimisation SEO`,
-    image: '',
-    tags: ['Nuxt', 'Nuxt Content', 'Tailwind CSS', 'MDX'],
-    demoUrl: 'https://devblog-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/devblog',
-    featured: false,
-  },
-  {
-    id: 4,
-    title: 'API Gateway',
-    description: 'Gateway API avec rate limiting, caching et authentification JWT.',
-    longDescription: `Un API Gateway moderne et performant pour microservices.
-
-Fonctionnalités :
-- Rate limiting configurable
-- Cache Redis intégré
-- Authentification JWT/OAuth2
-- Load balancing
-- Métriques Prometheus`,
-    image: '',
-    tags: ['Node.js', 'Express', 'Redis', 'JWT', 'Docker'],
-    demoUrl: 'https://api-gateway-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/api-gateway',
-    featured: false,
-  },
-  {
-    id: 5,
-    title: 'DataViz Dashboard',
-    description: 'Dashboard de visualisation de données avec graphiques interactifs.',
-    longDescription: `Dashboard interactif pour visualiser et analyser des données complexes.
-
-Fonctionnalités :
-- Graphiques interactifs (Chart.js, D3.js)
-- Import de données CSV/JSON
-- Filtres dynamiques
-- Export PDF/PNG
-- Thèmes personnalisables`,
-    image: '',
-    tags: ['Vue.js', 'Chart.js', 'D3.js', 'Tailwind CSS'],
-    demoUrl: 'https://dataviz-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/dataviz',
-    featured: false,
-  },
-  {
-    id: 6,
-    title: 'ChatBot AI',
-    description: 'Chatbot intelligent avec intégration OpenAI et mémoire conversationnelle.',
-    longDescription: `Chatbot conversationnel utilisant l'API OpenAI avec contexte persistant.
-
-Fonctionnalités :
-- Intégration GPT-4
-- Mémoire de conversation
-- Multi-langues
-- Export de conversations
-- Personnalisation du comportement`,
-    image: '',
-    tags: ['Python', 'FastAPI', 'OpenAI', 'Vue.js', 'WebSocket'],
-    demoUrl: 'https://chatbot-demo.vercel.app',
-    sourceUrl: 'https://github.com/foufou-exe/chatbot-ai',
-    featured: false,
-  },
-]
 
 // ============================================
 // EXPERIENCES - Parcours professionnel

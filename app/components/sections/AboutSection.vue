@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="overflow-hidden py-20 min-h-screen">
+  <section id="about" class="overflow-hidden py-20">
     <div
       ref="elementRef"
       class="container mx-auto px-4 transition-all duration-700"
@@ -10,107 +10,61 @@
         :subtitle="$t('about.subtitle')"
       />
 
-      <!-- Bento Grid -->
-      <div class="mx-auto max-w-5xl">
-        <div class="grid gap-4 md:grid-cols-3 md:grid-rows-[auto_auto_auto]">
-          <!-- Main Card: Avatar + Info (col-span-2) -->
-          <Card class="md:col-span-2 md:row-span-2">
-            <CardContent class="flex h-full flex-col gap-6 p-6 sm:flex-row sm:p-8">
-              <!-- Avatar -->
-              <div class="flex shrink-0 flex-col items-center gap-4 sm:items-start">
-                <Avatar class="h-28 w-28 border-4 border-primary/20">
-                  <AvatarImage :src="profile.avatar" :alt="profile.name" />
-                  <AvatarFallback class="text-2xl">
-                    {{ profile.initials }}
-                  </AvatarFallback>
-                </Avatar>
+      <div class="mx-auto max-w-4xl space-y-12">
+        <!-- Introduction -->
+        <div class="flex flex-col items-center gap-8 md:flex-row md:items-start">
+          <div class="flex-1 space-y-4">
+            <p class="text-lg leading-relaxed text-muted-foreground">
+              {{ $t('about.intro') }}
+            </p>
+            <p class="leading-relaxed text-muted-foreground">
+              {{ $t('about.philosophy') }}
+            </p>
 
-                <!-- Status Badge -->
-                <Badge
-                  v-if="profile.available"
-                  variant="outline"
-                  class="border-green-500/50 bg-green-500/10 text-green-600 dark:text-green-400"
-                >
-                  <span class="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-green-500"></span>
-                  {{ $t('about.available') }}
-                </Badge>
-              </div>
-
-              <!-- Info -->
-              <div class="flex flex-1 flex-col justify-between">
-                <div>
-                  <h3 class="text-2xl font-bold tracking-tight">
-                    {{ profile.name }}
-                  </h3>
-                  <p class="text-lg text-primary">
-                    {{ profile.title }}
-                  </p>
-
-                  <div class="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin class="h-4 w-4" />
-                    <span>{{ profile.location }}</span>
-                  </div>
-
-                  <p class="mt-4 leading-relaxed text-muted-foreground">
-                    {{ profile.bio }}
-                  </p>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="mt-6 flex flex-wrap gap-3">
-                  <Button
-                    v-if="profile.resumeUrl"
-                    as="a"
-                    :href="profile.resumeUrl"
-                    target="_blank"
-                  >
-                    <FileText class="mr-2 h-4 w-4" />
-                    {{ $t('about.downloadCv') }}
-                  </Button>
-                  <Button variant="outline" as="a" href="#contact">
-                    <Mail class="mr-2 h-4 w-4" />
-                    {{ $t('about.contactMe') }}
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <!-- Stats Cards (2x2 grid on the right) -->
-          <div class="grid grid-cols-2 gap-4 md:row-span-2">
-            <StatCard
-              v-for="(stat, index) in translatedStats"
-              :key="index"
-              :stat="stat"
-            />
+            <!-- Location & quick info -->
+            <div class="flex flex-wrap items-center gap-4 pt-2 text-sm text-muted-foreground">
+              <span class="inline-flex items-center gap-1.5">
+                <MapPin class="h-4 w-4 text-primary" />
+                {{ profile.location }}
+              </span>
+              <Separator orientation="vertical" class="h-4" />
+              <span class="inline-flex items-center gap-1.5">
+                <GraduationCap class="h-4 w-4 text-primary" />
+                {{ $t('about.degree') }}
+              </span>
+              <Separator orientation="vertical" class="h-4" />
+              <span class="inline-flex items-center gap-1.5">
+                <Briefcase class="h-4 w-4 text-primary" />
+                {{ $t('about.role') }}
+              </span>
+            </div>
           </div>
+        </div>
 
-          <!-- Tech Stack Card (full width bottom) -->
-          <Card class="md:col-span-3">
-            <CardContent class="p-6">
-              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h4 class="font-semibold">
-                    {{ $t('about.mainTech') }}
-                  </h4>
-                  <p class="text-sm text-muted-foreground">
-                    {{ $t('about.mainTechSubtitle') }}
-                  </p>
+        <!-- What drives me -->
+        <div>
+          <h4 class="mb-6 text-center text-lg font-semibold">
+            {{ $t('about.drives.title') }}
+          </h4>
+          <div class="grid gap-4 sm:grid-cols-3">
+            <Card
+              v-for="drive in drives"
+              :key="drive.key"
+              class="group transition-all duration-300 hover:border-primary/30 hover:shadow-md"
+            >
+              <CardContent class="flex flex-col items-center p-6 text-center">
+                <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-colors duration-300 group-hover:bg-primary/20">
+                  <component :is="drive.icon" class="h-6 w-6 text-primary transition-transform duration-300 group-hover:scale-110" />
                 </div>
-                <div class="flex flex-wrap gap-2">
-                  <Badge
-                    v-for="tech in mainTechnologies"
-                    :key="tech.name"
-                    variant="secondary"
-                    class="transition-all duration-200 hover:bg-primary hover:text-primary-foreground"
-                    :style="{ '--tech-color': tech.color }"
-                  >
-                    {{ tech.name }}
-                  </Badge>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                <h5 class="font-semibold">
+                  {{ $t(`about.drives.${drive.key}.title`) }}
+                </h5>
+                <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {{ $t(`about.drives.${drive.key}.description`) }}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
@@ -118,31 +72,18 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { FileText, Mail, MapPin } from 'lucide-vue-next'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
-import { Badge } from '~/components/ui/badge'
-import { Button } from '~/components/ui/button'
+import { MapPin, GraduationCap, Briefcase, Lightbulb, Puzzle, Heart } from 'lucide-vue-next'
 import { Card, CardContent } from '~/components/ui/card'
+import { Separator } from '~/components/ui/separator'
 import SectionTitle from '~/components/common/SectionTitle.vue'
-import StatCard from '~/components/common/StatCard.vue'
-import { profile, skills, stats } from '~/data/portfolio'
+import { profile } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
-const { t } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
-// Translated stats
-const translatedStats = computed(() => [
-  { value: stats[0].value, label: t('about.stats.years'), icon: stats[0].icon },
-  { value: stats[1].value, label: t('about.stats.projects'), icon: stats[1].icon },
-  { value: stats[2].value, label: t('about.stats.technologies'), icon: stats[2].icon },
-  { value: stats[3].value, label: t('about.stats.coffees'), icon: stats[3].icon },
-])
-
-// Technologies principales (sélection des skills frontend + quelques backend clés)
-const mainTechnologies = computed(() => {
-  const mainTechNames = ['Vue.js', 'Nuxt', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Python', 'Docker', 'AWS']
-  return skills.filter(s => mainTechNames.includes(s.name))
-})
+const drives = [
+  { key: 'innovation', icon: Lightbulb },
+  { key: 'problemSolving', icon: Puzzle },
+  { key: 'openSource', icon: Heart },
+]
 </script>

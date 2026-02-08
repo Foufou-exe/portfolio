@@ -48,17 +48,25 @@
   },
   "about": {
     "title": "A propos",
-    "subtitle": "Decouvrez mon parcours et ma passion pour le developpement",
-    "available": "Disponible",
-    "downloadCv": "Telecharger CV",
-    "contactMe": "Me contacter",
-    "mainTech": "Technologies principales",
-    "mainTechSubtitle": "Ce que j'utilise au quotidien",
-    "stats": {
-      "years": "Annees d'experience",
-      "projects": "Projets realises",
-      "technologies": "Technologies",
-      "coffees": "Cafes consommes"
+    "subtitle": "Qui suis-je ?",
+    "intro": "Ingenieur systemes en alternance, je suis passionne par l'infrastructure cloud, l'automatisation et le developpement de solutions robustes. Du Bac Pro au Master, chaque etape a renforce ma conviction : la technologie doit servir des besoins concrets.",
+    "philosophy": "J'aime concevoir des architectures fiables, automatiser ce qui peut l'etre et partager ce que j'apprends. Je crois qu'un bon ingenieur est avant tout quelqu'un de curieux, rigoureux et pragmatique.",
+    "degree": "Master Infrastructure & Cloud",
+    "role": "Ingenieur Systemes en alternance",
+    "drives": {
+      "title": "Ce qui me motive",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Explorer les nouvelles technologies pour creer des solutions toujours plus performantes."
+      },
+      "problemSolving": {
+        "title": "Resolution de problemes",
+        "description": "Decomposer les defis complexes en solutions elegantes et maintenables."
+      },
+      "openSource": {
+        "title": "Open Source",
+        "description": "Contribuer a la communaute et partager mes connaissances avec d'autres developpeurs."
+      }
     }
   },
   "skills": {
@@ -140,7 +148,8 @@
     "sortByDate": "Date",
     "sortByStars": "Stars",
     "noResults": "Aucun projet ne correspond aux filtres selectionnes.",
-    "resetFilters": "Reinitialiser les filtres"
+    "resetFilters": "Reinitialiser les filtres",
+    "contributors": "Contributeurs"
   },
   "experience": {
     "title": "Experiences",
