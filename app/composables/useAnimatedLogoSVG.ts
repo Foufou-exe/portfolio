@@ -68,7 +68,7 @@ export function useAnimatedLogoSVG() {
 
     const deltaX = mouseX.value - centerX
     const deltaY = mouseY.value - centerY
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+    const distance = Math.hypot(deltaX, deltaY)
 
     // Trop proche = pas de mouvement
     if (distance < CONFIG.mouseFollowThreshold) {

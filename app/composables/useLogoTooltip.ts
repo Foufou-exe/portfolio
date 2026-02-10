@@ -1,6 +1,13 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 /**
+ * Retourne un element aleatoire d'un tableau
+ */
+function pickRandom<T>(arr: T[]): T | undefined {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+/**
  * Composable pour gérer le tooltip du logo avec messages aléatoires
  *
  * Features:
@@ -46,10 +53,6 @@ export function useLogoTooltip() {
   // ===========================================================================
   // HELPERS
   // ===========================================================================
-
-  function pickRandom<T>(arr: T[]): T | undefined {
-    return arr[Math.floor(Math.random() * arr.length)]
-  }
 
   function canShowMessage(): boolean {
     const now = Date.now()

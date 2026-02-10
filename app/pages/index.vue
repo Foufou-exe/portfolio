@@ -55,11 +55,7 @@ const { locale } = useI18n()
 const config = useRuntimeConfig()
 
 // SEO dynamique basé sur la langue
-const seoTitle = computed(() =>
-  locale.value === 'fr'
-    ? `Portfolio | ${profile.name}`
-    : `Portfolio | ${profile.name}`,
-)
+const seoTitle = computed(() => `Portfolio | ${profile.name}`)
 
 const seoDescription = computed(() =>
   locale.value === 'fr'

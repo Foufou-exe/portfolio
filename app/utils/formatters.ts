@@ -6,8 +6,8 @@
  */
 export const formatRepoName = (name: string): string => {
   return name
-    .replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, l => l.toUpperCase())
+    .replaceAll(/[-_]/g, ' ')
+    .replaceAll(/\b\w/g, l => l.toUpperCase())
 }
 
 /**
