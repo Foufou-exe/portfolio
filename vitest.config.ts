@@ -12,7 +12,7 @@ export default defineVitestConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
-      include: ['app/**/*.vue', 'app/**/*.ts'],
+      include: ['app/**/*.vue', 'app/**/*.ts', 'server/**/*.ts'],
       exclude: ['app/components/ui/**'],
     },
   },
