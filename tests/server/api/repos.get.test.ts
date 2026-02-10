@@ -1,31 +1,41 @@
+// @vitest-environment node
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-// Mock h3 utils
+// Mock h3 — repos.get.ts imports { defineEventHandler, createError } from 'h3'
 const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string, data?: unknown }) => {
   const err = new Error(opts.statusMessage) as Error & { statusCode: number, data?: unknown }
   err.statusCode = opts.statusCode
   err.data = opts.data
   return err
 })
-const mockUseRuntimeConfig = vi.fn()
-const mockFetch = vi.fn()
 
-vi.stubGlobal('createError', mockCreateError)
+vi.mock('h3', () => ({
+  defineEventHandler: (handler: Function) => handler,
+  createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
+    mockCreateError(opts),
+}))
+
+// Mock useRuntimeConfig (auto-imported as global in Nitro)
+const mockUseRuntimeConfig = vi.fn()
 vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
-vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
+
+// Mock fetch
+const mockFetch = vi.fn()
 vi.stubGlobal('fetch', mockFetch)
 
 // We need to reset the module cache between tests since it has module-level cache state
 async function importFreshModule() {
-  // Reset module registry to get fresh cache variable
   vi.resetModules()
-  // Re-apply stubs after module reset
-  vi.stubGlobal('createError', mockCreateError)
   vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
-  vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
   vi.stubGlobal('fetch', mockFetch)
+  // Re-mock h3 after module reset
+  vi.doMock('h3', () => ({
+    defineEventHandler: (handler: Function) => handler,
+    createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
+      mockCreateError(opts),
+  }))
 
-  const mod = await import('../../server/api/github/repos.get')
+  const mod = await import('../../../server/api/github/repos.get')
   return mod.default as (event: unknown) => Promise<unknown>
 }
 
@@ -104,24 +114,20 @@ describe('repos.get API', () => {
       githubUsername: 'foufou-exe',
     })
 
-    // Mock GraphQL (pinned repos)
     mockFetch
       .mockResolvedValueOnce({
         json: () => Promise.resolve({
           data: { user: { pinnedItems: { nodes: [{ name: 'my-repo' }] } } },
         }),
       })
-      // Mock REST API (repos list)
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(mockRepoResponse),
       })
-      // Mock repo details (social preview)
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({ open_graph_image_url: 'https://custom-image.com/preview.png' }),
       })
-      // Mock contributors
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve([
@@ -134,12 +140,10 @@ describe('repos.get API', () => {
     const result = await handler({}) as { success: boolean, data: { name: string, isPinned: boolean, hasCustomImage: boolean, contributors: unknown[] }[], meta: { cached: boolean } }
 
     expect(result.success).toBe(true)
-    // Should exclude forked and archived repos
     expect(result.data.length).toBe(1)
     expect(result.data[0].name).toBe('my-repo')
     expect(result.data[0].isPinned).toBe(true)
     expect(result.data[0].hasCustomImage).toBe(true)
-    // Bot contributors should be filtered out
     expect(result.data[0].contributors.length).toBe(1)
     expect(result.meta.cached).toBe(false)
   })
@@ -150,7 +154,6 @@ describe('repos.get API', () => {
       githubUsername: 'foufou-exe',
     })
 
-    // First call - setup mocks
     mockFetch
       .mockResolvedValueOnce({
         json: () => Promise.resolve({
@@ -172,11 +175,9 @@ describe('repos.get API', () => {
 
     const handler = await importFreshModule()
 
-    // First call
     const result1 = await handler({}) as { meta: { cached: boolean } }
     expect(result1.meta.cached).toBe(false)
 
-    // Second call — should use cache
     const result2 = await handler({}) as { meta: { cached: boolean } }
     expect(result2.meta.cached).toBe(true)
   })
@@ -187,12 +188,10 @@ describe('repos.get API', () => {
       githubUsername: 'foufou-exe',
     })
 
-    // Mock GraphQL success
     mockFetch
       .mockResolvedValueOnce({
         json: () => Promise.resolve({ data: { user: { pinnedItems: { nodes: [] } } } }),
       })
-      // Mock REST API failure
       .mockResolvedValueOnce({
         ok: false,
         status: 403,
@@ -212,7 +211,6 @@ describe('repos.get API', () => {
       githubUsername: 'foufou-exe',
     })
 
-    // Only REST API call (no GraphQL, no details/contributors)
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve([mockRepoResponse[0]]),
@@ -235,20 +233,16 @@ describe('repos.get API', () => {
 
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    // GraphQL fails
     mockFetch
       .mockRejectedValueOnce(new Error('GraphQL error'))
-      // REST succeeds
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve([mockRepoResponse[0]]),
       })
-      // Details
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({ open_graph_image_url: null }),
       })
-      // Contributors
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve([]),
@@ -277,7 +271,6 @@ describe('repos.get API', () => {
         ok: true,
         json: () => Promise.resolve([mockRepoResponse[0]]),
       })
-      // Details returns GitHub's default OG image (not custom)
       .mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({
@@ -292,7 +285,6 @@ describe('repos.get API', () => {
     const handler = await importFreshModule()
     const result = await handler({}) as { data: { imageUrl: string, hasCustomImage: boolean }[] }
 
-    // Should use fallback URL (githubassets.com is not custom)
     expect(result.data[0].hasCustomImage).toBe(false)
     expect(result.data[0].imageUrl).toContain('opengraph.githubassets.com')
   })

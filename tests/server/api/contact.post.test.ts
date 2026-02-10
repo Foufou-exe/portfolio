@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // Mock nodemailer
@@ -10,7 +11,7 @@ vi.mock('nodemailer', () => ({
   },
 }))
 
-// Mock h3 utils — these are auto-imported in Nuxt server context
+// In node environment, auto-imports are resolved as globals
 const mockReadBody = vi.fn()
 const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string }) => {
   const err = new Error(opts.statusMessage) as Error & { statusCode: number }
@@ -23,6 +24,18 @@ vi.stubGlobal('readBody', mockReadBody)
 vi.stubGlobal('createError', mockCreateError)
 vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
 vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
+
+// Fresh import helper — module caches via Vite, so we need vi.resetModules()
+async function importFreshHandler() {
+  vi.resetModules()
+  vi.stubGlobal('readBody', mockReadBody)
+  vi.stubGlobal('createError', mockCreateError)
+  vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
+  vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
+
+  const mod = await import('../../../server/api/email/contact.post')
+  return mod.default as (event: unknown) => Promise<unknown>
+}
 
 describe('contact.post API', () => {
   beforeEach(() => {
@@ -44,7 +57,7 @@ describe('contact.post API', () => {
     const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
     const resultPromise = handler({} as never)
     await vi.advanceTimersByTimeAsync(1000)
     const result = await resultPromise
@@ -67,7 +80,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: '', message: 'Hello' })
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
   })
@@ -80,7 +93,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'test@example.com', message: '' })
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
   })
@@ -91,10 +104,10 @@ describe('contact.post API', () => {
       smtpUser: 'user@test.com',
       smtpPass: 'pass',
     })
-    const longEmail = 'a'.repeat(245) + '@test.com' // 254+ chars
+    const longEmail = 'a'.repeat(245) + '@test.com'
     mockReadBody.mockResolvedValue({ email: longEmail, message: 'Hello' })
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email invalide')
   })
@@ -107,7 +120,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'not-an-email', message: 'Hello' })
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email invalide')
   })
@@ -124,7 +137,7 @@ describe('contact.post API', () => {
     mockSendMail.mockResolvedValue({ messageId: 'msg-123' })
     const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
     const result = await handler({} as never)
 
     expect(result).toEqual({
@@ -149,7 +162,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'bad@@email', message: 'Hello' })
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     try {
       await handler({} as never)
@@ -171,7 +184,7 @@ describe('contact.post API', () => {
     mockSendMail.mockRejectedValue(new Error('SMTP connection failed'))
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    const { default: handler } = await import('../../server/api/email/contact.post')
+    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Erreur interne du serveur')
     errorSpy.mockRestore()
