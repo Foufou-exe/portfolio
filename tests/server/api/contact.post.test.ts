@@ -1,4 +1,3 @@
-// @vitest-environment node
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // Mock nodemailer
@@ -11,35 +10,76 @@ vi.mock('nodemailer', () => ({
   },
 }))
 
-// In node environment, auto-imports are resolved as globals
+// Mock useRuntimeConfig — resolved from #app/nuxt in Nuxt test environment
+const mockUseRuntimeConfig = vi.fn()
+vi.mock('#app/nuxt', async (importOriginal) => {
+  const original = await importOriginal<Record<string, unknown>>()
+  return {
+    ...original,
+    useRuntimeConfig: (...args: unknown[]) => mockUseRuntimeConfig(...args),
+  }
+})
+
+// Mock h3 functions used via auto-imports (readBody, createError, defineEventHandler)
 const mockReadBody = vi.fn()
 const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string }) => {
   const err = new Error(opts.statusMessage) as Error & { statusCode: number }
   err.statusCode = opts.statusCode
   return err
 })
-const mockUseRuntimeConfig = vi.fn()
 
-vi.stubGlobal('readBody', mockReadBody)
-vi.stubGlobal('createError', mockCreateError)
-vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
+vi.mock('h3', async (importOriginal) => {
+  const original = await importOriginal<Record<string, unknown>>()
+  return {
+    ...original,
+    readBody: (...args: unknown[]) => mockReadBody(...args),
+    createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
+    defineEventHandler: (handler: Function) => handler,
+  }
+})
+
+// Also stub globals for Nitro auto-imports that might resolve as globals
+vi.stubGlobal('readBody', (...args: unknown[]) => mockReadBody(...args))
+vi.stubGlobal('createError', (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts))
 vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
 
-// Fresh import helper — module caches via Vite, so we need vi.resetModules()
-async function importFreshHandler() {
-  vi.resetModules()
-  vi.stubGlobal('readBody', mockReadBody)
-  vi.stubGlobal('createError', mockCreateError)
-  vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
-  vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
-
-  const mod = await import('../../../server/api/email/contact.post')
-  return mod.default as (event: unknown) => Promise<unknown>
-}
-
 describe('contact.post API', () => {
-  beforeEach(() => {
+  let handler: (event: unknown) => Promise<unknown>
+
+  beforeEach(async () => {
     vi.clearAllMocks()
+    // Fresh import for each test to reset module state
+    vi.resetModules()
+
+    // Re-apply mocks after resetModules
+    vi.doMock('nodemailer', () => ({
+      default: {
+        createTransport: vi.fn(() => ({
+          sendMail: mockSendMail,
+        })),
+      },
+    }))
+
+    vi.doMock('#app/nuxt', async (importOriginal) => {
+      const original = await importOriginal<Record<string, unknown>>()
+      return {
+        ...original,
+        useRuntimeConfig: (...args: unknown[]) => mockUseRuntimeConfig(...args),
+      }
+    })
+
+    vi.doMock('h3', async (importOriginal) => {
+      const original = await importOriginal<Record<string, unknown>>()
+      return {
+        ...original,
+        readBody: (...args: unknown[]) => mockReadBody(...args),
+        createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
+        defineEventHandler: (handler: Function) => handler,
+      }
+    })
+
+    const mod = await import('../../../server/api/email/contact.post')
+    handler = mod.default as (event: unknown) => Promise<unknown>
   })
 
   afterEach(() => {
@@ -57,7 +97,6 @@ describe('contact.post API', () => {
     const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
     const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-    const handler = await importFreshHandler()
     const resultPromise = handler({} as never)
     await vi.advanceTimersByTimeAsync(1000)
     const result = await resultPromise
@@ -80,8 +119,6 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: '', message: 'Hello' })
 
-    const handler = await importFreshHandler()
-
     await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
   })
 
@@ -93,8 +130,6 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'test@example.com', message: '' })
 
-    const handler = await importFreshHandler()
-
     await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
   })
 
@@ -104,10 +139,8 @@ describe('contact.post API', () => {
       smtpUser: 'user@test.com',
       smtpPass: 'pass',
     })
-    const longEmail = 'a'.repeat(245) + '@test.com'
+    const longEmail = 'a'.repeat(246) + '@test.com'
     mockReadBody.mockResolvedValue({ email: longEmail, message: 'Hello' })
-
-    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email invalide')
   })
@@ -119,8 +152,6 @@ describe('contact.post API', () => {
       smtpPass: 'pass',
     })
     mockReadBody.mockResolvedValue({ email: 'not-an-email', message: 'Hello' })
-
-    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Email invalide')
   })
@@ -137,7 +168,6 @@ describe('contact.post API', () => {
     mockSendMail.mockResolvedValue({ messageId: 'msg-123' })
     const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-    const handler = await importFreshHandler()
     const result = await handler({} as never)
 
     expect(result).toEqual({
@@ -162,10 +192,9 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'bad@@email', message: 'Hello' })
 
-    const handler = await importFreshHandler()
-
     try {
       await handler({} as never)
+      expect.unreachable('Should have thrown')
     }
     catch (error: unknown) {
       const err = error as { statusCode: number }
@@ -183,8 +212,6 @@ describe('contact.post API', () => {
     mockReadBody.mockResolvedValue({ email: 'sender@example.com', message: 'Test' })
     mockSendMail.mockRejectedValue(new Error('SMTP connection failed'))
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-
-    const handler = await importFreshHandler()
 
     await expect(handler({} as never)).rejects.toThrow('Erreur interne du serveur')
     errorSpy.mockRestore()

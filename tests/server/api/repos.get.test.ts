@@ -1,5 +1,14 @@
-// @vitest-environment node
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+
+// Mock useRuntimeConfig — resolved from #app/nuxt in Nuxt test environment
+const mockUseRuntimeConfig = vi.fn()
+vi.mock('#app/nuxt', async (importOriginal) => {
+  const original = await importOriginal<Record<string, unknown>>()
+  return {
+    ...original,
+    useRuntimeConfig: (...args: unknown[]) => mockUseRuntimeConfig(...args),
+  }
+})
 
 // Mock h3 — repos.get.ts imports { defineEventHandler, createError } from 'h3'
 const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string, data?: unknown }) => {
@@ -9,35 +18,19 @@ const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string
   return err
 })
 
-vi.mock('h3', () => ({
-  defineEventHandler: (handler: Function) => handler,
-  createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
-    mockCreateError(opts),
-}))
-
-// Mock useRuntimeConfig (auto-imported as global in Nitro)
-const mockUseRuntimeConfig = vi.fn()
-vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
+vi.mock('h3', async (importOriginal) => {
+  const original = await importOriginal<Record<string, unknown>>()
+  return {
+    ...original,
+    defineEventHandler: (handler: Function) => handler,
+    createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
+      mockCreateError(opts),
+  }
+})
 
 // Mock fetch
 const mockFetch = vi.fn()
 vi.stubGlobal('fetch', mockFetch)
-
-// We need to reset the module cache between tests since it has module-level cache state
-async function importFreshModule() {
-  vi.resetModules()
-  vi.stubGlobal('useRuntimeConfig', mockUseRuntimeConfig)
-  vi.stubGlobal('fetch', mockFetch)
-  // Re-mock h3 after module reset
-  vi.doMock('h3', () => ({
-    defineEventHandler: (handler: Function) => handler,
-    createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
-      mockCreateError(opts),
-  }))
-
-  const mod = await import('../../../server/api/github/repos.get')
-  return mod.default as (event: unknown) => Promise<unknown>
-}
 
 // Sample mock data
 const mockRepoResponse = [
@@ -104,8 +97,35 @@ const mockRepoResponse = [
 ]
 
 describe('repos.get API', () => {
-  beforeEach(() => {
+  let handler: (event: unknown) => Promise<unknown>
+
+  beforeEach(async () => {
     vi.clearAllMocks()
+    vi.resetModules()
+
+    // Re-apply mocks after resetModules
+    vi.doMock('#app/nuxt', async (importOriginal) => {
+      const original = await importOriginal<Record<string, unknown>>()
+      return {
+        ...original,
+        useRuntimeConfig: (...args: unknown[]) => mockUseRuntimeConfig(...args),
+      }
+    })
+
+    vi.doMock('h3', async (importOriginal) => {
+      const original = await importOriginal<Record<string, unknown>>()
+      return {
+        ...original,
+        defineEventHandler: (handler: Function) => handler,
+        createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
+          mockCreateError(opts),
+      }
+    })
+
+    vi.stubGlobal('fetch', mockFetch)
+
+    const mod = await import('../../../server/api/github/repos.get')
+    handler = mod.default as (event: unknown) => Promise<unknown>
   })
 
   it('fetches repos and filters out forks and archived', async () => {
@@ -136,7 +156,6 @@ describe('repos.get API', () => {
         ]),
       })
 
-    const handler = await importFreshModule()
     const result = await handler({}) as { success: boolean, data: { name: string, isPinned: boolean, hasCustomImage: boolean, contributors: unknown[] }[], meta: { cached: boolean } }
 
     expect(result.success).toBe(true)
@@ -173,8 +192,6 @@ describe('repos.get API', () => {
         json: () => Promise.resolve([]),
       })
 
-    const handler = await importFreshModule()
-
     const result1 = await handler({}) as { meta: { cached: boolean } }
     expect(result1.meta.cached).toBe(false)
 
@@ -199,7 +216,6 @@ describe('repos.get API', () => {
       })
 
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-    const handler = await importFreshModule()
 
     await expect(handler({})).rejects.toThrow()
     errorSpy.mockRestore()
@@ -216,7 +232,6 @@ describe('repos.get API', () => {
       json: () => Promise.resolve([mockRepoResponse[0]]),
     })
 
-    const handler = await importFreshModule()
     const result = await handler({}) as { success: boolean, data: { name: string, hasCustomImage: boolean, isPinned: boolean }[] }
 
     expect(result.success).toBe(true)
@@ -248,7 +263,6 @@ describe('repos.get API', () => {
         json: () => Promise.resolve([]),
       })
 
-    const handler = await importFreshModule()
     const result = await handler({}) as { success: boolean, data: { isPinned: boolean }[] }
 
     expect(result.success).toBe(true)
@@ -282,7 +296,6 @@ describe('repos.get API', () => {
         json: () => Promise.resolve([]),
       })
 
-    const handler = await importFreshModule()
     const result = await handler({}) as { data: { imageUrl: string, hasCustomImage: boolean }[] }
 
     expect(result.data[0].hasCustomImage).toBe(false)
@@ -301,7 +314,6 @@ describe('repos.get API', () => {
       json: () => Promise.resolve([repoNoDesc]),
     })
 
-    const handler = await importFreshModule()
     const result = await handler({}) as { data: { description: string }[] }
 
     expect(result.data[0].description).toBe('Aucune description disponible')
