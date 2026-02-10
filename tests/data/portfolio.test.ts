@@ -11,6 +11,7 @@ import {
   experiences,
   education,
 } from '../../app/data/portfolio'
+import type { Skill } from '../../app/data/portfolio'
 
 describe('Portfolio Data', () => {
   describe('Profile', () => {
@@ -49,7 +50,7 @@ describe('Portfolio Data', () => {
 
     it('all skill categories have at least one skill', () => {
       skillCategories.forEach((category) => {
-        const categorySkills = getSkillsByCategory(category.id as any)
+        const categorySkills = getSkillsByCategory(category.id as Skill['category'])
         expect(categorySkills.length).toBeGreaterThanOrEqual(0)
       })
     })

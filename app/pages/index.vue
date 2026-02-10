@@ -4,16 +4,16 @@
 
     <!-- Lazy-loaded sections: rendered when approaching the viewport -->
     <template v-for="section in lazySections" :key="section.id">
-      <div :ref="(el) => section.setSentinel(el as HTMLElement)" :id="section.shouldRender ? undefined : section.id">
+      <div :id="section.shouldRender ? undefined : section.id" :ref="(el) => section.setSentinel(el as HTMLElement)">
         <component
-          v-if="section.shouldRender"
           :is="section.component"
+          v-if="section.shouldRender"
         />
         <div
           v-else
           :class="section.placeholderClass"
           aria-hidden="true"
-        />
+        ></div>
       </div>
     </template>
   </div>

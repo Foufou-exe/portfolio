@@ -13,7 +13,6 @@
       <!-- Bento Grid -->
       <div class="mx-auto max-w-5xl">
         <div class="grid gap-4 md:grid-cols-3 md:grid-rows-[auto_auto]">
-
           <!-- Photo + Bio card (spans 2 cols) -->
           <div class="bento-card group relative col-span-full overflow-hidden rounded-2xl border border-primary/10 bg-card p-6 md:col-span-2 md:p-8">
             <!-- Background gradient blob -->
@@ -108,7 +107,6 @@
               </p>
             </div>
           </div>
-
         </div>
       </div>
     </div>

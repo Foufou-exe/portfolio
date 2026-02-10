@@ -111,14 +111,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { Github, Linkedin, Twitter, Mail, MapPin, ArrowUpRight } from 'lucide-vue-next'
+import { Github, Linkedin, Twitter, Mail, MapPin } from 'lucide-vue-next'
 import NavBar from '~/components/common/NavBar.vue'
 import BackToTop from '~/components/common/BackToTop.vue'
 import { Separator } from '~/components/ui/separator'
 import { profile, socialLinks, contactInfo } from '~/data/portfolio'
 
-const { t } = useI18n()
 const { translatedNavLinks } = useNavLinks()
 const { scrollToSection, scrollToTop } = useScrollToSection()
 

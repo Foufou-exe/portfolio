@@ -296,7 +296,7 @@ import { useElementAnimation } from '~/composables/useScrollAnimation'
 import { getLanguageColor } from '~/utils/languageColors'
 import { formatRepoName, formatFullDate } from '~/utils/formatters'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
 // Fetch GitHub repos depuis notre API

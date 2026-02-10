@@ -174,6 +174,7 @@ import { Badge } from '~/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip'
 import SectionTitle from '~/components/common/SectionTitle.vue'
 import { skills, skillCategories, getSkillsByCategory, softSkills, softSkillCategories, getSoftSkillsByCategory } from '~/data/portfolio'
+import type { Skill, SoftSkill } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { t } = useI18n()
@@ -234,7 +235,7 @@ const getSoftSkillIcon = (iconName: string) => {
 const categoriesWithSkills = computed(() =>
   skillCategories.map(category => ({
     ...category,
-    skills: getSkillsByCategory(category.id as any),
+    skills: getSkillsByCategory(category.id as Skill['category']),
   })).filter(category => category.skills.length > 0),
 )
 
@@ -242,7 +243,7 @@ const categoriesWithSkills = computed(() =>
 const softSkillCategoriesWithSkills = computed(() =>
   softSkillCategories.map(category => ({
     ...category,
-    skills: getSoftSkillsByCategory(category.id as any),
+    skills: getSoftSkillsByCategory(category.id as SoftSkill['category']),
   })).filter(category => category.skills.length > 0),
 )
 

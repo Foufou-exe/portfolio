@@ -12,7 +12,8 @@
       xmlns="http://www.w3.org/2000/svg"
       class="text-primary"
     >
-      <!-- Logo paths loaded dynamically -->
+      <!-- Logo paths loaded dynamically from local static asset -->
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <g v-html="svgContent" />
     </svg>
   </div>
@@ -51,7 +52,8 @@ onMounted(async () => {
       eyeLeftRef.value = svgRef.value.querySelector('#eye-left') as SVGPathElement
       eyeRightRef.value = svgRef.value.querySelector('#eye-right') as SVGPathElement
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('[AnimatedLogoSVG] Failed to load SVG:', error)
   }
 })
