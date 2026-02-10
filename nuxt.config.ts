@@ -14,7 +14,7 @@ export default defineNuxtConfig({
 
   // Devtools configuration
   devtools: {
-    enabled: true,
+    enabled: process.env.NUXT_DEVTOOLS === 'true' || false,
     timeline: {
       enabled: true,
     },
@@ -156,7 +156,7 @@ export default defineNuxtConfig({
   // ESLint configuration
   eslint: {
     config: {
-      stylistic: true, // <---
+      stylistic: true,
     },
   },
 
@@ -188,7 +188,7 @@ export default defineNuxtConfig({
   // Image optimization configuration
   image: {
     // Quality for optimized images
-    quality: 80,
+    quality: 90,
     // Formats to generate
     format: ['webp'],
     // Screen sizes for responsive images

@@ -42,8 +42,14 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Validation email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    // Validation email (longueur max RFC 5321 + regex sans backtracking)
+    if (body.email.length > 254) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Email invalide',
+      })
+    }
+    const emailRegex = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/
     if (!emailRegex.test(body.email)) {
       throw createError({
         statusCode: 400,
