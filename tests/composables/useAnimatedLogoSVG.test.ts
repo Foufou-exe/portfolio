@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { animate } from 'animejs'
 
+// We need to import after mocks
+import { useAnimatedLogoSVG } from '../../app/composables/useAnimatedLogoSVG'
+
 // Mock animejs
 vi.mock('animejs', () => ({
   animate: vi.fn(),
@@ -13,9 +16,6 @@ vi.mock('@vueuse/core', () => ({
     y: { value: 0 },
   })),
 }))
-
-// We need to import after mocks
-import { useAnimatedLogoSVG } from '../../app/composables/useAnimatedLogoSVG'
 
 describe('useAnimatedLogoSVG', () => {
   beforeEach(() => {

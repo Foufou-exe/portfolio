@@ -101,7 +101,7 @@ describe('useLogoTooltip', () => {
       },
       render() {
         return h('button', {
-          onClick: () => this.triggerClickMessage(),
+          'onClick': () => this.triggerClickMessage(),
           'data-open': String(this.isTooltipOpen),
         }, 'click')
       },

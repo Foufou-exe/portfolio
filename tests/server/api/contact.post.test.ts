@@ -139,7 +139,7 @@ describe('contact.post API', () => {
       smtpUser: 'user@test.com',
       smtpPass: 'pass',
     })
-    const longEmail = 'a'.repeat(246) + '@test.com'
+    const longEmail = `${'a'.repeat(246)}@test.com`
     mockReadBody.mockResolvedValue({ email: longEmail, message: 'Hello' })
 
     await expect(handler({} as never)).rejects.toThrow('Email invalide')
