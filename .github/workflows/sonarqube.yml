@@ -1,7 +1,7 @@
 name: Analyze with SonarQube
 on:
   push:
-    branches: [main, develop , dev]
+    branches: [main, develop, dev]
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -11,7 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare Nuxt
+        run: npx nuxi prepare
+
+      - name: Run tests with coverage
+        run: npm run test -- --coverage
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:

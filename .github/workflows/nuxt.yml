@@ -1,4 +1,4 @@
-name: CI/CD - Build, Test, and Deploy
+name: Nuxt - Build, Test, and Deploy
 
 on:
   push:
