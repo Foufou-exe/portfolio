@@ -88,10 +88,14 @@ logs
 .fleet
 .idea
 
-# Local env files
+# Local env files (secrets)
 .env
-.env.*
+.env.local
+.env.*.local
+
+# Keep example env files
 !.env.example
+!.env.example.*
 
 # VSCode settings
 AGENTS.md

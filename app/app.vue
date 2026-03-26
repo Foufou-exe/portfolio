@@ -21,5 +21,4 @@ import { Toaster } from '~/components/ui/sonner'
 // analytics component for Vercel Speed Insights
 import { SpeedInsights } from '@vercel/speed-insights/vue'
 import { Analytics } from '@vercel/analytics/nuxt'
-
 </script>
