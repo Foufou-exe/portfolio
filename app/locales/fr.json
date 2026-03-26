@@ -1,0 +1,245 @@
+{
+  "nav": {
+    "about": "A propos",
+    "skills": "Competences",
+    "projects": "Projets",
+    "experience": "Experiences",
+    "education": "Formation",
+    "contact": "Contact",
+    "mobileDescription": "Accedez aux differentes sections du portfolio",
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "switchLanguage": "Switch to English"
+  },
+  "logo": {
+    "speech": {
+      "load": {
+        "greeting": "Salut !",
+        "welcome": "Bienvenue !",
+        "hey": "Hey, par ici !"
+      },
+      "idle": {
+        "stillThere": "Tu es encore la ?",
+        "bored": "Je m'ennuie...",
+        "sleepy": "Zzz..."
+      },
+      "click": {
+        "ouch": "Aie !",
+        "hey": "Hey !",
+        "tickles": "Ca chatouille !"
+      },
+      "section": {
+        "hero": "C'est moi !",
+        "about": "Mon histoire",
+        "experience": "Mon parcours",
+        "projects": "Mes creations",
+        "contact": "Ecris-moi !"
+      }
+    }
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "available": "Disponible pour des opportunites",
+    "scroll": "Defiler",
+    "cta": {
+      "projects": "Voir mes projets",
+      "contact": "Me contacter"
+    }
+  },
+  "about": {
+    "title": "A propos",
+    "subtitle": "Qui suis-je ?",
+    "intro": "Ingenieur systemes en alternance, je suis passionne par l'infrastructure cloud, l'automatisation et le developpement de solutions robustes. Du Bac Pro au Master, chaque etape a renforce ma conviction : la technologie doit servir des besoins concrets.",
+    "philosophy": "J'aime concevoir des architectures fiables, automatiser ce qui peut l'etre et partager ce que j'apprends. Je crois qu'un bon ingenieur est avant tout quelqu'un de curieux, rigoureux et pragmatique.",
+    "degree": "Master Infrastructure & Cloud",
+    "role": "Ingenieur Systemes en alternance",
+    "funFacts": {
+      "coffees": "Cafes bus",
+      "commits": "Commits",
+      "technologies": "Technologies",
+      "years": "Annees d'XP"
+    },
+    "drives": {
+      "title": "Ce qui me motive",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Explorer les nouvelles technologies pour creer des solutions toujours plus performantes."
+      },
+      "problemSolving": {
+        "title": "Resolution de problemes",
+        "description": "Decomposer les defis complexes en solutions elegantes et maintenables."
+      },
+      "openSource": {
+        "title": "Open Source",
+        "description": "Contribuer a la communaute et partager mes connaissances avec d'autres developpeurs."
+      }
+    }
+  },
+  "skills": {
+    "title": "Competences",
+    "subtitle": "Les technologies et outils que je maitrise",
+    "hardSkills": "Competences techniques",
+    "softSkills": "Savoir-etre",
+    "filters": {
+      "all": "Tout",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps"
+    },
+    "legend": {
+      "size": "Taille = Niveau",
+      "indicator": "Indicateur de niveau"
+    },
+    "levels": {
+      "beginner": "Debutant",
+      "junior": "Junior",
+      "intermediate": "Intermediaire",
+      "advanced": "Avance",
+      "expert": "Expert"
+    },
+    "stats": {
+      "technologies": "Technologies",
+      "mastered": "Maitrisees",
+      "domains": "Domaines",
+      "softSkills": "Soft Skills"
+    },
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Base de donnees",
+      "cloud": "Cloud & Infrastructure",
+      "devops": "DevOps & Automatisation",
+      "tools": "Outils & Gestion",
+      "system": "Systeme & Administration",
+      "security": "Securite & Conformite",
+      "monitoring": "Surveillance & Performance"
+    },
+    "softCategories": {
+      "communication": "Communication",
+      "teamwork": "Travail d'equipe",
+      "problem-solving": "Resolution",
+      "management": "Gestion",
+      "adaptability": "Adaptabilite"
+    }
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Mes dernieres realisations sur GitHub",
+    "viewDemo": "Voir la demo",
+    "viewSource": "Code source",
+    "viewSourceCode": "Voir le code source de {title}",
+    "viewProject": "Voir le projet",
+    "details": "Details",
+    "technologies": "Technologies utilisees",
+    "featured": "Projets mis en avant",
+    "featuredBadge": "Mis en avant",
+    "others": "Autres projets",
+    "viewMore": "Envie de voir plus de projets ?",
+    "viewGithub": "Voir mon GitHub",
+    "loading": "Chargement des projets...",
+    "errorLoading": "Une erreur s'est produite lors du chargement des projets GitHub. Verifiez votre connexion ou reessayez plus tard.",
+    "errorTitle": "Erreur de chargement",
+    "retry": "Reessayer",
+    "recentBadge": "Recent",
+    "pinnedBadge": "Epingle",
+    "stars": "Etoiles",
+    "forks": "Forks",
+    "totalStars": "Etoiles totales",
+    "recentProjects": "Projets recents",
+    "pinnedProjects": "Projets epingles",
+    "languages": "Langages",
+    "filters": {
+      "all": "Tous"
+    },
+    "sortByDate": "Date",
+    "sortByStars": "Stars",
+    "noResults": "Aucun projet ne correspond aux filtres selectionnes.",
+    "resetFilters": "Reinitialiser les filtres",
+    "contributors": "Contributeurs"
+  },
+  "experience": {
+    "title": "Experiences",
+    "subtitle": "Mon parcours professionnel",
+    "current": "Actuel",
+    "seeMore": "Voir plus",
+    "description": "Description",
+    "achievements": "Realisations cles",
+    "technologies": "Technologies utilisees",
+    "close": "Fermer",
+    "contractType": {
+      "cdi": "CDI",
+      "cdd": "CDD",
+      "alternance": "Alternance",
+      "stage": "Stage",
+      "freelance": "Freelance",
+      "interim": "Interim"
+    }
+  },
+  "education": {
+    "title": "Formation",
+    "subtitle": "Mon parcours academique",
+    "skills": "Competences acquises"
+  },
+  "establishment": {
+    "industry": "Secteur",
+    "size": "Taille",
+    "website": "Site web",
+    "visitWebsite": "Visiter le site",
+    "location": "Localisation"
+  },
+  "contact": {
+    "title": "Travaillons ensemble",
+    "subtitle": "Un projet en tete ? Une question ? N'hesitez pas a me contacter.",
+    "form": {
+      "email": "Votre email",
+      "emailPlaceholder": "vous{'@'}exemple.com",
+      "message": "Votre message",
+      "messagePlaceholder": "Decrivez votre projet ou posez-moi une question...",
+      "send": "Envoyer",
+      "sending": "Envoi en cours..."
+    },
+    "success": {
+      "title": "Message envoye !",
+      "message": "Merci ! Je vous repondrai dans les plus brefs delais."
+    },
+    "error": {
+      "title": "Erreur d'envoi",
+      "message": "Une erreur s'est produite. Veuillez reessayer."
+    },
+    "alternative": "Vous preferez l'email direct ?"
+  },
+  "common": {
+    "backToTop": "Retour en haut",
+    "loading": "Chargement...",
+    "close": "Fermer",
+    "toggleTheme": "Changer le theme"
+  },
+  "footer": {
+    "rights": "Tous droits reserves",
+    "navigation": "Navigation",
+    "social": "Reseaux",
+    "contact": "Contact",
+    "madeWith": "Fait avec ❤️"
+  },
+  "error": {
+    "backHome": "Retour a l'accueil",
+    "retry": "Reessayer",
+    "details": "Details de l'erreur",
+    "404": {
+      "title": "Page introuvable",
+      "description": "Oups ! La page que vous recherchez n'existe pas ou a ete deplacee."
+    },
+    "403": {
+      "title": "Acces refuse",
+      "description": "Vous n'avez pas les autorisations necessaires pour acceder a cette page."
+    },
+    "500": {
+      "title": "Erreur serveur",
+      "description": "Une erreur inattendue s'est produite. Veuillez reessayer plus tard."
+    },
+    "default": {
+      "title": "Une erreur est survenue",
+      "description": "Quelque chose s'est mal passe. Veuillez reessayer."
+    }
+  }
+}

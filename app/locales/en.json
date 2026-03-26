@@ -1,0 +1,251 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "contact": "Contact",
+    "mobileDescription": "Access the different sections of the portfolio",
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "switchLanguage": "Passer en Francais"
+  },
+  "logo": {
+    "speech": {
+      "load": {
+        "greeting": "Hi there!",
+        "welcome": "Welcome!",
+        "hey": "Hey, over here!"
+      },
+      "idle": {
+        "stillThere": "Still there?",
+        "bored": "I'm bored...",
+        "sleepy": "Zzz..."
+      },
+      "click": {
+        "ouch": "Ouch!",
+        "hey": "Hey!",
+        "tickles": "That tickles!"
+      },
+      "section": {
+        "hero": "That's me!",
+        "about": "My story",
+        "experience": "My journey",
+        "projects": "My creations",
+        "contact": "Write to me!"
+      }
+    }
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "available": "Available for opportunities",
+    "scroll": "Scroll",
+    "cta": {
+      "projects": "View my projects",
+      "contact": "Contact me"
+    }
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Who am I?",
+    "intro": "Systems engineer in apprenticeship, I'm passionate about cloud infrastructure, automation and building robust solutions. From vocational diploma to Master's degree, every step reinforced my belief: technology should serve real needs.",
+    "philosophy": "I enjoy designing reliable architectures, automating what can be automated and sharing what I learn. I believe a good engineer is above all curious, rigorous and pragmatic.",
+    "degree": "Master's in Infrastructure & Cloud",
+    "role": "Systems Engineer (apprenticeship)",
+    "funFacts": {
+      "coffees": "Coffees drunk",
+      "commits": "Commits",
+      "technologies": "Technologies",
+      "years": "Years of XP"
+    },
+    "drives": {
+      "title": "What drives me",
+      "innovation": {
+        "title": "Innovation",
+        "description": "Exploring new technologies to create ever more performant solutions."
+      },
+      "problemSolving": {
+        "title": "Problem Solving",
+        "description": "Breaking down complex challenges into elegant and maintainable solutions."
+      },
+      "openSource": {
+        "title": "Open Source",
+        "description": "Contributing to the community and sharing knowledge with other developers."
+      }
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I master",
+    "hardSkills": "Technical Skills",
+    "softSkills": "Soft Skills",
+    "filters": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps",
+      "database": "Database",
+      "system": "System",
+      "security": "Security",
+      "monitoring": "Monitoring",
+      "cloud": "Cloud",
+      "tools": "Tools"
+    },
+    "legend": {
+      "size": "Size = Level",
+      "indicator": "Level indicator"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "junior": "Junior",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    },
+    "stats": {
+      "technologies": "Technologies",
+      "mastered": "Mastered",
+      "domains": "Domains",
+      "softSkills": "Soft Skills"
+    },
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "cloud": "Cloud & Infrastructure",
+      "devops": "DevOps & Automation",
+      "tools": "Tools & Management",
+      "system": "System & Administration",
+      "security": "Security & Compliance",
+      "monitoring": "Monitoring & Performance"
+    },
+    "softCategories": {
+      "communication": "Communication",
+      "teamwork": "Teamwork",
+      "problem-solving": "Problem Solving",
+      "management": "Management",
+      "adaptability": "Adaptability"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "My latest work on GitHub",
+    "viewDemo": "View demo",
+    "viewSource": "Source code",
+    "viewSourceCode": "View source code of {title}",
+    "viewProject": "View project",
+    "details": "Details",
+    "technologies": "Technologies used",
+    "featured": "Featured projects",
+    "featuredBadge": "Featured",
+    "others": "Other projects",
+    "viewMore": "Want to see more projects?",
+    "viewGithub": "View my GitHub",
+    "loading": "Loading projects...",
+    "errorLoading": "An error occurred while loading GitHub projects. Please check your connection or try again later.",
+    "errorTitle": "Loading error",
+    "retry": "Retry",
+    "recentBadge": "Recent",
+    "pinnedBadge": "Pinned",
+    "stars": "Stars",
+    "forks": "Forks",
+    "totalStars": "Total stars",
+    "recentProjects": "Recent projects",
+    "pinnedProjects": "Pinned projects",
+    "languages": "Languages",
+    "filters": {
+      "all": "All"
+    },
+    "sortByDate": "Date",
+    "sortByStars": "Stars",
+    "noResults": "No projects match the selected filters.",
+    "resetFilters": "Reset filters",
+    "contributors": "Contributors"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My professional journey",
+    "current": "Current",
+    "seeMore": "See more",
+    "description": "Description",
+    "achievements": "Key achievements",
+    "technologies": "Technologies used",
+    "close": "Close",
+    "contractType": {
+      "cdi": "Permanent",
+      "cdd": "Fixed-term",
+      "alternance": "Apprenticeship",
+      "stage": "Internship",
+      "freelance": "Freelance",
+      "interim": "Temporary"
+    }
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "My academic journey",
+    "skills": "Skills acquired"
+  },
+  "establishment": {
+    "industry": "Industry",
+    "size": "Size",
+    "website": "Website",
+    "visitWebsite": "Visit website",
+    "location": "Location"
+  },
+  "contact": {
+    "title": "Let's work together",
+    "subtitle": "Have a project in mind? A question? Don't hesitate to contact me.",
+    "form": {
+      "email": "Your email",
+      "emailPlaceholder": "you{'@'}example.com",
+      "message": "Your message",
+      "messagePlaceholder": "Describe your project or ask me a question...",
+      "send": "Send",
+      "sending": "Sending..."
+    },
+    "success": {
+      "title": "Message sent!",
+      "message": "Thank you! I'll get back to you as soon as possible."
+    },
+    "error": {
+      "title": "Error sending",
+      "message": "An error occurred. Please try again."
+    },
+    "alternative": "Prefer direct email?"
+  },
+  "common": {
+    "backToTop": "Back to top",
+    "loading": "Loading...",
+    "close": "Close",
+    "toggleTheme": "Toggle theme"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "navigation": "Navigation",
+    "social": "Social",
+    "contact": "Contact",
+    "madeWith": "Made with ❤️"
+  },
+  "error": {
+    "backHome": "Back to home",
+    "retry": "Retry",
+    "details": "Error details",
+    "404": {
+      "title": "Page not found",
+      "description": "Oops! The page you're looking for doesn't exist or has been moved."
+    },
+    "403": {
+      "title": "Access denied",
+      "description": "You don't have permission to access this page."
+    },
+    "500": {
+      "title": "Server error",
+      "description": "An unexpected error occurred. Please try again later."
+    },
+    "default": {
+      "title": "An error occurred",
+      "description": "Something went wrong. Please try again."
+    }
+  }
+}
