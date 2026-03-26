@@ -15,7 +15,8 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "sonar": "sonar-scanner"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.12.1",
