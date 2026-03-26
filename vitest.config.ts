@@ -15,5 +15,7 @@ export default defineVitestConfig({
       include: ['app/**/*.vue', 'app/**/*.ts', 'server/**/*.ts'],
       exclude: ['app/components/ui/**'],
     },
+    reporters: ['verbose', 'vitest-sonar-reporter'],
+    outputFile: 'test-report.xml',
   },
 })
