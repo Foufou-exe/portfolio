@@ -5,6 +5,10 @@
   "author": "Thibaut Maurras",
   "description": "portfolio",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
