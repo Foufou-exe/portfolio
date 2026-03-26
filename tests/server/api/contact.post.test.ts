@@ -34,14 +34,14 @@ vi.mock('h3', async (importOriginal) => {
     ...original,
     readBody: (...args: unknown[]) => mockReadBody(...args),
     createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
-    defineEventHandler: (handler: Function) => handler,
+    defineEventHandler: <T>(handler: T) => handler,
   }
 })
 
 // Also stub globals for Nitro auto-imports that might resolve as globals
 vi.stubGlobal('readBody', (...args: unknown[]) => mockReadBody(...args))
 vi.stubGlobal('createError', (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts))
-vi.stubGlobal('defineEventHandler', (handler: Function) => handler)
+vi.stubGlobal('defineEventHandler', <T>(handler: T) => handler)
 
 describe('contact.post API', () => {
   let handler: (event: unknown) => Promise<unknown>
@@ -74,7 +74,7 @@ describe('contact.post API', () => {
         ...original,
         readBody: (...args: unknown[]) => mockReadBody(...args),
         createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
-        defineEventHandler: (handler: Function) => handler,
+        defineEventHandler: <T>(handler: T) => handler,
       }
     })
 

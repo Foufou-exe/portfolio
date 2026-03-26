@@ -29,7 +29,10 @@ describe('useAnimatedLogoSVG', () => {
       innerHeight: 768,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
-      requestAnimationFrame: vi.fn((cb: () => void) => { cb(); return 1 }),
+      requestAnimationFrame: vi.fn((cb: () => void) => {
+        cb()
+        return 1
+      }),
       cancelAnimationFrame: vi.fn(),
     })
   })

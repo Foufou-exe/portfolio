@@ -22,7 +22,7 @@ vi.mock('h3', async (importOriginal) => {
   const original = await importOriginal<Record<string, unknown>>()
   return {
     ...original,
-    defineEventHandler: (handler: Function) => handler,
+    defineEventHandler: <T>(handler: T) => handler,
     createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
       mockCreateError(opts),
   }
@@ -116,7 +116,7 @@ describe('repos.get API', () => {
       const original = await importOriginal<Record<string, unknown>>()
       return {
         ...original,
-        defineEventHandler: (handler: Function) => handler,
+        defineEventHandler: <T>(handler: T) => handler,
         createError: (opts: { statusCode: number, statusMessage: string, data?: unknown }) =>
           mockCreateError(opts),
       }
