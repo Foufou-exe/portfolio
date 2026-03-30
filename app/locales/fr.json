@@ -1,4 +1,8 @@
 {
+  "seo": {
+    "description": "Decouvrez mes projets, competences et experiences en developpement et infrastructure cloud.",
+    "keywords": "developpeur, ingenieur systemes, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure"
+  },
   "nav": {
     "about": "A propos",
     "skills": "Competences",

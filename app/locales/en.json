@@ -1,4 +1,8 @@
 {
+  "seo": {
+    "description": "Discover my projects, skills and experience in development and cloud infrastructure.",
+    "keywords": "developer, systems engineer, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure"
+  },
   "nav": {
     "about": "About",
     "skills": "Skills",

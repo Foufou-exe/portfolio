@@ -17,18 +17,18 @@
             v-for="(exp, index) in experiences"
             :key="exp.id"
             type="experience"
-            :title="exp.title"
+            :title="$t(exp.titleKey)"
             :subtitle="exp.company"
             :location="exp.location"
             :period="exp.period"
             :year="String(exp.startYear)"
-            :description="exp.description"
-            :achievements="exp.achievements"
+            :description="$t(exp.descriptionKey)"
+            :achievements="getAchievements(exp.achievementsKey)"
             :tags="exp.technologies"
             :is-current="exp.current"
             :is-last="index === experiences.length - 1"
             :contract-type="exp.contractType"
-            :establishment="exp.establishment"
+            :establishment="exp.establishment ? translateEstablishment(exp.establishment) : undefined"
           />
         </div>
       </div>
@@ -40,7 +40,23 @@
 import SectionTitle from '~/components/common/SectionTitle.vue'
 import TimelineItem from '~/components/common/TimelineItem.vue'
 import { experiences } from '~/data/portfolio'
+import type { Establishment } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
+const { t } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
+
+// Traduit les achievements (tableau)
+const getAchievements = (key: string): string[] => {
+  const result = t(key, [])
+  return Array.isArray(result) ? result : []
+}
+
+// Traduit les champs de l'établissement
+const translateEstablishment = (est: Establishment) => ({
+  ...est,
+  description: est.descriptionKey ? t(est.descriptionKey) : undefined,
+  industry: est.industryKey ? t(est.industryKey) : undefined,
+  size: est.sizeKey ? t(est.sizeKey) : undefined,
+})
 </script>

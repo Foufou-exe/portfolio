@@ -28,7 +28,7 @@
               </span>
             </a>
             <p class="mt-4 text-sm leading-relaxed text-muted-foreground">
-              {{ profile.tagline }}
+              {{ $t(profile.taglineKey) }}
             </p>
           </div>
 

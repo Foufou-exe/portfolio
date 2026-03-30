@@ -51,23 +51,17 @@ const lazySections = [
   createLazySection('contact', ContactSection, 'min-h-[500px]'),
 ]
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const config = useRuntimeConfig()
 
 // SEO dynamique basé sur la langue
 const seoTitle = computed(() => `Portfolio | ${profile.name}`)
 
 const seoDescription = computed(() =>
-  locale.value === 'fr'
-    ? `Portfolio de ${profile.name}, ${profile.title}. Decouvrez mes projets, competences et experiences en developpement et infrastructure cloud.`
-    : `Portfolio of ${profile.name}, Systems Engineer. Discover my projects, skills and experience in development and cloud infrastructure.`,
+  `Portfolio ${locale.value === 'fr' ? 'de' : 'of'} ${profile.name}, ${t(profile.titleKey)}. ${t('seo.description')}`,
 )
 
-const seoKeywords = computed(() =>
-  locale.value === 'fr'
-    ? 'developpeur, ingenieur systemes, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure'
-    : 'developer, systems engineer, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure',
-)
+const seoKeywords = computed(() => t('seo.keywords'))
 
 // Utiliser useSeoMeta pour les meta tags dynamiques
 useSeoMeta({
@@ -105,7 +99,7 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Person',
         'name': profile.name,
-        'jobTitle': profile.title,
+        'jobTitle': t(profile.titleKey),
         'url': config.public.siteUrl,
         'image': `${config.public.siteUrl}/og-image.webp`,
         'sameAs': [
