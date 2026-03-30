@@ -1,4 +1,6 @@
-import { defineEventHandler, createError } from 'h3'
+import { defineEventHandler } from 'h3'
+import { logger } from '../../utils/logger'
+import { ErrorCode, createAppError, getErrorCodeFromStatus } from '../../utils/errors'
 
 // Types pour l'API GitHub
 interface GitHubRepoResponse {
@@ -58,6 +60,8 @@ interface CacheEntry {
 let cache: CacheEntry | null = null
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
+const githubLogger = logger.withSource('github-api')
+
 export default defineEventHandler(async (_event) => {
   const config = useRuntimeConfig()
   const { githubToken } = config
@@ -65,6 +69,9 @@ export default defineEventHandler(async (_event) => {
 
   // Vérifier le cache
   if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
+    githubLogger.debug('Returning cached data', {
+      data: { count: cache.data.length },
+    })
     return {
       success: true,
       data: cache.data,
@@ -118,9 +125,14 @@ export default defineEventHandler(async (_event) => {
         })
         const graphqlData = await graphqlResponse.json()
         pinnedRepoNames = graphqlData?.data?.user?.pinnedItems?.nodes?.map((n: { name: string }) => n.name) || []
+        githubLogger.debug('Fetched pinned repos', {
+          data: { count: pinnedRepoNames.length },
+        })
       }
       catch (e) {
-        console.warn('Failed to fetch pinned repos:', e)
+        githubLogger.warn('Failed to fetch pinned repos', {
+          error: e,
+        })
       }
     }
 
@@ -131,14 +143,22 @@ export default defineEventHandler(async (_event) => {
     )
 
     if (!response.ok) {
-      console.error('GitHub API Error:', response.status, response.statusText)
-      throw createError({
-        statusCode: response.status,
-        statusMessage: `GitHub API error: ${response.statusText}`,
+      const errorCode = getErrorCodeFromStatus(response.status)
+      throw createAppError(errorCode, {
+        technicalMessage: `GitHub API returned ${response.status}: ${response.statusText}`,
+        details: {
+          status: response.status,
+          statusText: response.statusText,
+        },
+        source: 'github-api',
       })
     }
 
     const repos: GitHubRepoResponse[] = await response.json()
+
+    githubLogger.debug('Fetched repos from GitHub', {
+      data: { totalCount: repos.length },
+    })
 
     // Filtrer : exclure les forks, repos archivés
     const filteredRepos = repos
@@ -239,6 +259,13 @@ export default defineEventHandler(async (_event) => {
       timestamp: Date.now(),
     }
 
+    githubLogger.info('Successfully fetched and cached GitHub repos', {
+      data: {
+        count: sortedRepos.length,
+        pinnedCount: sortedRepos.filter(r => r.isPinned).length,
+      },
+    })
+
     return {
       success: true,
       data: sortedRepos,
@@ -251,15 +278,16 @@ export default defineEventHandler(async (_event) => {
     }
   }
   catch (error: unknown) {
-    console.error('GitHub API Error:', error)
+    // Re-throw si c'est deja une erreur HTTP (H3Error)
+    if (error && typeof error === 'object' && 'statusCode' in error) {
+      throw error
+    }
 
-    // Retourner une erreur propre
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Failed to fetch GitHub repositories',
-      data: {
-        error: error instanceof Error ? error.message : 'Unknown error',
-      },
+    // Erreur réseau ou autre
+    throw createAppError(ErrorCode.GITHUB_API_ERROR, {
+      technicalMessage: error instanceof Error ? error.message : 'Unknown GitHub API error',
+      cause: error,
+      source: 'github-api',
     })
   }
 })

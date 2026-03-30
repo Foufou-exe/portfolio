@@ -1,0 +1,222 @@
+/**
+ * Composable pour la gestion des erreurs
+ *
+ * Fournit des utilitaires pour gérer et afficher les erreurs
+ * de manière cohérente dans l'application
+ */
+
+import { ref, computed } from 'vue'
+import type { ParsedError } from '../plugins/error-handler.client'
+
+// Types pour les erreurs
+interface ErrorState {
+  hasError: boolean
+  error: ParsedError | null
+}
+
+// Messages par défaut (fallback si le plugin n'est pas chargé)
+const defaultMessages: Record<string, string> = {
+  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
+  NOT_FOUND: 'La ressource demandée n\'a pas été trouvée.',
+  BAD_REQUEST: 'Les données fournies sont invalides.',
+  API_UNREACHABLE: 'Le service est temporairement indisponible.',
+  VALIDATION_ERROR: 'Les données fournies sont invalides.',
+}
+
+// Message par défaut
+const DEFAULT_ERROR_MESSAGE = defaultMessages['INTERNAL_ERROR'] as string
+
+/**
+ * Composable pour gérer les erreurs API dans un composant
+ */
+export function useApiError() {
+  const state = ref<ErrorState>({
+    hasError: false,
+    error: null,
+  })
+
+  const isDev = process.env.NODE_ENV === 'development'
+
+  /**
+   * Message d'erreur à afficher à l'utilisateur
+   */
+  const errorMessage = computed(() => {
+    if (!state.value.error) return null
+    return state.value.error.userMessage
+  })
+
+  /**
+   * Détails techniques (uniquement en dev)
+   */
+  const technicalDetails = computed(() => {
+    if (!isDev || !state.value.error) return null
+    return state.value.error.technicalDetails
+  })
+
+  /**
+   * Définit une erreur
+   */
+  function setError(error: unknown): void {
+    const nuxtApp = useNuxtApp()
+
+    // Utiliser le parser du plugin si disponible
+    if (nuxtApp.$parseApiError) {
+      state.value = {
+        hasError: true,
+        error: nuxtApp.$parseApiError(error),
+      }
+    }
+    else {
+      // Fallback si le plugin n'est pas chargé (SSR)
+      const parsed = parseErrorFallback(error)
+      state.value = {
+        hasError: true,
+        error: parsed,
+      }
+    }
+
+    // Logger en dev
+    if (isDev) {
+      console.error('[useError] Error caught:', error)
+    }
+  }
+
+  /**
+   * Efface l'erreur
+   */
+  function clearError(): void {
+    state.value = {
+      hasError: false,
+      error: null,
+    }
+  }
+
+  /**
+   * Exécute une fonction async avec gestion d'erreur
+   */
+  async function withErrorHandling<T>(
+    fn: () => Promise<T>,
+    options?: {
+      /** Effacer l'erreur précédente avant d'exécuter */
+      clearBefore?: boolean
+      /** Callback en cas d'erreur */
+      onError?: (error: ParsedError) => void
+    },
+  ): Promise<T | null> {
+    if (options?.clearBefore !== false) {
+      clearError()
+    }
+
+    try {
+      return await fn()
+    }
+    catch (error) {
+      setError(error)
+      if (options?.onError && state.value.error) {
+        options.onError(state.value.error)
+      }
+      return null
+    }
+  }
+
+  return {
+    /** État de l'erreur */
+    hasError: computed(() => state.value.hasError),
+    /** Erreur parsée complète */
+    error: computed(() => state.value.error),
+    /** Message user-friendly */
+    errorMessage,
+    /** Détails techniques (dev only) */
+    technicalDetails,
+    /** Définit une erreur */
+    setError,
+    /** Efface l'erreur */
+    clearError,
+    /** Wrapper pour exécuter avec gestion d'erreur */
+    withErrorHandling,
+  }
+}
+
+/**
+ * Parser de fallback pour le SSR ou si le plugin n'est pas chargé
+ */
+function parseErrorFallback(error: unknown): ParsedError {
+  const isDev = process.env.NODE_ENV === 'development'
+
+  if (error && typeof error === 'object') {
+    const e = error as Record<string, unknown>
+    const code = (e.data as Record<string, unknown>)?.code as string | undefined
+    const statusCode = e.statusCode as number | undefined
+
+    let userMessage: string = DEFAULT_ERROR_MESSAGE
+
+    if (code) {
+      const codeMessage = defaultMessages[code]
+      if (codeMessage) {
+        userMessage = codeMessage
+      }
+    }
+    else if (e.statusMessage && typeof e.statusMessage === 'string') {
+      userMessage = e.statusMessage
+    }
+
+    return {
+      userMessage,
+      code,
+      statusCode,
+      technicalDetails: isDev
+        ? {
+            message: (e.message as string) || undefined,
+          }
+        : undefined,
+    }
+  }
+
+  if (error instanceof Error) {
+    return {
+      userMessage: DEFAULT_ERROR_MESSAGE,
+      technicalDetails: isDev ? { message: error.message } : undefined,
+    }
+  }
+
+  return {
+    userMessage: DEFAULT_ERROR_MESSAGE,
+    technicalDetails: isDev ? { message: String(error) } : undefined,
+  }
+}
+
+/**
+ * Composable pour le logging côté client
+ */
+export function useClientLogger(source?: string) {
+  const isDev = process.env.NODE_ENV === 'development'
+  const prefix = source ? `[${source}]` : ''
+
+  return {
+    debug(message: string, data?: Record<string, unknown>): void {
+      if (isDev) {
+        console.debug(`${prefix}[DEBUG] ${message}`, data || '')
+      }
+    },
+
+    info(message: string, data?: Record<string, unknown>): void {
+      if (isDev) {
+        console.info(`${prefix}[INFO] ${message}`, data || '')
+      }
+    },
+
+    warn(message: string, data?: Record<string, unknown>): void {
+      console.warn(`${prefix}[WARN] ${message}`, data || '')
+    },
+
+    error(message: string, error?: unknown): void {
+      if (isDev) {
+        console.error(`${prefix}[ERROR] ${message}`, error || '')
+      }
+      else {
+        // En prod, on log juste le message
+        console.error(`${prefix}[ERROR] ${message}`)
+      }
+    },
+  }
+}

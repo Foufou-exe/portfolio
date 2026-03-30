@@ -10,8 +10,10 @@
       />
     </NuxtLayout>
   </div>
-  <SpeedInsights />
-  <Analytics />
+  <ClientOnly>
+    <SpeedInsights />
+    <Analytics />
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>

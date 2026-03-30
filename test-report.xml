@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
   <file path="tests\components\AnimatedLogo.test.ts">
-    <testCase name="AnimatedLogo - renders with default size" duration="41" />
-    <testCase name="AnimatedLogo - accepts custom size prop" duration="18" />
-    <testCase name="AnimatedLogo - renders SSR fallback text" duration="8" />
-    <testCase name="AnimatedLogo - has a clickable logo container" duration="12" />
+    <testCase name="AnimatedLogo - renders with default size" duration="31" />
+    <testCase name="AnimatedLogo - accepts custom size prop" duration="11" />
+    <testCase name="AnimatedLogo - renders SSR fallback text" duration="5" />
+    <testCase name="AnimatedLogo - has a clickable logo container" duration="14" />
     <testCase name="AnimatedLogo - renders tooltip provider" duration="9" />
-    <testCase name="AnimatedLogo - triggers animation on click" duration="17" />
+    <testCase name="AnimatedLogo - triggers animation on click" duration="7" />
   </file>
   <file path="tests\components\AnimatedLogoSVG.test.ts">
-    <testCase name="AnimatedLogoSVG - renders an SVG element" duration="19" />
-    <testCase name="AnimatedLogoSVG - uses default size of 45" duration="5" />
-    <testCase name="AnimatedLogoSVG - accepts custom size prop" duration="4" />
-    <testCase name="AnimatedLogoSVG - has correct viewBox" duration="6" />
-    <testCase name="AnimatedLogoSVG - fetches SVG content on mount" duration="4" />
-    <testCase name="AnimatedLogoSVG - exposes animations via defineExpose" duration="3" />
-    <testCase name="AnimatedLogoSVG - renders container with correct class" duration="3" />
-    <testCase name="AnimatedLogoSVG - handles fetch error gracefully" duration="4" />
+    <testCase name="AnimatedLogoSVG - renders an SVG element" duration="12" />
+    <testCase name="AnimatedLogoSVG - uses default size of 45" duration="4" />
+    <testCase name="AnimatedLogoSVG - accepts custom size prop" duration="3" />
+    <testCase name="AnimatedLogoSVG - has correct viewBox" duration="2" />
+    <testCase name="AnimatedLogoSVG - fetches SVG content on mount" duration="3" />
+    <testCase name="AnimatedLogoSVG - exposes animations via defineExpose" duration="2" />
+    <testCase name="AnimatedLogoSVG - renders container with correct class" duration="2" />
+    <testCase name="AnimatedLogoSVG - handles fetch error gracefully" duration="2" />
   </file>
   <file path="tests\components\BackToTop.test.ts">
-    <testCase name="BackToTop - is hidden when scroll position is below threshold" duration="20" />
-    <testCase name="BackToTop - becomes visible when scroll exceeds threshold" duration="8" />
-    <testCase name="BackToTop - calls scrollTo top on click" duration="9" />
-    <testCase name="BackToTop - has correct aria-label" duration="4" />
-    <testCase name="BackToTop - renders ArrowUp icon" duration="4" />
+    <testCase name="BackToTop - is hidden when scroll position is below threshold" duration="16" />
+    <testCase name="BackToTop - becomes visible when scroll exceeds threshold" duration="5" />
+    <testCase name="BackToTop - calls scrollTo top on click" duration="6" />
+    <testCase name="BackToTop - has correct aria-label" duration="2" />
+    <testCase name="BackToTop - renders ArrowUp icon" duration="2" />
   </file>
   <file path="tests\components\NavBar.test.ts">
-    <testCase name="NavBar - renders the navigation header" duration="61" />
-    <testCase name="NavBar - renders desktop navigation buttons" duration="22" />
-    <testCase name="NavBar - renders language toggle button" duration="17" />
-    <testCase name="NavBar - has transparent background when not scrolled" duration="18" />
-    <testCase name="NavBar - adds backdrop blur when scrolled" duration="27" />
-    <testCase name="NavBar - renders the logo link" duration="18" />
-    <testCase name="NavBar - renders navigation links" duration="24" />
-    <testCase name="NavBar - renders mobile menu button" duration="20" />
+    <testCase name="NavBar - renders the navigation header" duration="33" />
+    <testCase name="NavBar - renders desktop navigation buttons" duration="14" />
+    <testCase name="NavBar - renders language toggle button" duration="9" />
+    <testCase name="NavBar - has transparent background when not scrolled" duration="10" />
+    <testCase name="NavBar - adds backdrop blur when scrolled" duration="14" />
+    <testCase name="NavBar - renders the logo link" duration="10" />
+    <testCase name="NavBar - renders navigation links" duration="14" />
+    <testCase name="NavBar - renders mobile menu button" duration="12" />
   </file>
   <file path="tests\components\ProjectCardSkeleton.test.ts">
-    <testCase name="ProjectCardSkeleton - renders with large size" duration="18" />
-    <testCase name="ProjectCardSkeleton - renders with medium size" duration="5" />
-    <testCase name="ProjectCardSkeleton - renders with small size" duration="4" />
+    <testCase name="ProjectCardSkeleton - renders with large size" duration="12" />
+    <testCase name="ProjectCardSkeleton - renders with medium size" duration="2" />
+    <testCase name="ProjectCardSkeleton - renders with small size" duration="2" />
     <testCase name="ProjectCardSkeleton - has skeleton shimmer animation elements" duration="3" />
-    <testCase name="ProjectCardSkeleton - shows extra description line for large size" duration="7" />
+    <testCase name="ProjectCardSkeleton - shows extra description line for large size" duration="5" />
   </file>
   <file path="tests\components\SkillBadge.test.ts">
-    <testCase name="SkillBadge - renders the skill name in a Badge" duration="31" />
-    <testCase name="SkillBadge - uses secondary variant by default" duration="12" />
-    <testCase name="SkillBadge - accepts a custom variant prop" duration="8" />
-    <testCase name="SkillBadge - renders HoverCard structure" duration="8" />
+    <testCase name="SkillBadge - renders the skill name in a Badge" duration="20" />
+    <testCase name="SkillBadge - uses secondary variant by default" duration="7" />
+    <testCase name="SkillBadge - accepts a custom variant prop" duration="4" />
+    <testCase name="SkillBadge - renders HoverCard structure" duration="5" />
   </file>
   <file path="tests\composables\useAnimatedLogoSVG.test.ts">
-    <testCase name="useAnimatedLogoSVG - returns svgRef, eyeLeftRef, eyeRightRef and animations" duration="7" />
+    <testCase name="useAnimatedLogoSVG - returns svgRef, eyeLeftRef, eyeRightRef and animations" duration="4" />
     <testCase name="useAnimatedLogoSVG - initializes refs as null" duration="1" />
     <testCase name="useAnimatedLogoSVG - provides all expected animation functions" duration="1" />
     <testCase name="useAnimatedLogoSVG - wink does nothing when no eyeLeftRef" duration="1" />
     <testCase name="useAnimatedLogoSVG - surprised does nothing without eye refs" duration="1" />
-    <testCase name="useAnimatedLogoSVG - happy does nothing without eye refs" duration="1" />
-    <testCase name="useAnimatedLogoSVG - squash does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - shake does nothing without svgRef" duration="1" />
+    <testCase name="useAnimatedLogoSVG - happy does nothing without eye refs" duration="0" />
+    <testCase name="useAnimatedLogoSVG - squash does nothing without svgRef" duration="0" />
+    <testCase name="useAnimatedLogoSVG - shake does nothing without svgRef" duration="0" />
     <testCase name="useAnimatedLogoSVG - bounce does nothing without svgRef" duration="1" />
     <testCase name="useAnimatedLogoSVG - spin does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - wobble does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - pulse does nothing without svgRef" duration="3" />
-    <testCase name="useAnimatedLogoSVG - float does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - lookAround does nothing without eye refs" duration="1" />
-    <testCase name="useAnimatedLogoSVG - blink does nothing without eye refs" duration="1" />
-    <testCase name="useAnimatedLogoSVG - squash calls animate with svgRef when available" duration="3" />
+    <testCase name="useAnimatedLogoSVG - wobble does nothing without svgRef" duration="0" />
+    <testCase name="useAnimatedLogoSVG - pulse does nothing without svgRef" duration="0" />
+    <testCase name="useAnimatedLogoSVG - float does nothing without svgRef" duration="0" />
+    <testCase name="useAnimatedLogoSVG - lookAround does nothing without eye refs" duration="0" />
+    <testCase name="useAnimatedLogoSVG - blink does nothing without eye refs" duration="0" />
+    <testCase name="useAnimatedLogoSVG - squash calls animate with svgRef when available" duration="2" />
     <testCase name="useAnimatedLogoSVG - shake calls animate with svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - bounce calls animate with svgRef" duration="1" />
+    <testCase name="useAnimatedLogoSVG - bounce calls animate with svgRef" duration="0" />
     <testCase name="useAnimatedLogoSVG - spin calls animate with rotate 360" duration="1" />
-    <testCase name="useAnimatedLogoSVG - wobble calls animate with rotate oscillation" duration="1" />
-    <testCase name="useAnimatedLogoSVG - pulse calls animate with scale" duration="1" />
-    <testCase name="useAnimatedLogoSVG - float calls animate with translateY" duration="1" />
-    <testCase name="useAnimatedLogoSVG - wink calls animate with eye ref when available" duration="2" />
-    <testCase name="useAnimatedLogoSVG - blink calls animate on both eyes when refs available" duration="1" />
-    <testCase name="useAnimatedLogoSVG - surprised calls animate on both eyes when refs available" duration="1" />
-    <testCase name="useAnimatedLogoSVG - happy calls animate on both eyes when refs available" duration="1" />
-    <testCase name="useAnimatedLogoSVG - lookAround animates eyes through positions" duration="1" />
+    <testCase name="useAnimatedLogoSVG - wobble calls animate with rotate oscillation" duration="0" />
+    <testCase name="useAnimatedLogoSVG - pulse calls animate with scale" duration="0" />
+    <testCase name="useAnimatedLogoSVG - float calls animate with translateY" duration="0" />
+    <testCase name="useAnimatedLogoSVG - wink calls animate with eye ref when available" duration="1" />
+    <testCase name="useAnimatedLogoSVG - blink calls animate on both eyes when refs available" duration="0" />
+    <testCase name="useAnimatedLogoSVG - surprised calls animate on both eyes when refs available" duration="0" />
+    <testCase name="useAnimatedLogoSVG - happy calls animate on both eyes when refs available" duration="0" />
+    <testCase name="useAnimatedLogoSVG - lookAround animates eyes through positions" duration="0" />
   </file>
   <file path="tests\composables\useLazySection.test.ts">
-    <testCase name="useLazySection - returns sentinelRef and shouldRender" duration="2" />
+    <testCase name="useLazySection - returns sentinelRef and shouldRender" duration="1" />
     <testCase name="useLazySection - initially does not render the section" duration="0" />
     <testCase name="useLazySection - registers section as pending in the registry" duration="0" />
     <testCase name="useLazySection - activates when intersection observer triggers" duration="0" />
@@ -90,24 +90,24 @@
     <testCase name="useLazySection - isLazySectionPending returns false for unknown section" duration="0" />
   </file>
   <file path="tests\composables\useLogoTooltip.test.ts">
-    <testCase name="useLogoTooltip - returns expected properties" duration="13" />
-    <testCase name="useLogoTooltip - initializes with empty message and closed tooltip" duration="4" />
+    <testCase name="useLogoTooltip - returns expected properties" duration="8" />
+    <testCase name="useLogoTooltip - initializes with empty message and closed tooltip" duration="2" />
     <testCase name="useLogoTooltip - triggerLoadMessage fires after delay on mount" duration="6" />
-    <testCase name="useLogoTooltip - showMessage sets currentMessage and opens tooltip" duration="3" />
+    <testCase name="useLogoTooltip - showMessage sets currentMessage and opens tooltip" duration="2" />
     <testCase name="useLogoTooltip - showMessage auto-hides after duration" duration="2" />
-    <testCase name="useLogoTooltip - triggerClickMessage can be called without crashing" duration="5" />
-    <testCase name="useLogoTooltip - showRandomMessage can be called for load trigger" duration="3" />
-    <testCase name="useLogoTooltip - showRandomMessage can be called for click trigger" duration="3" />
-    <testCase name="useLogoTooltip - cleanup runs on unmount without errors" duration="4" />
+    <testCase name="useLogoTooltip - triggerClickMessage can be called without crashing" duration="3" />
+    <testCase name="useLogoTooltip - showRandomMessage can be called for load trigger" duration="2" />
+    <testCase name="useLogoTooltip - showRandomMessage can be called for click trigger" duration="2" />
+    <testCase name="useLogoTooltip - cleanup runs on unmount without errors" duration="2" />
   </file>
   <file path="tests\composables\useNavLinks.test.ts">
-    <testCase name="useNavLinks - returns translatedNavLinks as a computed ref" duration="14" />
-    <testCase name="useNavLinks - returns 6 navigation links" duration="5" />
-    <testCase name="useNavLinks - each link has name and href properties" duration="5" />
-    <testCase name="useNavLinks - contains expected section hrefs" duration="4" />
+    <testCase name="useNavLinks - returns translatedNavLinks as a computed ref" duration="8" />
+    <testCase name="useNavLinks - returns 6 navigation links" duration="3" />
+    <testCase name="useNavLinks - each link has name and href properties" duration="2" />
+    <testCase name="useNavLinks - contains expected section hrefs" duration="2" />
   </file>
   <file path="tests\composables\useScrollAnimation.test.ts">
-    <testCase name="useScrollAnimation - returns isVisible, animationClass, and setupAnimation" duration="2" />
+    <testCase name="useScrollAnimation - returns isVisible, animationClass, and setupAnimation" duration="1" />
     <testCase name="useScrollAnimation - isVisible is initially false" duration="0" />
     <testCase name="useScrollAnimation - uses custom animationClass when provided" duration="0" />
     <testCase name="useScrollAnimation - setupAnimation sets up observer and returns controls" duration="0" />
@@ -115,37 +115,37 @@
     <testCase name="useScrollAnimation - stops observer when once is true (default)" duration="0" />
     <testCase name="useScrollAnimation - does not stop observer when once is false" duration="0" />
     <testCase name="useScrollAnimation - resets isVisible when not intersecting and once is false" duration="0" />
-    <testCase name="useScrollAnimation - uses default options when none provided" duration="2" />
-    <testCase name="useScrollAnimation - passes custom threshold and rootMargin" duration="1" />
+    <testCase name="useScrollAnimation - uses default options when none provided" duration="1" />
+    <testCase name="useScrollAnimation - passes custom threshold and rootMargin" duration="0" />
     <testCase name="useElementAnimation - returns elementRef and isVisible" duration="0" />
     <testCase name="useElementAnimation - sets isVisible to true when element intersects" duration="0" />
     <testCase name="useElementAnimation - does not reset isVisible when once is true (default)" duration="0" />
     <testCase name="useElementAnimation - resets isVisible when once is false" duration="0" />
-    <testCase name="useElementAnimation - uses custom rootMargin default for element animation" duration="2" />
+    <testCase name="useElementAnimation - uses custom rootMargin default for element animation" duration="1" />
   </file>
   <file path="tests\composables\useScrollToSection.test.ts">
-    <testCase name="useScrollToSection - returns scrollToSection and scrollToTop functions" duration="2" />
-    <testCase name="useScrollToSection - scrollToSection scrolls to the correct position" duration="4" />
-    <testCase name="useScrollToSection - scrollToSection accounts for header offset of 80px" duration="1" />
-    <testCase name="useScrollToSection - scrollToSection does nothing when element is not found" duration="1" />
-    <testCase name="useScrollToSection - scrollToSection force-renders lazy section when pending" duration="54" />
+    <testCase name="useScrollToSection - returns scrollToSection and scrollToTop functions" duration="1" />
+    <testCase name="useScrollToSection - scrollToSection scrolls to the correct position" duration="2" />
+    <testCase name="useScrollToSection - scrollToSection accounts for header offset of 80px" duration="0" />
+    <testCase name="useScrollToSection - scrollToSection does nothing when element is not found" duration="0" />
+    <testCase name="useScrollToSection - scrollToSection force-renders lazy section when pending" duration="59" />
     <testCase name="useScrollToSection - scrollToTop scrolls to the top of the page" duration="0" />
   </file>
   <file path="tests\data\portfolio.test.ts">
     <testCase name="Portfolio Data - Profile - has required profile fields" duration="1" />
     <testCase name="Portfolio Data - Profile - has valid initials" duration="0" />
     <testCase name="Portfolio Data - Skills - has skills defined" duration="0" />
-    <testCase name="Portfolio Data - Skills - all skills have required fields" duration="2" />
+    <testCase name="Portfolio Data - Skills - all skills have required fields" duration="1" />
     <testCase name="Portfolio Data - Skills - getSkillsByCategory returns correct skills" duration="0" />
     <testCase name="Portfolio Data - Skills - all skill categories have at least one skill" duration="0" />
     <testCase name="Portfolio Data - Soft Skills - has soft skills defined" duration="0" />
-    <testCase name="Portfolio Data - Soft Skills - all soft skills have required fields" duration="1" />
+    <testCase name="Portfolio Data - Soft Skills - all soft skills have required fields" duration="0" />
     <testCase name="Portfolio Data - Soft Skills - getSoftSkillsByCategory returns correct skills" duration="0" />
     <testCase name="Portfolio Data - Social Links - has social links defined" duration="0" />
     <testCase name="Portfolio Data - Social Links - all social links have required fields" duration="0" />
     <testCase name="Portfolio Data - Social Links - has valid URLs" duration="0" />
     <testCase name="Portfolio Data - Experiences - has experiences defined" duration="0" />
-    <testCase name="Portfolio Data - Experiences - all experiences have required fields" duration="1" />
+    <testCase name="Portfolio Data - Experiences - all experiences have required fields" duration="0" />
     <testCase name="Portfolio Data - Experiences - experiences are sorted by start year descending" duration="0" />
     <testCase name="Portfolio Data - Education - has education entries defined" duration="0" />
     <testCase name="Portfolio Data - Education - all education entries have required fields" duration="0" />
@@ -155,43 +155,133 @@
     <testCase name="Portfolio Data - Categories - all soft skill categories have required fields" duration="0" />
   </file>
   <file path="tests\layouts\default.test.ts">
-    <testCase name="default layout - renders the layout with footer" duration="83" />
-    <testCase name="default layout - renders the main content slot" duration="30" />
-    <testCase name="default layout - displays profile initials in footer" duration="36" />
-    <testCase name="default layout - renders social links in footer" duration="38" />
-    <testCase name="default layout - renders contact email in footer" duration="46" />
-    <testCase name="default layout - renders contact address in footer" duration="24" />
-    <testCase name="default layout - renders copyright with current year" duration="28" />
-    <testCase name="default layout - renders navigation links in footer" duration="27" />
+    <testCase name="default layout - renders the layout with footer" duration="49" />
+    <testCase name="default layout - renders the main content slot" duration="14" />
+    <testCase name="default layout - displays profile initials in footer" duration="21" />
+    <testCase name="default layout - renders social links in footer" duration="27" />
+    <testCase name="default layout - renders contact email in footer" duration="16" />
+    <testCase name="default layout - renders contact address in footer" duration="13" />
+    <testCase name="default layout - renders copyright with current year" duration="15" />
+    <testCase name="default layout - renders navigation links in footer" duration="18" />
   </file>
   <file path="tests\pages\index.test.ts">
-    <testCase name="index page - renders without errors" duration="469" />
-    <testCase name="index page - renders HeroSection eagerly" duration="329" />
-    <testCase name="index page - creates lazy sections for below-fold content" duration="286" />
-    <testCase name="index page - computes SEO title with profile name" duration="289" />
-    <testCase name="index page - renders lazy section containers" duration="323" />
+    <testCase name="index page - renders without errors" duration="231" />
+    <testCase name="index page - renders HeroSection eagerly" duration="191" />
+    <testCase name="index page - creates lazy sections for below-fold content" duration="146" />
+    <testCase name="index page - computes SEO title with profile name" duration="145" />
+    <testCase name="index page - renders lazy section containers" duration="160" />
   </file>
   <file path="tests\plugins\ssr-width.test.ts">
-    <testCase name="ssr-width plugin - calls provideSSRWidth with 1024 and vueApp" duration="56" />
+    <testCase name="ssr-width plugin - calls provideSSRWidth with 1024 and vueApp" duration="20" />
   </file>
   <file path="tests\server\api\contact.post.test.ts">
-    <testCase name="contact.post API - runs in demo mode when SMTP is not configured" duration="191" />
-    <testCase name="contact.post API - throws 400 when email is missing" duration="33" />
-    <testCase name="contact.post API - throws 400 when message is missing" duration="25" />
-    <testCase name="contact.post API - throws 400 when email exceeds 254 chars" duration="16" />
-    <testCase name="contact.post API - throws 400 for invalid email format" duration="14" />
-    <testCase name="contact.post API - sends email successfully with valid config" duration="30" />
-    <testCase name="contact.post API - re-throws HTTP errors from validation" duration="18" />
-    <testCase name="contact.post API - throws 500 on unexpected SMTP error" duration="18" />
+    <testCase name="contact.post API - runs in demo mode when SMTP is not configured" duration="109">
+      <failure message="expected &quot;warn&quot; to be called with arguments: [ Array(1) ][90m
+
+Received: 
+
+[1m  1st warn call:
+
+[22m[2m  [[22m
+[32m-   &quot;SMTP not configured. Running in demo mode.&quot;,[90m
+[31m+   &quot;{\&quot;level\&quot;:\&quot;warn\&quot;,\&quot;message\&quot;:\&quot;SMTP not configured - running in demo mode\&quot;,\&quot;timestamp\&quot;:\&quot;2026-03-30T19:57:26.046Z\&quot;,\&quot;source\&quot;:\&quot;contact-api\&quot;}&quot;,[90m
+[2m  ][22m
+[39m[90m
+
+Number of calls: [1m1[22m
+[39m">
+        <![CDATA[AssertionError: expected &quot;warn&quot; to be called with arguments: [ Array(1) ][90m
+
+Received: 
+
+[1m  1st warn call:
+
+[22m[2m  [[22m
+[32m-   &quot;SMTP not configured. Running in demo mode.&quot;,[90m
+[31m+   &quot;{\&quot;level\&quot;:\&quot;warn\&quot;,\&quot;message\&quot;:\&quot;SMTP not configured - running in demo mode\&quot;,\&quot;timestamp\&quot;:\&quot;2026-03-30T19:57:26.046Z\&quot;,\&quot;source\&quot;:\&quot;contact-api\&quot;}&quot;,[90m
+[2m  ][22m
+[39m[90m
+
+Number of calls: [1m1[22m
+[39m
+    at Proxy.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1355:10)
+    at Proxy.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at Proxy.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:109:24
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
+    <testCase name="contact.post API - throws 400 when email is missing" duration="45">
+      <failure message="expected [Function] to throw error including &apos;Email et message sont requis&apos; but got &apos;Les données fournies sont invalides.&apos;">
+        <![CDATA[AssertionError: expected [Function] to throw error including &apos;Email et message sont requis&apos; but got &apos;Les données fournies sont invalides.&apos;
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1420:16)
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at _Assertion.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1639:20
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:122:5
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
+    <testCase name="contact.post API - throws 400 when message is missing" duration="14">
+      <failure message="expected [Function] to throw error including &apos;Email et message sont requis&apos; but got &apos;Les données fournies sont invalides.&apos;">
+        <![CDATA[AssertionError: expected [Function] to throw error including &apos;Email et message sont requis&apos; but got &apos;Les données fournies sont invalides.&apos;
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1420:16)
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at _Assertion.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1639:20
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:133:5
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
+    <testCase name="contact.post API - throws 400 when email exceeds 254 chars" duration="14">
+      <failure message="expected [Function] to throw error including &apos;Email invalide&apos; but got &apos;Les données fournies sont invalides.&apos;">
+        <![CDATA[AssertionError: expected [Function] to throw error including &apos;Email invalide&apos; but got &apos;Les données fournies sont invalides.&apos;
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1420:16)
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at _Assertion.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1639:20
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:145:5
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
+    <testCase name="contact.post API - throws 400 for invalid email format" duration="13">
+      <failure message="expected [Function] to throw error including &apos;Email invalide&apos; but got &apos;Les données fournies sont invalides.&apos;">
+        <![CDATA[AssertionError: expected [Function] to throw error including &apos;Email invalide&apos; but got &apos;Les données fournies sont invalides.&apos;
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1420:16)
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at _Assertion.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1639:20
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:156:5
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
+    <testCase name="contact.post API - sends email successfully with valid config" duration="10" />
+    <testCase name="contact.post API - re-throws HTTP errors from validation" duration="8" />
+    <testCase name="contact.post API - throws 500 on unexpected SMTP error" duration="10">
+      <failure message="expected [Function] to throw error including &apos;Erreur interne du serveur&apos; but got &apos;Impossible d\&apos;envoyer le message. Veu…&apos;">
+        <![CDATA[AssertionError: expected [Function] to throw error including &apos;Erreur interne du serveur&apos; but got &apos;Impossible d\&apos;envoyer le message. Veu…&apos;
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1420:16)
+    at _Assertion.&lt;anonymous&gt; (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1029:14)
+    at _Assertion.methodWrapper (file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/chai/index.js:1686:25)
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/expect/dist/index.js:1639:20
+    at processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at C:\Users\thiba\Documents\DEV\Projet\portfolio\tests\server\api\contact.post.test.ts:216:5
+    at file:///C:/Users/thiba/Documents/DEV/Projet/portfolio/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20]]>
+      </failure>
+    </testCase>
   </file>
   <file path="tests\server\api\repos.get.test.ts">
-    <testCase name="repos.get API - fetches repos and filters out forks and archived" duration="193" />
-    <testCase name="repos.get API - returns cached data on second call" duration="25" />
+    <testCase name="repos.get API - fetches repos and filters out forks and archived" duration="102" />
+    <testCase name="repos.get API - returns cached data on second call" duration="30" />
     <testCase name="repos.get API - throws error when GitHub API returns non-ok" duration="27" />
-    <testCase name="repos.get API - works without GitHub token (no pinned repos or details)" duration="8" />
+    <testCase name="repos.get API - works without GitHub token (no pinned repos or details)" duration="11" />
     <testCase name="repos.get API - handles GraphQL pinned repos failure gracefully" duration="18" />
-    <testCase name="repos.get API - uses fallback OpenGraph URL when no custom image" duration="8" />
-    <testCase name="repos.get API - provides default description for repos without one" duration="8" />
+    <testCase name="repos.get API - uses fallback OpenGraph URL when no custom image" duration="9" />
+    <testCase name="repos.get API - provides default description for repos without one" duration="7" />
   </file>
   <file path="tests\utils\formatters.test.ts">
     <testCase name="formatters - formatRepoName - replaces hyphens with spaces and capitalizes words" duration="1" />
@@ -200,11 +290,11 @@
     <testCase name="formatters - formatRepoName - handles single word" duration="0" />
     <testCase name="formatters - formatRepoName - handles already capitalized input" duration="0" />
     <testCase name="formatters - formatRepoName - handles empty string" duration="0" />
-    <testCase name="formatters - formatFullDate - formats date in French by default" duration="4" />
+    <testCase name="formatters - formatFullDate - formats date in French by default" duration="3" />
     <testCase name="formatters - formatFullDate - formats date in French when locale is fr" duration="0" />
     <testCase name="formatters - formatFullDate - formats date in English when locale is en" duration="1" />
     <testCase name="formatters - formatFullDate - treats non-fr locale as English" duration="0" />
-    <testCase name="formatters - formatRelativeDate - returns &quot;Aujourd&apos;hui&quot; for today in French" duration="3" />
+    <testCase name="formatters - formatRelativeDate - returns &quot;Aujourd&apos;hui&quot; for today in French" duration="1" />
     <testCase name="formatters - formatRelativeDate - returns &quot;Today&quot; for today in English" duration="0" />
     <testCase name="formatters - formatRelativeDate - returns &quot;Hier&quot; for yesterday in French" duration="0" />
     <testCase name="formatters - formatRelativeDate - returns &quot;Yesterday&quot; for yesterday in English" duration="0" />
@@ -223,16 +313,16 @@
   </file>
   <file path="tests\utils\languageColors.test.ts">
     <testCase name="languageColors - languageColors map - contains common languages" duration="1" />
-    <testCase name="languageColors - languageColors map - has entries for all defined languages" duration="1" />
+    <testCase name="languageColors - languageColors map - has entries for all defined languages" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns correct color for known language" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns correct color for another known language" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns fallback gray for unknown language" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns fallback gray for empty string" duration="0" />
   </file>
   <file path="tests\utils\utils.test.ts">
-    <testCase name="cn (class merge utility) - merges simple class names" duration="7" />
+    <testCase name="cn (class merge utility) - merges simple class names" duration="4" />
     <testCase name="cn (class merge utility) - handles conditional classes with clsx" duration="0" />
-    <testCase name="cn (class merge utility) - merges conflicting Tailwind classes using tailwind-merge" duration="0" />
+    <testCase name="cn (class merge utility) - merges conflicting Tailwind classes using tailwind-merge" duration="1" />
     <testCase name="cn (class merge utility) - handles empty inputs" duration="0" />
     <testCase name="cn (class merge utility) - handles undefined and null inputs" duration="0" />
     <testCase name="cn (class merge utility) - handles array inputs" duration="0" />
