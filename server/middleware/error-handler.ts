@@ -5,11 +5,9 @@
  * en réponses user-friendly
  */
 
-import { H3Error, defineEventHandler, setResponseStatus, setResponseHeader } from 'h3'
+import { H3Error, defineEventHandler } from 'h3'
 import { logger } from '../utils/logger'
 import { ErrorCode, createAppError } from '../utils/errors'
-
-const isDev = process.env.NODE_ENV === 'development'
 
 export default defineEventHandler((event) => {
   // Ce middleware intercepte les erreurs qui remontent

@@ -105,19 +105,19 @@
     },
     "categories": {
       "frontend": "Frontend",
-      "backend": "Backend",
-      "database": "Base de donnees",
-      "cloud": "Cloud & Infrastructure",
-      "devops": "DevOps & Automatisation",
+      "backend": "Backend & Scripting",
+      "database": "Data & Stockage",
+      "cloud": "Cloud & Virtualisation",
+      "devops": "DevOps & Cloud",
       "tools": "Outils & Gestion",
-      "system": "Systeme & Administration",
-      "security": "Securite & Conformite",
-      "monitoring": "Surveillance & Performance"
+      "system": "Systeme & Virtualisation",
+      "security": "Securite & Reseau",
+      "monitoring": "Supervision"
     },
     "softCategories": {
       "communication": "Communication",
       "teamwork": "Travail d'equipe",
-      "problem-solving": "Resolution",
+      "problem-solving": "Resolution de problemes",
       "management": "Gestion",
       "adaptability": "Adaptabilite"
     }
@@ -206,13 +206,15 @@
       "title": "Erreur d'envoi",
       "message": "Une erreur s'est produite. Veuillez reessayer."
     },
-    "alternative": "Vous preferez l'email direct ?"
+    "alternative": "Vous preferez l'email direct ?",
+    "availability": "Actuellement ouvert aux opportunites de collaboration."
   },
   "common": {
     "backToTop": "Retour en haut",
     "loading": "Chargement...",
     "close": "Fermer",
-    "toggleTheme": "Changer le theme"
+    "toggleTheme": "Changer le theme",
+    "present": "Present"
   },
   "footer": {
     "rights": "Tous droits reserves",
@@ -240,6 +242,277 @@
     "default": {
       "title": "Une erreur est survenue",
       "description": "Quelque chose s'est mal passe. Veuillez reessayer."
+    }
+  },
+  "data": {
+    "profile": {
+      "title": "Ingenieur Systemes",
+      "subtitle": "Alternant",
+      "tagline": "Passionne par l'innovation et le developpement de solutions technologiques.",
+      "bio": "Ingenieur systemes en alternance avec une passion pour la creation de solutions innovantes. Specialise dans l'infrastructure cloud et le developpement backend, je suis toujours a la recherche de nouveaux defis techniques."
+    },
+    "stats": {
+      "yearsExperience": "Annees d'experience",
+      "projectsCompleted": "Projets realises",
+      "technologies": "Technologies",
+      "coffeesDrunk": "Cafes consommes"
+    },
+    "skillDescriptions": {
+      "vue": "Framework JavaScript progressif utilise pour les interfaces",
+      "react": "Bibliotheque pour interfaces utilisateurs dynamiques",
+      "angular": "Plateforme de developpement front-end complete",
+      "typescript": "Superset JavaScript avec typage statique",
+      "javascript": "Langage de script pour le web et l'automatisation",
+      "tailwind": "Framework CSS utilitaire pour le design rapide",
+      "bootstrap": "Framework CSS pour le responsive design",
+      "sass": "Preprocesseur CSS pour des feuilles de style maintenables",
+      "htmlcss": "Structure et style des pages web",
+      "python": "Scripting, automatisation et developpement backend",
+      "java": "Developpement d'applications robustes et orientees objet",
+      "csharp": "Developpement d'applications Windows et web",
+      "php": "Langage de script cote serveur pour le web",
+      "go": "Langage performant pour le cloud et le systeme",
+      "rust": "Langage systeme axe sur la securite et la performance",
+      "cpp": "Developpement systeme haute performance",
+      "powershell": "Automatisation et administration Windows",
+      "bash": "Scripting shell pour l'automatisation Linux",
+      "postgresql": "SGBD relationnel objet puissant et open source",
+      "mysql": "Gestion de bases de donnees relationnelles",
+      "mongodb": "Base de donnees NoSQL orientee documents",
+      "redis": "Stockage de structure de donnees en memoire",
+      "sqlite": "Bibliotheque de base de donnees SQL legere",
+      "ceph": "Solution de stockage distribue unifie",
+      "linux": "Administration (CentOS, Oracle Linux, Debian, Kali)",
+      "windowsserver": "Administration systeme et Active Directory",
+      "vmware": "Virtualisation de serveurs niveau entreprise",
+      "proxmox": "Plateforme de virtualisation open source",
+      "azure": "Services cloud et infrastructure Microsoft",
+      "openstack": "Plateforme cloud computing open source",
+      "docker": "Conteneurisation d'applications",
+      "kubernetes": "Orchestration de conteneurs (K8s)",
+      "ansible": "Gestion de configuration et deploiement",
+      "terraform": "Infrastructure as Code (IaC)",
+      "jenkins": "Serveur d'automatisation open source (CI/CD)",
+      "gitlabci": "Pipelines d'integration et deploiement continus",
+      "git": "Gestion de version decentralisee",
+      "nginx": "Serveur web, reverse proxy et load balancer",
+      "haproxy": "Load balancing et proxying TCP/HTTP",
+      "vscode": "Editeur de code source extensible",
+      "zabbix": "Supervision d'infrastructure et reseaux",
+      "grafana": "Visualisation de donnees et monitoring",
+      "elk": "Elasticsearch, Logstash, Kibana (Logs)",
+      "nagios": "Surveillance des systemes et reseaux",
+      "openvpn": "Solution VPN securisee",
+      "jira": "Gestion de tickets et suivi de projet"
+    },
+    "softSkillItems": {
+      "presentation": {
+        "name": "Presentation",
+        "description": "Capacite a presenter des sujets techniques de maniere claire et engageante"
+      },
+      "popularization": {
+        "name": "Vulgarisation",
+        "description": "Rendre accessible des concepts complexes a un public non-technique"
+      },
+      "documentation": {
+        "name": "Documentation",
+        "description": "Redaction de documentation technique claire et structuree"
+      },
+      "collaboration": {
+        "name": "Collaboration",
+        "description": "Travailler efficacement en equipe sur des projets communs"
+      },
+      "codeReview": {
+        "name": "Code Review",
+        "description": "Revision de code constructive et partage de bonnes pratiques"
+      },
+      "mentoring": {
+        "name": "Mentorat",
+        "description": "Accompagnement et transmission de connaissances aux juniors"
+      },
+      "analysis": {
+        "name": "Analyse",
+        "description": "Decomposition methodique des problemes complexes"
+      },
+      "debugging": {
+        "name": "Debugging",
+        "description": "Identification et resolution efficace des bugs et incidents"
+      },
+      "innovation": {
+        "name": "Innovation",
+        "description": "Proposition de solutions creatives et originales"
+      },
+      "organization": {
+        "name": "Organisation",
+        "description": "Structuration du travail et respect des delais"
+      },
+      "prioritization": {
+        "name": "Priorisation",
+        "description": "Identification des taches critiques et gestion des urgences"
+      },
+      "autonomy": {
+        "name": "Autonomie",
+        "description": "Capacite a avancer seul tout en communiquant les avancements"
+      },
+      "techWatch": {
+        "name": "Veille Tech",
+        "description": "Suivi constant des nouvelles technologies et tendances"
+      },
+      "flexibility": {
+        "name": "Flexibilite",
+        "description": "Adaptation rapide aux changements de contexte ou de priorites"
+      },
+      "resilience": {
+        "name": "Resilience",
+        "description": "Maintien de la motivation face aux difficultes et echecs"
+      }
+    },
+    "experiences": {
+      "1": {
+        "title": "Ingenieur Systemes",
+        "description": "Deploiement et maintenance de solutions de dematerialisation pour les clients. MCO et securisation des infrastructures serveurs.",
+        "achievements": [
+          "Deploiement de solutions GED sur infrastructures clients (Cloud/On-Premise)",
+          "Support expert niveau 3 et 4 sur incidents complexes",
+          "Automatisation via Python, Bash, PowerShell et Ansible",
+          "Securisation des infrastructures Linux/Windows"
+        ]
+      },
+      "2": {
+        "title": "Architecte Integration",
+        "description": "Deploiement et MCO d'applications metiers critiques (Finance, RH, Gestion) pour les clients d'Inetum.",
+        "achievements": [
+          "Integration applicative GECCO/ASTRE sur infrastructures Cloud et On-Premise",
+          "Support et relation client directe (Niveau 1 & 2)",
+          "Coordination technique avec les Chefs de Projets",
+          "Redaction de documentation technique et guides utilisateurs"
+        ]
+      },
+      "3": {
+        "title": "Ingenieur Integration",
+        "description": "Deploiement et maintenance de solutions de dematerialisation en alternance.",
+        "achievements": [
+          "Installation et integration de logiciels GED chez les clients",
+          "MCO et securisation des serveurs Linux/Windows",
+          "Support niveau 2 sur incidents complexes",
+          "Automatisation via Python, Bash et Ansible"
+        ]
+      },
+      "4": {
+        "title": "Administrateur Reseau et Systemes",
+        "description": "Mise en place d'infrastructure haute disponibilite et administration de serveurs Linux.",
+        "achievements": [
+          "Infrastructure HA : Web, FTP, DNS, VPN, BDD",
+          "Supervision proactive via Zabbix et Centreon",
+          "Conteneurisation avec Docker et automatisation Bash/Python",
+          "Integration de solutions analytics (Matomo, Google Analytics)"
+        ]
+      },
+      "5": {
+        "title": "Administrateur Reseau et Systemes",
+        "description": "Mise en place d'infrastructure virtualisee et orchestration Kubernetes.",
+        "achievements": [
+          "Surveillance reseau avec Zabbix",
+          "Deploiement d'infrastructure virtuelle scalable",
+          "Conteneurisation Docker et orchestration Kubernetes/Kubesphere",
+          "Gestion des acces et politiques de securite"
+        ]
+      },
+      "6": {
+        "title": "Technicien Maintenance Multimedia",
+        "description": "Stage longue duree (Bac Pro) : assistance technique et maintenance informatique.",
+        "achievements": [
+          "Diagnostic et resolution de problemes hardware/software",
+          "Configuration de postes de travail",
+          "Coordination d'equipe pour mise en place d'un reseau local",
+          "Maintenance preventive des equipements"
+        ]
+      }
+    },
+    "education": {
+      "1": {
+        "degree": "Master Ingenierie Informatique",
+        "description": "Titre RNCP niveau 7 : Expert en Informatique et systemes d'information option infrastructures.",
+        "achievements": [
+          "Specialisation Infrastructure & Cloud",
+          "Formation en alternance"
+        ]
+      },
+      "2": {
+        "degree": "Bachelor IT - Infrastructure, Systemes et Reseaux",
+        "description": "Titre RNCP : Administrateur Reseaux Systemes et Base de donnees.",
+        "achievements": [
+          "Obtention du Titre",
+          "Specialisation Reseaux et Systemes"
+        ]
+      },
+      "3": {
+        "degree": "BTS SIO - Services Informatiques aux Organisations",
+        "description": "Option SISR - Infrastructure, Systemes et Reseaux.",
+        "achievements": [
+          "Avec les felicitations",
+          "Specialisation Infrastructure"
+        ]
+      },
+      "4": {
+        "degree": "Bac Pro SN - Systemes Numeriques",
+        "description": "Option RISC - Reseaux Informatiques et Systemes Communicants.",
+        "achievements": [
+          "Mention Tres Bien",
+          "BEP Mise en reseau (Tres Bien)"
+        ]
+      },
+      "5": {
+        "degree": "Diplome National du Brevet",
+        "description": "College public de l'Education Nationale.",
+        "achievements": [
+          "Mention Bien"
+        ]
+      }
+    },
+    "establishments": {
+      "nexpublica": {
+        "description": "Editeur de logiciels specialise dans la dematerialisation et la gestion documentaire pour les collectivites et administrations publiques.",
+        "industry": "Logiciels & Services IT",
+        "size": "2 000+ employes"
+      },
+      "inetum": {
+        "description": "Leader europeen des services et solutions digitales. Inetum accompagne les entreprises et institutions dans leur transformation numerique.",
+        "industry": "Conseil & Services IT",
+        "size": "5 000+ employes"
+      },
+      "dataheberg": {
+        "description": "Hebergeur web francais proposant des solutions d'hebergement mutualise, VPS et serveurs dedies.",
+        "industry": "Hebergement Web & Cloud",
+        "size": "1-5 employes"
+      },
+      "ouiheberg": {
+        "description": "Hebergeur web francais specialise dans les solutions d'hebergement haute disponibilite et les services cloud.",
+        "industry": "Hebergement Web & Cloud",
+        "size": "1-5 employes"
+      },
+      "procie": {
+        "description": "Entreprise specialisee dans la vente, reparation et maintenance de materiel informatique et multimedia.",
+        "industry": "Services Informatiques",
+        "size": "1-5 employes"
+      },
+      "epsi": {
+        "description": "Ecole d'ingenierie informatique membre du reseau Competences et Developpement. Formation en alternance du Bac+2 au Bac+5 dans les metiers du numerique.",
+        "industry": "Enseignement Superieur",
+        "size": "5 000+ etudiants"
+      },
+      "marcbloch": {
+        "description": "Lycee general et technologique proposant des formations du Bac au BTS, notamment en informatique (BTS SIO).",
+        "industry": "Education Nationale"
+      },
+      "jeanmoulin": {
+        "description": "Lycee professionnel specialise dans les formations industrielles et numeriques : electronique, reseaux, maintenance.",
+        "industry": "Education Nationale"
+      },
+      "julesferry": {
+        "description": "College public de l'Education Nationale. Obtention du Diplome National du Brevet.",
+        "industry": "Education Nationale"
+      }
     }
   }
 }

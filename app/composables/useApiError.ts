@@ -6,6 +6,7 @@
  */
 
 import { ref, computed } from 'vue'
+import { useNuxtApp } from '#app'
 import type { ParsedError } from '../plugins/error-handler.client'
 
 // Types pour les erreurs
