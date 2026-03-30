@@ -151,6 +151,21 @@ export default defineNuxtConfig({
         },
       },
     },
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        '@vercel/speed-insights/vue',
+        '@vercel/analytics/nuxt',
+        'lucide-vue-next',
+        '@vueuse/core',
+        'class-variance-authority',
+        'vue-sonner',
+        'reka-ui',
+        'clsx',
+        'tailwind-merge',
+      ],
+    },
   },
 
   // ESLint configuration
