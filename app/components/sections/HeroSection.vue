@@ -81,7 +81,7 @@
         class="mb-6 text-xl text-primary opacity-0 sm:text-2xl"
         :class="{ 'animate-slide-up stagger-3': isVisible }"
       >
-        {{ profile.title }}
+        {{ $t(profile.titleKey) }}
       </p>
 
       <!-- Tagline -->
@@ -89,7 +89,7 @@
         class="mx-auto mb-8 max-w-2xl text-muted-foreground opacity-0"
         :class="{ 'animate-slide-up stagger-3': isVisible }"
       >
-        {{ profile.tagline }}
+        {{ $t(profile.taglineKey) }}
       </p>
 
       <!-- CTAs -->

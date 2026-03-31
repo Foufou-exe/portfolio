@@ -97,6 +97,7 @@ import { contactInfo } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
 const { t } = useI18n()
+const { $parseApiError } = useNuxtApp()
 const { elementRef, isVisible } = useElementAnimation()
 
 // Form state
@@ -130,11 +131,14 @@ async function handleSubmit() {
     }
   }
   catch (error: unknown) {
-    console.error('Error sending message:', error)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error sending message:', error)
+    }
 
-    const errorMsg = error instanceof Error ? error.message : t('contact.error.message')
+    // Utiliser le parser pour obtenir un message user-friendly
+    const parsed = $parseApiError(error)
     toast.error(t('contact.error.title'), {
-      description: errorMsg,
+      description: parsed.userMessage,
     })
   }
   finally {

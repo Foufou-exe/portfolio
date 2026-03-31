@@ -1,4 +1,8 @@
 {
+  "seo": {
+    "description": "Discover my projects, skills and experience in development and cloud infrastructure.",
+    "keywords": "developer, systems engineer, portfolio, vue, nuxt, typescript, cloud, devops, infrastructure"
+  },
   "nav": {
     "about": "About",
     "skills": "Skills",
@@ -246,6 +250,277 @@
     "default": {
       "title": "An error occurred",
       "description": "Something went wrong. Please try again."
+    }
+  },
+  "data": {
+    "profile": {
+      "title": "Systems Engineer",
+      "subtitle": "Apprentice",
+      "tagline": "Passionate about innovation and developing technological solutions.",
+      "bio": "Systems engineer in apprenticeship with a passion for creating innovative solutions. Specialized in cloud infrastructure and backend development, I'm always looking for new technical challenges."
+    },
+    "stats": {
+      "yearsExperience": "Years of experience",
+      "projectsCompleted": "Projects completed",
+      "technologies": "Technologies",
+      "coffeesDrunk": "Coffees consumed"
+    },
+    "skillDescriptions": {
+      "vue": "Progressive JavaScript framework used for interfaces",
+      "react": "Library for dynamic user interfaces",
+      "angular": "Complete front-end development platform",
+      "typescript": "JavaScript superset with static typing",
+      "javascript": "Scripting language for web and automation",
+      "tailwind": "Utility-first CSS framework for rapid design",
+      "bootstrap": "CSS framework for responsive design",
+      "sass": "CSS preprocessor for maintainable stylesheets",
+      "htmlcss": "Structure and styling of web pages",
+      "python": "Scripting, automation and backend development",
+      "java": "Development of robust object-oriented applications",
+      "csharp": "Windows and web application development",
+      "php": "Server-side scripting language for web",
+      "go": "Performant language for cloud and system",
+      "rust": "System language focused on safety and performance",
+      "cpp": "High-performance system development",
+      "powershell": "Windows automation and administration",
+      "bash": "Shell scripting for Linux automation",
+      "postgresql": "Powerful open-source object-relational DBMS",
+      "mysql": "Relational database management",
+      "mongodb": "Document-oriented NoSQL database",
+      "redis": "In-memory data structure store",
+      "sqlite": "Lightweight SQL database library",
+      "ceph": "Unified distributed storage solution",
+      "linux": "Administration (CentOS, Oracle Linux, Debian, Kali)",
+      "windowsserver": "System administration and Active Directory",
+      "vmware": "Enterprise-level server virtualization",
+      "proxmox": "Open-source virtualization platform",
+      "azure": "Microsoft cloud services and infrastructure",
+      "openstack": "Open-source cloud computing platform",
+      "docker": "Application containerization",
+      "kubernetes": "Container orchestration (K8s)",
+      "ansible": "Configuration management and deployment",
+      "terraform": "Infrastructure as Code (IaC)",
+      "jenkins": "Open-source automation server (CI/CD)",
+      "gitlabci": "Continuous integration and deployment pipelines",
+      "git": "Decentralized version control",
+      "nginx": "Web server, reverse proxy and load balancer",
+      "haproxy": "TCP/HTTP load balancing and proxying",
+      "vscode": "Extensible source code editor",
+      "zabbix": "Infrastructure and network monitoring",
+      "grafana": "Data visualization and monitoring",
+      "elk": "Elasticsearch, Logstash, Kibana (Logs)",
+      "nagios": "System and network monitoring",
+      "openvpn": "Secure VPN solution",
+      "jira": "Ticket management and project tracking"
+    },
+    "softSkillItems": {
+      "presentation": {
+        "name": "Presentation",
+        "description": "Ability to present technical topics clearly and engagingly"
+      },
+      "popularization": {
+        "name": "Popularization",
+        "description": "Making complex concepts accessible to non-technical audiences"
+      },
+      "documentation": {
+        "name": "Documentation",
+        "description": "Writing clear and structured technical documentation"
+      },
+      "collaboration": {
+        "name": "Collaboration",
+        "description": "Working effectively in teams on common projects"
+      },
+      "codeReview": {
+        "name": "Code Review",
+        "description": "Constructive code review and sharing best practices"
+      },
+      "mentoring": {
+        "name": "Mentoring",
+        "description": "Guidance and knowledge transfer to juniors"
+      },
+      "analysis": {
+        "name": "Analysis",
+        "description": "Methodical decomposition of complex problems"
+      },
+      "debugging": {
+        "name": "Debugging",
+        "description": "Efficient identification and resolution of bugs and incidents"
+      },
+      "innovation": {
+        "name": "Innovation",
+        "description": "Proposing creative and original solutions"
+      },
+      "organization": {
+        "name": "Organization",
+        "description": "Structuring work and meeting deadlines"
+      },
+      "prioritization": {
+        "name": "Prioritization",
+        "description": "Identifying critical tasks and managing emergencies"
+      },
+      "autonomy": {
+        "name": "Autonomy",
+        "description": "Ability to work independently while communicating progress"
+      },
+      "techWatch": {
+        "name": "Tech Watch",
+        "description": "Constant monitoring of new technologies and trends"
+      },
+      "flexibility": {
+        "name": "Flexibility",
+        "description": "Quick adaptation to changes in context or priorities"
+      },
+      "resilience": {
+        "name": "Resilience",
+        "description": "Maintaining motivation in face of difficulties and failures"
+      }
+    },
+    "experiences": {
+      "1": {
+        "title": "Systems Engineer",
+        "description": "Deployment and maintenance of dematerialization solutions for clients. MCO and securing server infrastructures.",
+        "achievements": [
+          "Deployment of DMS solutions on client infrastructures (Cloud/On-Premise)",
+          "Expert level 3 and 4 support on complex incidents",
+          "Automation via Python, Bash, PowerShell and Ansible",
+          "Securing Linux/Windows infrastructures"
+        ]
+      },
+      "2": {
+        "title": "Integration Architect",
+        "description": "Deployment and MCO of critical business applications (Finance, HR, Management) for Inetum clients.",
+        "achievements": [
+          "GECCO/ASTRE application integration on Cloud and On-Premise infrastructures",
+          "Support and direct client relations (Level 1 & 2)",
+          "Technical coordination with Project Managers",
+          "Writing technical documentation and user guides"
+        ]
+      },
+      "3": {
+        "title": "Integration Engineer",
+        "description": "Deployment and maintenance of dematerialization solutions in apprenticeship.",
+        "achievements": [
+          "Installation and integration of DMS software for clients",
+          "MCO and securing Linux/Windows servers",
+          "Level 2 support on complex incidents",
+          "Automation via Python, Bash and Ansible"
+        ]
+      },
+      "4": {
+        "title": "Network and Systems Administrator",
+        "description": "Implementation of high availability infrastructure and Linux server administration.",
+        "achievements": [
+          "HA Infrastructure: Web, FTP, DNS, VPN, DB",
+          "Proactive monitoring via Zabbix and Centreon",
+          "Containerization with Docker and Bash/Python automation",
+          "Integration of analytics solutions (Matomo, Google Analytics)"
+        ]
+      },
+      "5": {
+        "title": "Network and Systems Administrator",
+        "description": "Implementation of virtualized infrastructure and Kubernetes orchestration.",
+        "achievements": [
+          "Network monitoring with Zabbix",
+          "Deployment of scalable virtual infrastructure",
+          "Docker containerization and Kubernetes/Kubesphere orchestration",
+          "Access management and security policies"
+        ]
+      },
+      "6": {
+        "title": "Multimedia Maintenance Technician",
+        "description": "Long-term internship (Vocational diploma): technical assistance and IT maintenance.",
+        "achievements": [
+          "Hardware/software problem diagnosis and resolution",
+          "Workstation configuration",
+          "Team coordination for local network setup",
+          "Preventive equipment maintenance"
+        ]
+      }
+    },
+    "education": {
+      "1": {
+        "degree": "Master's in Computer Engineering",
+        "description": "RNCP Level 7 qualification: IT and Information Systems Expert, Infrastructure option.",
+        "achievements": [
+          "Infrastructure & Cloud Specialization",
+          "Apprenticeship program"
+        ]
+      },
+      "2": {
+        "degree": "Bachelor IT - Infrastructure, Systems and Networks",
+        "description": "RNCP qualification: Network Systems and Database Administrator.",
+        "achievements": [
+          "Qualification obtained",
+          "Networks and Systems Specialization"
+        ]
+      },
+      "3": {
+        "degree": "BTS SIO - IT Services to Organizations",
+        "description": "SISR Option - Infrastructure, Systems and Networks.",
+        "achievements": [
+          "With honors",
+          "Infrastructure Specialization"
+        ]
+      },
+      "4": {
+        "degree": "Vocational Diploma SN - Digital Systems",
+        "description": "RISC Option - Computer Networks and Communicating Systems.",
+        "achievements": [
+          "High Distinction",
+          "BEP Networking (High Distinction)"
+        ]
+      },
+      "5": {
+        "degree": "National Diploma of the Brevet",
+        "description": "Public middle school of the National Education system.",
+        "achievements": [
+          "With Distinction"
+        ]
+      }
+    },
+    "establishments": {
+      "nexpublica": {
+        "description": "Software publisher specialized in dematerialization and document management for local authorities and public administrations.",
+        "industry": "Software & IT Services",
+        "size": "2,000+ employees"
+      },
+      "inetum": {
+        "description": "European leader in digital services and solutions. Inetum supports companies and institutions in their digital transformation.",
+        "industry": "Consulting & IT Services",
+        "size": "5,000+ employees"
+      },
+      "dataheberg": {
+        "description": "French web host offering shared hosting, VPS and dedicated server solutions.",
+        "industry": "Web Hosting & Cloud",
+        "size": "1-5 employees"
+      },
+      "ouiheberg": {
+        "description": "French web host specialized in high availability hosting solutions and cloud services.",
+        "industry": "Web Hosting & Cloud",
+        "size": "1-5 employees"
+      },
+      "procie": {
+        "description": "Company specialized in sales, repair and maintenance of computer and multimedia equipment.",
+        "industry": "IT Services",
+        "size": "1-5 employees"
+      },
+      "epsi": {
+        "description": "Computer engineering school member of the Competences et Developpement network. Apprenticeship training from Bachelor to Master's in digital professions.",
+        "industry": "Higher Education",
+        "size": "5,000+ students"
+      },
+      "marcbloch": {
+        "description": "General and technological high school offering training from Baccalaureate to BTS, notably in IT (BTS SIO).",
+        "industry": "National Education"
+      },
+      "jeanmoulin": {
+        "description": "Vocational high school specialized in industrial and digital training: electronics, networks, maintenance.",
+        "industry": "National Education"
+      },
+      "julesferry": {
+        "description": "Public middle school of the National Education system. National Diploma of the Brevet obtained.",
+        "industry": "National Education"
+      }
     }
   }
 }

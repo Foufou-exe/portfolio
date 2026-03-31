@@ -59,7 +59,7 @@
                     </TooltipTrigger>
                     <TooltipContent side="top" class="max-w-xs">
                       <p class="text-sm">
-                        {{ skill.description }}
+                        {{ $t(skill.descriptionKey) }}
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -124,12 +124,12 @@
                           class="h-3.5 w-3.5 flex-shrink-0"
                           :style="{ color: category.color }"
                         />
-                        <span class="truncate">{{ skill.name }}</span>
+                        <span class="truncate">{{ $t(skill.nameKey) }}</span>
                       </div>
                     </TooltipTrigger>
                     <TooltipContent side="top" class="max-w-xs">
                       <p class="text-sm">
-                        {{ skill.description }}
+                        {{ $t(skill.descriptionKey) }}
                       </p>
                     </TooltipContent>
                   </Tooltip>

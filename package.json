@@ -1,12 +1,12 @@
 {
   "name": "portfolio",
   "type": "module",
-  "version": "2026.2.0",
+  "version": "2026.1.2",
   "author": "Thibaut Maurras",
   "description": "portfolio",
   "private": true,
   "engines": {
-    "node": "22.x",
+    "node": ">=24.x",
     "npm": ">=10.0.0"
   },
   "scripts": {
@@ -20,7 +20,9 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "sonar": "sonar-scanner"
+    "sonar": "sonar-scanner",
+    "purge:workspace-win": "powershell -Command \"Remove-Item -Recurse -Force node_modules, dist, .nuxt, .output, coverage, .sonar, package-lock.json -ErrorAction SilentlyContinue\"",
+    "purge:workspace-linux": "rm -rf node_modules && rm -rf dist && rm -rf .nuxt && rm -rf .output && rm -rf coverage && rm -rf .sonar && rm -f package-lock.json"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.12.1",

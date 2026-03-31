@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { ErrorCode, throwAppError } from '../../utils/errors'
 
 interface ContactBody {
   email: string
@@ -8,27 +9,9 @@ interface ContactBody {
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
-  // Verifier la configuration SMTP
-  const smtpConfigured = config.smtpHost && config.smtpUser && config.smtpPass
-
-  if (!smtpConfigured) {
-    console.warn('SMTP not configured. Running in demo mode.')
-
-    // Mode demo : simuler l'envoi
-    const body = await readBody<ContactBody>(event)
-    console.info('Demo mode - Contact form submission:', {
-      from: body.email,
-      message: `${body.message.substring(0, 100)}...`,
-    })
-
-    // Simuler un delai
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    return {
-      success: true,
-      message: 'Message envoye (mode demo)',
-      demo: true,
-    }
+  // Verifier la configuration SMTP - erreur 503 si non configure
+  if (!config.smtpHost || !config.smtpUser || !config.smtpPass) {
+    throwAppError(ErrorCode.SMTP_NOT_CONFIGURED, 'SMTP credentials not configured')
   }
 
   try {
@@ -36,25 +19,17 @@ export default defineEventHandler(async (event) => {
 
     // Validation basique
     if (!body.email || !body.message) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Email et message sont requis',
-      })
+      throwAppError(ErrorCode.VALIDATION_ERROR, 'Missing required fields: email or message')
     }
 
     // Validation email (longueur max RFC 5321 + regex sans backtracking)
     if (body.email.length > 254) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Email invalide',
-      })
+      throwAppError(ErrorCode.VALIDATION_ERROR, 'Email exceeds maximum length (254 chars)')
     }
+
     const emailRegex = /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/
     if (!emailRegex.test(body.email)) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Email invalide',
-      })
+      throwAppError(ErrorCode.VALIDATION_ERROR, 'Invalid email format')
     }
 
     // Creer le transporteur SMTP
@@ -110,7 +85,7 @@ export default defineEventHandler(async (event) => {
             </div>
             
             <p style="margin-top: 20px; font-size: 12px; color: #9ca3af; text-align: center;">
-              Ce message a été envoye depuis le formulaire de contact de votre portfolio.
+              Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
             </p>
           </body>
         </html>
@@ -128,8 +103,6 @@ Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
       `.trim(),
     })
 
-    console.info('Email sent:', info.messageId)
-
     return {
       success: true,
       message: 'Message envoye avec succes',
@@ -137,15 +110,15 @@ Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
     }
   }
   catch (error: unknown) {
-    // Re-throw si c'est deja une erreur HTTP
+    // Re-throw si c'est deja une erreur HTTP (H3Error)
     if (error && typeof error === 'object' && 'statusCode' in error) {
       throw error
     }
 
-    console.error('Contact API error:', error)
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'Erreur interne du serveur',
-    })
+    // Erreur SMTP ou autre
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[EMAIL_SEND_FAILED]', error)
+    }
+    throwAppError(ErrorCode.EMAIL_SEND_FAILED, error instanceof Error ? error.message : 'Unknown SMTP error')
   }
 })
