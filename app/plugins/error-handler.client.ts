@@ -24,15 +24,15 @@ const clientErrorMessages: Record<string, string> = {
   [ErrorCode.SMTP_NOT_CONFIGURED]: 'Le service de messagerie n\'est pas configuré.',
 
   // Fallback par code HTTP
-  '400': 'Les données fournies sont invalides.',
-  '401': 'Vous n\'êtes pas autorisé à effectuer cette action.',
-  '403': 'Accès refusé.',
-  '404': 'La ressource demandée n\'a pas été trouvée.',
-  '429': 'Trop de requêtes. Veuillez patienter quelques instants.',
-  '500': 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
-  '502': 'Une erreur de communication s\'est produite. Veuillez réessayer.',
-  '503': 'Le service est temporairement indisponible. Veuillez réessayer plus tard.',
-  '504': 'Le service met trop de temps à répondre. Veuillez réessayer.',
+  400: 'Les données fournies sont invalides.',
+  401: 'Vous n\'êtes pas autorisé à effectuer cette action.',
+  403: 'Accès refusé.',
+  404: 'La ressource demandée n\'a pas été trouvée.',
+  429: 'Trop de requêtes. Veuillez patienter quelques instants.',
+  500: 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
+  502: 'Une erreur de communication s\'est produite. Veuillez réessayer.',
+  503: 'Le service est temporairement indisponible. Veuillez réessayer plus tard.',
+  504: 'Le service met trop de temps à répondre. Veuillez réessayer.',
 }
 
 interface ApiErrorData {
@@ -92,7 +92,7 @@ export function parseApiError(error: unknown): ParsedError {
   // Erreur avec structure API (H3Error transformée)
   if (error && typeof error === 'object') {
     const apiError = error as ApiError
-    const statusCode = apiError.statusCode
+    const { statusCode } = apiError
     const errorData = apiError.data as ApiErrorData | undefined
     const code = errorData?.code
 
