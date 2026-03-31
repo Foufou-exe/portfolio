@@ -307,7 +307,7 @@ export const experiences: Experience[] = [
       name: 'Nexpublica',
       logo: '/images/entreprise/nexpublica.webp',
       descriptionKey: 'data.establishments.nexpublica.description',
-      website: 'https://www.nexpublica.fr',
+      website: 'https://www.nexpublica.com',
       industryKey: 'data.establishments.nexpublica.industry',
       sizeKey: 'data.establishments.nexpublica.size',
       location: 'Montpellier, France',

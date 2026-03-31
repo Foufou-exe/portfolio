@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
-// Mock nodemailer
-const mockSendMail = vi.fn()
-vi.mock('nodemailer', () => ({
-  default: {
-    createTransport: vi.fn(() => ({
-      sendMail: mockSendMail,
-    })),
-  },
+// Mock Resend
+const mockSendEmail = vi.fn()
+vi.mock('resend', () => ({
+  Resend: vi.fn(() => ({
+    emails: {
+      send: mockSendEmail,
+    },
+  })),
 }))
 
 // Mock useRuntimeConfig — resolved from #app/nuxt in Nuxt test environment
@@ -20,13 +20,14 @@ vi.mock('#app/nuxt', async (importOriginal) => {
   }
 })
 
-// Mock h3 functions used via auto-imports (readBody, createError, defineEventHandler)
+// Mock h3 functions used via auto-imports (readBody, createError, defineEventHandler, getRequestIP)
 const mockReadBody = vi.fn()
 const mockCreateError = vi.fn((opts: { statusCode: number, statusMessage: string }) => {
   const err = new Error(opts.statusMessage) as Error & { statusCode: number }
   err.statusCode = opts.statusCode
   return err
 })
+const mockGetRequestIP = vi.fn(() => '127.0.0.1')
 
 vi.mock('h3', async (importOriginal) => {
   const original = await importOriginal<Record<string, unknown>>()
@@ -35,6 +36,7 @@ vi.mock('h3', async (importOriginal) => {
     readBody: (...args: unknown[]) => mockReadBody(...args),
     createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
     defineEventHandler: <T>(handler: T) => handler,
+    getRequestIP: (...args: unknown[]) => mockGetRequestIP(...args),
   }
 })
 
@@ -42,6 +44,7 @@ vi.mock('h3', async (importOriginal) => {
 vi.stubGlobal('readBody', (...args: unknown[]) => mockReadBody(...args))
 vi.stubGlobal('createError', (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts))
 vi.stubGlobal('defineEventHandler', <T>(handler: T) => handler)
+vi.stubGlobal('getRequestIP', (...args: unknown[]) => mockGetRequestIP(...args))
 
 describe('contact.post API', () => {
   let handler: (event: unknown) => Promise<unknown>
@@ -52,12 +55,12 @@ describe('contact.post API', () => {
     vi.resetModules()
 
     // Re-apply mocks after resetModules
-    vi.doMock('nodemailer', () => ({
-      default: {
-        createTransport: vi.fn(() => ({
-          sendMail: mockSendMail,
-        })),
-      },
+    vi.doMock('resend', () => ({
+      Resend: vi.fn(() => ({
+        emails: {
+          send: mockSendEmail,
+        },
+      })),
     }))
 
     vi.doMock('#app/nuxt', async (importOriginal) => {
@@ -75,6 +78,7 @@ describe('contact.post API', () => {
         readBody: (...args: unknown[]) => mockReadBody(...args),
         createError: (opts: { statusCode: number, statusMessage: string }) => mockCreateError(opts),
         defineEventHandler: <T>(handler: T) => handler,
+        getRequestIP: (...args: unknown[]) => mockGetRequestIP(...args),
       }
     })
 
@@ -86,11 +90,28 @@ describe('contact.post API', () => {
     vi.useRealTimers()
   })
 
-  it('throws 503 when SMTP is not configured', async () => {
+  it('throws 503 when Resend is not configured', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: '',
-      smtpUser: '',
-      smtpPass: '',
+      resendApiKey: '',
+      resendFromEmail: '',
+    })
+
+    await expect(handler({} as never)).rejects.toThrow('Le service de messagerie n\'est pas disponible.')
+  })
+
+  it('throws 503 when Resend API key is missing', async () => {
+    mockUseRuntimeConfig.mockReturnValue({
+      resendApiKey: '',
+      resendFromEmail: 'contact@example.com',
+    })
+
+    await expect(handler({} as never)).rejects.toThrow('Le service de messagerie n\'est pas disponible.')
+  })
+
+  it('throws 503 when Resend from email is missing', async () => {
+    mockUseRuntimeConfig.mockReturnValue({
+      resendApiKey: 're_test_123',
+      resendFromEmail: '',
     })
 
     await expect(handler({} as never)).rejects.toThrow('Le service de messagerie n\'est pas disponible.')
@@ -98,9 +119,8 @@ describe('contact.post API', () => {
 
   it('throws 400 when email is missing', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     mockReadBody.mockResolvedValue({ email: '', message: 'Hello' })
 
@@ -109,9 +129,8 @@ describe('contact.post API', () => {
 
   it('throws 400 when message is missing', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     mockReadBody.mockResolvedValue({ email: 'test@example.com', message: '' })
 
@@ -120,9 +139,8 @@ describe('contact.post API', () => {
 
   it('throws 400 when email exceeds 254 chars', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     const longEmail = `${'a'.repeat(246)}@test.com`
     mockReadBody.mockResolvedValue({ email: longEmail, message: 'Hello' })
@@ -132,9 +150,8 @@ describe('contact.post API', () => {
 
   it('throws 400 for invalid email format', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     mockReadBody.mockResolvedValue({ email: 'not-an-email', message: 'Hello' })
 
@@ -143,14 +160,12 @@ describe('contact.post API', () => {
 
   it('sends email successfully with valid config', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpPort: '587',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
-      contactEmail: 'contact@test.com',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'Portfolio <contact@example.com>',
+      contactEmail: 'recipient@example.com',
     })
     mockReadBody.mockResolvedValue({ email: 'sender@example.com', message: 'Test message' })
-    mockSendMail.mockResolvedValue({ messageId: 'msg-123' })
+    mockSendEmail.mockResolvedValue({ data: { id: 'msg-123' }, error: null })
 
     const result = await handler({} as never)
 
@@ -159,19 +174,37 @@ describe('contact.post API', () => {
       message: 'Message envoye avec succes',
       id: 'msg-123',
     })
-    expect(mockSendMail).toHaveBeenCalledWith(
+    expect(mockSendEmail).toHaveBeenCalledWith(
       expect.objectContaining({
+        from: 'Portfolio <contact@example.com>',
+        to: 'recipient@example.com',
         replyTo: 'sender@example.com',
-        to: 'contact@test.com',
+      }),
+    )
+  })
+
+  it('uses resendFromEmail as recipient when contactEmail is not set', async () => {
+    mockUseRuntimeConfig.mockReturnValue({
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
+      contactEmail: '',
+    })
+    mockReadBody.mockResolvedValue({ email: 'sender@example.com', message: 'Test message' })
+    mockSendEmail.mockResolvedValue({ data: { id: 'msg-456' }, error: null })
+
+    await handler({} as never)
+
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'contact@example.com',
       }),
     )
   })
 
   it('re-throws HTTP errors from validation', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     mockReadBody.mockResolvedValue({ email: 'bad@@email', message: 'Hello' })
 
@@ -185,16 +218,47 @@ describe('contact.post API', () => {
     }
   })
 
-  it('throws 503 on unexpected SMTP error', async () => {
+  it('throws 503 when Resend returns an error', async () => {
     mockUseRuntimeConfig.mockReturnValue({
-      smtpHost: 'smtp.test.com',
-      smtpPort: '587',
-      smtpUser: 'user@test.com',
-      smtpPass: 'pass',
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
     })
     mockReadBody.mockResolvedValue({ email: 'sender@example.com', message: 'Test' })
-    mockSendMail.mockRejectedValue(new Error('SMTP connection failed'))
+    mockSendEmail.mockResolvedValue({ data: null, error: { message: 'API rate limit exceeded' } })
 
     await expect(handler({} as never)).rejects.toThrow('Impossible d\'envoyer le message. Veuillez reessayer plus tard.')
+  })
+
+  it('throws 503 on unexpected Resend error', async () => {
+    mockUseRuntimeConfig.mockReturnValue({
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
+    })
+    mockReadBody.mockResolvedValue({ email: 'sender@example.com', message: 'Test' })
+    mockSendEmail.mockRejectedValue(new Error('Network error'))
+
+    await expect(handler({} as never)).rejects.toThrow('Impossible d\'envoyer le message. Veuillez reessayer plus tard.')
+  })
+
+  it('escapes HTML in email to prevent XSS', async () => {
+    mockUseRuntimeConfig.mockReturnValue({
+      resendApiKey: 're_test_123',
+      resendFromEmail: 'contact@example.com',
+      contactEmail: 'recipient@example.com',
+    })
+    mockReadBody.mockResolvedValue({
+      email: 'sender@example.com',
+      message: '<script>alert("xss")</script>',
+    })
+    mockSendEmail.mockResolvedValue({ data: { id: 'msg-789' }, error: null })
+
+    await handler({} as never)
+
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        html: expect.stringContaining('&lt;script&gt;'),
+        text: expect.stringContaining('&lt;script&gt;'), // Text also escaped for consistency
+      }),
+    )
   })
 })

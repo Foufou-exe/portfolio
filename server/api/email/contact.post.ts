@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import { ErrorCode, throwAppError } from '../../utils/errors'
 
 interface ContactBody {
@@ -6,12 +6,57 @@ interface ContactBody {
   message: string
 }
 
+// Rate limiting simple en memoire (reset au redemarrage)
+const rateLimitMap = new Map<string, { count: number, resetTime: number }>()
+const RATE_LIMIT_MAX = 5 // Max 5 requetes
+const RATE_LIMIT_WINDOW = 60 * 1000 // Par minute
+
+/**
+ * Echappe les caracteres HTML pour prevenir les attaques XSS
+ */
+function escapeHtml(text: string): string {
+  const htmlEscapes: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    '\'': '&#39;',
+  }
+  return text.replace(/[&<>"']/g, char => htmlEscapes[char] || char)
+}
+
+/**
+ * Verifie le rate limit pour une IP donnee
+ */
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const record = rateLimitMap.get(ip)
+
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
+    return true
+  }
+
+  if (record.count >= RATE_LIMIT_MAX) {
+    return false
+  }
+
+  record.count++
+  return true
+}
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
 
-  // Verifier la configuration SMTP - erreur 503 si non configure
-  if (!config.smtpHost || !config.smtpUser || !config.smtpPass) {
-    throwAppError(ErrorCode.SMTP_NOT_CONFIGURED, 'SMTP credentials not configured')
+  // Rate limiting par IP
+  const clientIp = getRequestIP(event, { xForwardedFor: true }) || 'unknown'
+  if (!checkRateLimit(clientIp)) {
+    throwAppError(ErrorCode.RATE_LIMITED, 'Too many requests, please try again later')
+  }
+
+  // Verifier la configuration Resend - erreur 503 si non configure
+  if (!config.resendApiKey || !config.resendFromEmail) {
+    throwAppError(ErrorCode.EMAIL_NOT_CONFIGURED, 'Resend API key or from email not configured')
   }
 
   try {
@@ -32,81 +77,51 @@ export default defineEventHandler(async (event) => {
       throwAppError(ErrorCode.VALIDATION_ERROR, 'Invalid email format')
     }
 
-    // Creer le transporteur SMTP
-    const transporter = nodemailer.createTransport({
-      host: config.smtpHost,
-      port: Number(config.smtpPort) || 587,
-      secure: Number(config.smtpPort) === 465,
-      auth: {
-        user: config.smtpUser,
-        pass: config.smtpPass,
-      },
-    })
+    // Sanitiser les entrees pour prevenir XSS
+    const safeEmail = escapeHtml(body.email)
+    const safeMessage = escapeHtml(body.message)
 
-    // Envoyer l'email
-    const info = await transporter.sendMail({
-      from: `"Portfolio Contact" <${config.smtpUser}>`,
-      to: config.contactEmail || config.smtpUser,
+    // Initialiser Resend
+    const resend = new Resend(config.resendApiKey)
+
+    // Envoyer l'email via Resend
+    const { data, error } = await resend.emails.send({
+      from: config.resendFromEmail,
+      to: config.contactEmail || config.resendFromEmail,
       replyTo: body.email,
-      subject: `[Portfolio] Nouveau message de ${body.email}`,
+      subject: `[Portfolio] Nouveau message de ${safeEmail}`,
       html: `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Nouveau message</title>
-          </head>
-          <body style="font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #d946ef 100%); padding: 30px; border-radius: 16px 16px 0 0;">
-              <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Nouveau message depuis votre portfolio</h1>
-            </div>
-            
-            <div style="background: #faf5ff; padding: 30px; border: 1px solid #e9d5ff; border-top: none; border-radius: 0 0 16px 16px;">
-              <div style="margin-bottom: 20px;">
-                <p style="margin: 0 0 5px 0; font-size: 12px; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">De</p>
-                <p style="margin: 0; font-size: 16px; color: #1f2937;">
-                  <a href="mailto:${body.email}" style="color: #8b5cf6; text-decoration: none;">${body.email}</a>
-                </p>
-              </div>
-              
-              <div style="margin-bottom: 20px;">
-                <p style="margin: 0 0 5px 0; font-size: 12px; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Message</p>
-                <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e9d5ff;">
-                  <p style="margin: 0; white-space: pre-wrap; color: #374151;">${body.message}</p>
-                </div>
-              </div>
-              
-              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9d5ff;">
-                <a href="mailto:${body.email}" style="display: inline-block; background: linear-gradient(135deg, #8b5cf6, #a855f7); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                  Repondre a ${body.email}
-                </a>
-              </div>
-            </div>
-            
-            <p style="margin-top: 20px; font-size: 12px; color: #9ca3af; text-align: center;">
-              Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
-            </p>
-          </body>
-        </html>
+        <h2>Nouveau message depuis votre portfolio</h2>
+        <p><strong>De:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+        <hr>
+        <p style="white-space: pre-wrap;">${safeMessage}</p>
+        <hr>
+        <p><small>Ce message a ete envoye depuis le formulaire de contact de votre portfolio.</small></p>
       `,
       text: `
 Nouveau message depuis votre portfolio
 
-De: ${body.email}
+De: ${safeEmail}
 
 Message:
-${body.message}
+${safeMessage}
 
 ---
 Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
       `.trim(),
     })
 
+    if (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[RESEND_ERROR]', error)
+      }
+      throwAppError(ErrorCode.EMAIL_SEND_FAILED, error.message)
+    }
+
     return {
       success: true,
       message: 'Message envoye avec succes',
-      id: info.messageId,
+      id: data?.id,
     }
   }
   catch (error: unknown) {
@@ -115,10 +130,10 @@ Ce message a ete envoye depuis le formulaire de contact de votre portfolio.
       throw error
     }
 
-    // Erreur SMTP ou autre
+    // Erreur Resend ou autre
     if (process.env.NODE_ENV === 'development') {
       console.error('[EMAIL_SEND_FAILED]', error)
     }
-    throwAppError(ErrorCode.EMAIL_SEND_FAILED, error instanceof Error ? error.message : 'Unknown SMTP error')
+    throwAppError(ErrorCode.EMAIL_SEND_FAILED, error instanceof Error ? error.message : 'Unknown email error')
   }
 })

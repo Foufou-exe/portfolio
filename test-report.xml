@@ -1,241 +1,321 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
   <file path="tests\components\AnimatedLogo.test.ts">
-    <testCase name="AnimatedLogo - renders with default size" duration="129" />
-    <testCase name="AnimatedLogo - accepts custom size prop" duration="48" />
-    <testCase name="AnimatedLogo - renders SSR fallback text" duration="30" />
-    <testCase name="AnimatedLogo - has a clickable logo container" duration="33" />
-    <testCase name="AnimatedLogo - renders tooltip provider" duration="33" />
-    <testCase name="AnimatedLogo - triggers animation on click" duration="43" />
+    <testCase name="AnimatedLogo - renders with default size" duration="281" />
+    <testCase name="AnimatedLogo - accepts custom size prop" duration="53" />
+    <testCase name="AnimatedLogo - renders SSR fallback text" duration="33" />
+    <testCase name="AnimatedLogo - has a clickable logo container" duration="38" />
+    <testCase name="AnimatedLogo - renders tooltip provider" duration="32" />
+    <testCase name="AnimatedLogo - triggers animation on click" duration="54" />
   </file>
   <file path="tests\components\AnimatedLogoSVG.test.ts">
-    <testCase name="AnimatedLogoSVG - renders an SVG element" duration="143" />
-    <testCase name="AnimatedLogoSVG - uses default size of 45" duration="27" />
-    <testCase name="AnimatedLogoSVG - accepts custom size prop" duration="22" />
-    <testCase name="AnimatedLogoSVG - has correct viewBox" duration="24" />
-    <testCase name="AnimatedLogoSVG - fetches SVG content on mount" duration="22" />
-    <testCase name="AnimatedLogoSVG - exposes animations via defineExpose" duration="39" />
-    <testCase name="AnimatedLogoSVG - renders container with correct class" duration="17" />
-    <testCase name="AnimatedLogoSVG - handles fetch error gracefully" duration="14" />
+    <testCase name="AnimatedLogoSVG - renders an SVG element" duration="40" />
+    <testCase name="AnimatedLogoSVG - uses default size of 45" duration="11" />
+    <testCase name="AnimatedLogoSVG - accepts custom size prop" duration="9" />
+    <testCase name="AnimatedLogoSVG - has correct viewBox" duration="9" />
+    <testCase name="AnimatedLogoSVG - fetches SVG content on mount" duration="10" />
+    <testCase name="AnimatedLogoSVG - exposes animations via defineExpose" duration="8" />
+    <testCase name="AnimatedLogoSVG - renders container with correct class" duration="10" />
+    <testCase name="AnimatedLogoSVG - handles fetch error gracefully" duration="8" />
   </file>
   <file path="tests\components\BackToTop.test.ts">
-    <testCase name="BackToTop - is hidden when scroll position is below threshold" duration="150" />
-    <testCase name="BackToTop - becomes visible when scroll exceeds threshold" duration="68" />
-    <testCase name="BackToTop - calls scrollTo top on click" duration="40" />
-    <testCase name="BackToTop - has correct aria-label" duration="24" />
-    <testCase name="BackToTop - renders ArrowUp icon" duration="23" />
+    <testCase name="BackToTop - is hidden when scroll position is below threshold" duration="51" />
+    <testCase name="BackToTop - becomes visible when scroll exceeds threshold" duration="20" />
+    <testCase name="BackToTop - calls scrollTo top on click" duration="20" />
+    <testCase name="BackToTop - has correct aria-label" duration="11" />
+    <testCase name="BackToTop - renders ArrowUp icon" duration="9" />
   </file>
   <file path="tests\components\NavBar.test.ts">
-    <testCase name="NavBar - renders the navigation header" duration="201" />
-    <testCase name="NavBar - renders desktop navigation buttons" duration="89" />
-    <testCase name="NavBar - renders language toggle button" duration="59" />
-    <testCase name="NavBar - has transparent background when not scrolled" duration="86" />
-    <testCase name="NavBar - adds backdrop blur when scrolled" duration="89" />
-    <testCase name="NavBar - renders the logo link" duration="67" />
-    <testCase name="NavBar - renders navigation links" duration="51" />
-    <testCase name="NavBar - renders mobile menu button" duration="60" />
+    <testCase name="NavBar - renders the navigation header" duration="515" />
+    <testCase name="NavBar - renders desktop navigation buttons" duration="185" />
+    <testCase name="NavBar - renders language toggle button" duration="215" />
+    <testCase name="NavBar - has transparent background when not scrolled" duration="114" />
+    <testCase name="NavBar - adds backdrop blur when scrolled" duration="159" />
+    <testCase name="NavBar - renders the logo link" duration="107" />
+    <testCase name="NavBar - renders navigation links" duration="92" />
+    <testCase name="NavBar - renders mobile menu button" duration="151" />
   </file>
   <file path="tests\components\ProjectCardSkeleton.test.ts">
-    <testCase name="ProjectCardSkeleton - renders with large size" duration="61" />
-    <testCase name="ProjectCardSkeleton - renders with medium size" duration="33" />
-    <testCase name="ProjectCardSkeleton - renders with small size" duration="24" />
-    <testCase name="ProjectCardSkeleton - has skeleton shimmer animation elements" duration="14" />
-    <testCase name="ProjectCardSkeleton - shows extra description line for large size" duration="47" />
+    <testCase name="ProjectCardSkeleton - renders with large size" duration="40" />
+    <testCase name="ProjectCardSkeleton - renders with medium size" duration="9" />
+    <testCase name="ProjectCardSkeleton - renders with small size" duration="7" />
+    <testCase name="ProjectCardSkeleton - has skeleton shimmer animation elements" duration="6" />
+    <testCase name="ProjectCardSkeleton - shows extra description line for large size" duration="13" />
   </file>
   <file path="tests\components\SkillBadge.test.ts">
-    <testCase name="SkillBadge - renders the skill name in a Badge" duration="217" />
-    <testCase name="SkillBadge - uses secondary variant by default" duration="79" />
-    <testCase name="SkillBadge - accepts a custom variant prop" duration="40" />
-    <testCase name="SkillBadge - renders HoverCard structure" duration="71" />
+    <testCase name="SkillBadge - renders the skill name in a Badge" duration="72" />
+    <testCase name="SkillBadge - uses secondary variant by default" duration="25" />
+    <testCase name="SkillBadge - accepts a custom variant prop" duration="17" />
+    <testCase name="SkillBadge - renders HoverCard structure" duration="17" />
   </file>
   <file path="tests\composables\useAnimatedLogoSVG.test.ts">
-    <testCase name="useAnimatedLogoSVG - returns svgRef, eyeLeftRef, eyeRightRef and animations" duration="19" />
-    <testCase name="useAnimatedLogoSVG - initializes refs as null" duration="9" />
-    <testCase name="useAnimatedLogoSVG - provides all expected animation functions" duration="5" />
-    <testCase name="useAnimatedLogoSVG - wink does nothing when no eyeLeftRef" duration="2" />
+    <testCase name="useAnimatedLogoSVG - returns svgRef, eyeLeftRef, eyeRightRef and animations" duration="43" />
+    <testCase name="useAnimatedLogoSVG - initializes refs as null" duration="4" />
+    <testCase name="useAnimatedLogoSVG - provides all expected animation functions" duration="4" />
+    <testCase name="useAnimatedLogoSVG - wink does nothing when no eyeLeftRef" duration="4" />
     <testCase name="useAnimatedLogoSVG - surprised does nothing without eye refs" duration="3" />
     <testCase name="useAnimatedLogoSVG - happy does nothing without eye refs" duration="2" />
     <testCase name="useAnimatedLogoSVG - squash does nothing without svgRef" duration="2" />
-    <testCase name="useAnimatedLogoSVG - shake does nothing without svgRef" duration="2" />
-    <testCase name="useAnimatedLogoSVG - bounce does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - spin does nothing without svgRef" duration="2" />
-    <testCase name="useAnimatedLogoSVG - wobble does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - pulse does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - float does nothing without svgRef" duration="1" />
-    <testCase name="useAnimatedLogoSVG - lookAround does nothing without eye refs" duration="1" />
-    <testCase name="useAnimatedLogoSVG - blink does nothing without eye refs" duration="3" />
-    <testCase name="useAnimatedLogoSVG - squash calls animate with svgRef when available" duration="9" />
-    <testCase name="useAnimatedLogoSVG - shake calls animate with svgRef" duration="5" />
-    <testCase name="useAnimatedLogoSVG - bounce calls animate with svgRef" duration="7" />
-    <testCase name="useAnimatedLogoSVG - spin calls animate with rotate 360" duration="7" />
-    <testCase name="useAnimatedLogoSVG - wobble calls animate with rotate oscillation" duration="11" />
-    <testCase name="useAnimatedLogoSVG - pulse calls animate with scale" duration="8" />
-    <testCase name="useAnimatedLogoSVG - float calls animate with translateY" duration="3" />
-    <testCase name="useAnimatedLogoSVG - wink calls animate with eye ref when available" duration="4" />
-    <testCase name="useAnimatedLogoSVG - blink calls animate on both eyes when refs available" duration="15" />
+    <testCase name="useAnimatedLogoSVG - shake does nothing without svgRef" duration="3" />
+    <testCase name="useAnimatedLogoSVG - bounce does nothing without svgRef" duration="3" />
+    <testCase name="useAnimatedLogoSVG - spin does nothing without svgRef" duration="6" />
+    <testCase name="useAnimatedLogoSVG - wobble does nothing without svgRef" duration="2" />
+    <testCase name="useAnimatedLogoSVG - pulse does nothing without svgRef" duration="2" />
+    <testCase name="useAnimatedLogoSVG - float does nothing without svgRef" duration="2" />
+    <testCase name="useAnimatedLogoSVG - lookAround does nothing without eye refs" duration="3" />
+    <testCase name="useAnimatedLogoSVG - blink does nothing without eye refs" duration="4" />
+    <testCase name="useAnimatedLogoSVG - squash calls animate with svgRef when available" duration="13" />
+    <testCase name="useAnimatedLogoSVG - shake calls animate with svgRef" duration="3" />
+    <testCase name="useAnimatedLogoSVG - bounce calls animate with svgRef" duration="3" />
+    <testCase name="useAnimatedLogoSVG - spin calls animate with rotate 360" duration="3" />
+    <testCase name="useAnimatedLogoSVG - wobble calls animate with rotate oscillation" duration="6" />
+    <testCase name="useAnimatedLogoSVG - pulse calls animate with scale" duration="4" />
+    <testCase name="useAnimatedLogoSVG - float calls animate with translateY" duration="9" />
+    <testCase name="useAnimatedLogoSVG - wink calls animate with eye ref when available" duration="12" />
+    <testCase name="useAnimatedLogoSVG - blink calls animate on both eyes when refs available" duration="4" />
     <testCase name="useAnimatedLogoSVG - surprised calls animate on both eyes when refs available" duration="3" />
-    <testCase name="useAnimatedLogoSVG - happy calls animate on both eyes when refs available" duration="9" />
-    <testCase name="useAnimatedLogoSVG - lookAround animates eyes through positions" duration="5" />
+    <testCase name="useAnimatedLogoSVG - happy calls animate on both eyes when refs available" duration="4" />
+    <testCase name="useAnimatedLogoSVG - lookAround animates eyes through positions" duration="3" />
+  </file>
+  <file path="tests\composables\useApiError.test.ts">
+    <testCase name="useApiError - initial state - has no error initially" duration="13" />
+    <testCase name="useApiError - initial state - returns technicalDetails as null initially" duration="1" />
+    <testCase name="useApiError - setError - sets error state when called" duration="3" />
+    <testCase name="useApiError - setError - uses plugin parseApiError when available" duration="4" />
+    <testCase name="useApiError - setError - logs error in development mode" duration="4" />
+    <testCase name="useApiError - clearError - clears the error state" duration="3" />
+    <testCase name="useApiError - errorMessage computed - returns userMessage from parsed error" duration="1" />
+    <testCase name="useApiError - technicalDetails computed - returns technical details in development mode" duration="2" />
+    <testCase name="useApiError - technicalDetails computed - returns null in production mode" duration="3" />
+    <testCase name="useApiError - withErrorHandling - executes function and returns result on success" duration="1" />
+    <testCase name="useApiError - withErrorHandling - catches error and returns null on failure" duration="1" />
+    <testCase name="useApiError - withErrorHandling - clears previous error before execution by default" duration="1" />
+    <testCase name="useApiError - withErrorHandling - does not clear error when clearBefore is false" duration="1" />
+    <testCase name="useApiError - withErrorHandling - calls onError callback when error occurs" duration="6" />
+    <testCase name="useApiError - withErrorHandling - does not call onError callback on success" duration="1" />
   </file>
   <file path="tests\composables\useLazySection.test.ts">
-    <testCase name="useLazySection - returns sentinelRef and shouldRender" duration="7" />
+    <testCase name="useLazySection - returns sentinelRef and shouldRender" duration="10" />
     <testCase name="useLazySection - initially does not render the section" duration="2" />
-    <testCase name="useLazySection - registers section as pending in the registry" duration="1" />
+    <testCase name="useLazySection - registers section as pending in the registry" duration="2" />
     <testCase name="useLazySection - activates when intersection observer triggers" duration="1" />
     <testCase name="useLazySection - does not activate on non-intersecting entry" duration="2" />
     <testCase name="useLazySection - stops observer after activation" duration="3" />
     <testCase name="useLazySection - removes section from registry after activation" duration="1" />
-    <testCase name="useLazySection - forceLazySectionRender activates the section" duration="0" />
-    <testCase name="useLazySection - forceLazySectionRender does nothing for unknown section" duration="5" />
+    <testCase name="useLazySection - forceLazySectionRender activates the section" duration="1" />
+    <testCase name="useLazySection - forceLazySectionRender does nothing for unknown section" duration="3" />
     <testCase name="useLazySection - isLazySectionPending returns false for unknown section" duration="1" />
   </file>
   <file path="tests\composables\useLogoTooltip.test.ts">
-    <testCase name="useLogoTooltip - returns expected properties" duration="103" />
-    <testCase name="useLogoTooltip - initializes with empty message and closed tooltip" duration="16" />
-    <testCase name="useLogoTooltip - triggerLoadMessage fires after delay on mount" duration="46" />
-    <testCase name="useLogoTooltip - showMessage sets currentMessage and opens tooltip" duration="22" />
-    <testCase name="useLogoTooltip - showMessage auto-hides after duration" duration="33" />
-    <testCase name="useLogoTooltip - triggerClickMessage can be called without crashing" duration="28" />
-    <testCase name="useLogoTooltip - showRandomMessage can be called for load trigger" duration="15" />
-    <testCase name="useLogoTooltip - showRandomMessage can be called for click trigger" duration="17" />
-    <testCase name="useLogoTooltip - cleanup runs on unmount without errors" duration="25" />
+    <testCase name="useLogoTooltip - returns expected properties" duration="26" />
+    <testCase name="useLogoTooltip - initializes with empty message and closed tooltip" duration="8" />
+    <testCase name="useLogoTooltip - triggerLoadMessage fires after delay on mount" duration="22" />
+    <testCase name="useLogoTooltip - showMessage sets currentMessage and opens tooltip" duration="7" />
+    <testCase name="useLogoTooltip - showMessage auto-hides after duration" duration="6" />
+    <testCase name="useLogoTooltip - triggerClickMessage can be called without crashing" duration="11" />
+    <testCase name="useLogoTooltip - showRandomMessage can be called for load trigger" duration="8" />
+    <testCase name="useLogoTooltip - showRandomMessage can be called for click trigger" duration="7" />
+    <testCase name="useLogoTooltip - cleanup runs on unmount without errors" duration="8" />
   </file>
   <file path="tests\composables\useNavLinks.test.ts">
-    <testCase name="useNavLinks - returns translatedNavLinks as a computed ref" duration="92" />
-    <testCase name="useNavLinks - returns 6 navigation links" duration="37" />
-    <testCase name="useNavLinks - each link has name and href properties" duration="43" />
-    <testCase name="useNavLinks - contains expected section hrefs" duration="32" />
+    <testCase name="useNavLinks - returns translatedNavLinks as a computed ref" duration="52" />
+    <testCase name="useNavLinks - returns 6 navigation links" duration="15" />
+    <testCase name="useNavLinks - each link has name and href properties" duration="12" />
+    <testCase name="useNavLinks - contains expected section hrefs" duration="12" />
   </file>
   <file path="tests\composables\useScrollAnimation.test.ts">
-    <testCase name="useScrollAnimation - returns isVisible, animationClass, and setupAnimation" duration="8" />
-    <testCase name="useScrollAnimation - isVisible is initially false" duration="1" />
-    <testCase name="useScrollAnimation - uses custom animationClass when provided" duration="6" />
-    <testCase name="useScrollAnimation - setupAnimation sets up observer and returns controls" duration="2" />
-    <testCase name="useScrollAnimation - sets isVisible to true when element intersects" duration="1" />
-    <testCase name="useScrollAnimation - stops observer when once is true (default)" duration="1" />
-    <testCase name="useScrollAnimation - does not stop observer when once is false" duration="1" />
-    <testCase name="useScrollAnimation - resets isVisible when not intersecting and once is false" duration="1" />
-    <testCase name="useScrollAnimation - uses default options when none provided" duration="13" />
-    <testCase name="useScrollAnimation - passes custom threshold and rootMargin" duration="5" />
-    <testCase name="useElementAnimation - returns elementRef and isVisible" duration="2" />
+    <testCase name="useScrollAnimation - returns isVisible, animationClass, and setupAnimation" duration="2" />
+    <testCase name="useScrollAnimation - isVisible is initially false" duration="0" />
+    <testCase name="useScrollAnimation - uses custom animationClass when provided" duration="0" />
+    <testCase name="useScrollAnimation - setupAnimation sets up observer and returns controls" duration="1" />
+    <testCase name="useScrollAnimation - sets isVisible to true when element intersects" duration="0" />
+    <testCase name="useScrollAnimation - stops observer when once is true (default)" duration="0" />
+    <testCase name="useScrollAnimation - does not stop observer when once is false" duration="0" />
+    <testCase name="useScrollAnimation - resets isVisible when not intersecting and once is false" duration="0" />
+    <testCase name="useScrollAnimation - uses default options when none provided" duration="3" />
+    <testCase name="useScrollAnimation - passes custom threshold and rootMargin" duration="1" />
+    <testCase name="useElementAnimation - returns elementRef and isVisible" duration="0" />
     <testCase name="useElementAnimation - sets isVisible to true when element intersects" duration="1" />
-    <testCase name="useElementAnimation - does not reset isVisible when once is true (default)" duration="2" />
+    <testCase name="useElementAnimation - does not reset isVisible when once is true (default)" duration="1" />
     <testCase name="useElementAnimation - resets isVisible when once is false" duration="1" />
-    <testCase name="useElementAnimation - uses custom rootMargin default for element animation" duration="7" />
+    <testCase name="useElementAnimation - uses custom rootMargin default for element animation" duration="2" />
   </file>
   <file path="tests\composables\useScrollToSection.test.ts">
-    <testCase name="useScrollToSection - returns scrollToSection and scrollToTop functions" duration="11" />
-    <testCase name="useScrollToSection - scrollToSection scrolls to the correct position" duration="13" />
-    <testCase name="useScrollToSection - scrollToSection accounts for header offset of 80px" duration="4" />
-    <testCase name="useScrollToSection - scrollToSection does nothing when element is not found" duration="2" />
-    <testCase name="useScrollToSection - scrollToSection force-renders lazy section when pending" duration="61" />
-    <testCase name="useScrollToSection - scrollToTop scrolls to the top of the page" duration="2" />
+    <testCase name="useScrollToSection - returns scrollToSection and scrollToTop functions" duration="6" />
+    <testCase name="useScrollToSection - scrollToSection scrolls to the correct position" duration="11" />
+    <testCase name="useScrollToSection - scrollToSection accounts for header offset of 80px" duration="1" />
+    <testCase name="useScrollToSection - scrollToSection does nothing when element is not found" duration="1" />
+    <testCase name="useScrollToSection - scrollToSection force-renders lazy section when pending" duration="53" />
+    <testCase name="useScrollToSection - scrollToTop scrolls to the top of the page" duration="1" />
   </file>
   <file path="tests\data\portfolio.test.ts">
-    <testCase name="Portfolio Data - Profile - has required profile fields" duration="7" />
-    <testCase name="Portfolio Data - Profile - has valid initials" duration="1" />
-    <testCase name="Portfolio Data - Skills - has skills defined" duration="1" />
-    <testCase name="Portfolio Data - Skills - all skills have required fields" duration="6" />
-    <testCase name="Portfolio Data - Skills - getSkillsByCategory returns correct skills" duration="5" />
+    <testCase name="Portfolio Data - Profile - has required profile fields" duration="1" />
+    <testCase name="Portfolio Data - Profile - has valid initials" duration="0" />
+    <testCase name="Portfolio Data - Skills - has skills defined" duration="0" />
+    <testCase name="Portfolio Data - Skills - all skills have required fields" duration="3" />
+    <testCase name="Portfolio Data - Skills - getSkillsByCategory returns correct skills" duration="1" />
     <testCase name="Portfolio Data - Skills - all skill categories have at least one skill" duration="1" />
     <testCase name="Portfolio Data - Soft Skills - has soft skills defined" duration="0" />
-    <testCase name="Portfolio Data - Soft Skills - all soft skills have required fields" duration="4" />
-    <testCase name="Portfolio Data - Soft Skills - getSoftSkillsByCategory returns correct skills" duration="2" />
-    <testCase name="Portfolio Data - Social Links - has social links defined" duration="2" />
-    <testCase name="Portfolio Data - Social Links - all social links have required fields" duration="1" />
-    <testCase name="Portfolio Data - Social Links - has valid URLs" duration="1" />
+    <testCase name="Portfolio Data - Soft Skills - all soft skills have required fields" duration="1" />
+    <testCase name="Portfolio Data - Soft Skills - getSoftSkillsByCategory returns correct skills" duration="0" />
+    <testCase name="Portfolio Data - Social Links - has social links defined" duration="0" />
+    <testCase name="Portfolio Data - Social Links - all social links have required fields" duration="0" />
+    <testCase name="Portfolio Data - Social Links - has valid URLs" duration="0" />
     <testCase name="Portfolio Data - Experiences - has experiences defined" duration="0" />
     <testCase name="Portfolio Data - Experiences - all experiences have required fields" duration="1" />
-    <testCase name="Portfolio Data - Experiences - experiences are sorted by start year descending" duration="3" />
+    <testCase name="Portfolio Data - Experiences - experiences are sorted by start year descending" duration="0" />
     <testCase name="Portfolio Data - Education - has education entries defined" duration="0" />
     <testCase name="Portfolio Data - Education - all education entries have required fields" duration="1" />
-    <testCase name="Portfolio Data - Categories - has skill categories defined" duration="2" />
-    <testCase name="Portfolio Data - Categories - has soft skill categories defined" duration="2" />
-    <testCase name="Portfolio Data - Categories - all skill categories have required fields" duration="1" />
-    <testCase name="Portfolio Data - Categories - all soft skill categories have required fields" duration="1" />
+    <testCase name="Portfolio Data - Categories - has skill categories defined" duration="0" />
+    <testCase name="Portfolio Data - Categories - has soft skill categories defined" duration="0" />
+    <testCase name="Portfolio Data - Categories - all skill categories have required fields" duration="0" />
+    <testCase name="Portfolio Data - Categories - all soft skill categories have required fields" duration="0" />
   </file>
   <file path="tests\layouts\default.test.ts">
-    <testCase name="default layout - renders the layout with footer" duration="273" />
-    <testCase name="default layout - renders the main content slot" duration="94" />
-    <testCase name="default layout - displays profile initials in footer" duration="122" />
-    <testCase name="default layout - renders social links in footer" duration="134" />
-    <testCase name="default layout - renders contact email in footer" duration="96" />
-    <testCase name="default layout - renders contact address in footer" duration="72" />
-    <testCase name="default layout - renders copyright with current year" duration="81" />
-    <testCase name="default layout - renders navigation links in footer" duration="77" />
+    <testCase name="default layout - renders the layout with footer" duration="648" />
+    <testCase name="default layout - renders the main content slot" duration="407" />
+    <testCase name="default layout - displays profile initials in footer" duration="192" />
+    <testCase name="default layout - renders social links in footer" duration="183" />
+    <testCase name="default layout - renders contact email in footer" duration="266" />
+    <testCase name="default layout - renders contact address in footer" duration="100" />
+    <testCase name="default layout - renders copyright with current year" duration="110" />
+    <testCase name="default layout - renders navigation links in footer" duration="127" />
   </file>
   <file path="tests\pages\index.test.ts">
-    <testCase name="index page - renders without errors" duration="1499" />
-    <testCase name="index page - renders HeroSection eagerly" duration="1258" />
-    <testCase name="index page - creates lazy sections for below-fold content" duration="958" />
-    <testCase name="index page - computes SEO title with profile name" duration="819" />
-    <testCase name="index page - renders lazy section containers" duration="848" />
+    <testCase name="index page - renders without errors" duration="2321" />
+    <testCase name="index page - renders HeroSection eagerly" duration="1335" />
+    <testCase name="index page - creates lazy sections for below-fold content" duration="1300" />
+    <testCase name="index page - computes SEO title with profile name" duration="1407" />
+    <testCase name="index page - renders lazy section containers" duration="1078" />
+  </file>
+  <file path="tests\plugins\error-handler.client.test.ts">
+    <testCase name="error-handler.client plugin - parseApiError - network errors - handles fetch TypeError" duration="3" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for INTERNAL_ERROR" duration="1" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for NOT_FOUND" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for VALIDATION_ERROR" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for EMAIL_SEND_FAILED" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for GITHUB_API_ERROR" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for EMAIL_NOT_CONFIGURED" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with error code - returns user-friendly message for RATE_LIMITED" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 400" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 401" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 403" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 404" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 429" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 500" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 502" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 503" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with HTTP status fallback - returns message for status 504" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - API errors with statusMessage fallback - uses statusMessage when no code or known status" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - standard Error objects - returns default message for standard Error" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - unknown error types - returns default message for string error" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - unknown error types - returns default message for number error" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - unknown error types - returns default message for null" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - unknown error types - returns default message for undefined" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - technical details in development - includes technical details for API error in dev" duration="1" />
+    <testCase name="error-handler.client plugin - parseApiError - technical details in development - includes technical details for standard Error in dev" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - technical details in development - includes technical details for network error in dev" duration="11" />
+    <testCase name="error-handler.client plugin - parseApiError - technical details in production - does not include technical details in production" duration="0" />
+    <testCase name="error-handler.client plugin - parseApiError - technical details in production - does not include technical details for Error in production" duration="0" />
   </file>
   <file path="tests\plugins\ssr-width.test.ts">
-    <testCase name="ssr-width plugin - calls provideSSRWidth with 1024 and vueApp" duration="238" />
+    <testCase name="ssr-width plugin - calls provideSSRWidth with 1024 and vueApp" duration="31" />
   </file>
   <file path="tests\server\api\contact.post.test.ts">
-    <testCase name="contact.post API - throws 503 when SMTP is not configured" duration="578" />
-    <testCase name="contact.post API - throws 400 when email is missing" duration="55" />
-    <testCase name="contact.post API - throws 400 when message is missing" duration="50" />
-    <testCase name="contact.post API - throws 400 when email exceeds 254 chars" duration="24" />
-    <testCase name="contact.post API - throws 400 for invalid email format" duration="44" />
-    <testCase name="contact.post API - sends email successfully with valid config" duration="47" />
-    <testCase name="contact.post API - re-throws HTTP errors from validation" duration="70" />
-    <testCase name="contact.post API - throws 503 on unexpected SMTP error" duration="31" />
+    <testCase name="contact.post API - throws 503 when Resend is not configured" duration="194" />
+    <testCase name="contact.post API - throws 503 when Resend API key is missing" duration="38" />
+    <testCase name="contact.post API - throws 503 when Resend from email is missing" duration="44" />
+    <testCase name="contact.post API - throws 400 when email is missing" duration="29" />
+    <testCase name="contact.post API - throws 400 when message is missing" duration="29" />
+    <testCase name="contact.post API - throws 400 when email exceeds 254 chars" duration="35" />
+    <testCase name="contact.post API - throws 400 for invalid email format" duration="18" />
+    <testCase name="contact.post API - sends email successfully with valid config" duration="29" />
+    <testCase name="contact.post API - uses resendFromEmail as recipient when contactEmail is not set" duration="55" />
+    <testCase name="contact.post API - re-throws HTTP errors from validation" duration="17" />
+    <testCase name="contact.post API - throws 503 when Resend returns an error" duration="83" />
+    <testCase name="contact.post API - throws 503 on unexpected Resend error" duration="16" />
+    <testCase name="contact.post API - escapes HTML in email to prevent XSS" duration="30" />
   </file>
   <file path="tests\server\api\repos.get.test.ts">
-    <testCase name="repos.get API - fetches repos and filters out forks and archived" duration="713" />
-    <testCase name="repos.get API - returns cached data on second call" duration="31" />
-    <testCase name="repos.get API - throws error when GitHub API returns non-ok" duration="77" />
-    <testCase name="repos.get API - works without GitHub token (no pinned repos or details)" duration="26" />
-    <testCase name="repos.get API - handles GraphQL pinned repos failure gracefully" duration="45" />
-    <testCase name="repos.get API - uses fallback OpenGraph URL when no custom image" duration="26" />
-    <testCase name="repos.get API - provides default description for repos without one" duration="81" />
+    <testCase name="repos.get API - fetches repos and filters out forks and archived" duration="170" />
+    <testCase name="repos.get API - returns cached data on second call" duration="49" />
+    <testCase name="repos.get API - throws error when GitHub API returns non-ok" duration="55" />
+    <testCase name="repos.get API - works without GitHub token (no pinned repos or details)" duration="30" />
+    <testCase name="repos.get API - handles GraphQL pinned repos failure gracefully" duration="29" />
+    <testCase name="repos.get API - uses fallback OpenGraph URL when no custom image" duration="36" />
+    <testCase name="repos.get API - provides default description for repos without one" duration="16" />
+  </file>
+  <file path="tests\server\utils\errors.test.ts">
+    <testCase name="server/utils/errors - ErrorCode enum - has all expected error codes" duration="13" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for INTERNAL_ERROR" duration="3" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for NOT_FOUND" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for BAD_REQUEST" duration="0" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for VALIDATION_ERROR" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for EMAIL_SEND_FAILED" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for GITHUB_API_ERROR" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for EMAIL_NOT_CONFIGURED" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - throws an error with correct status code for RATE_LIMITED" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - includes user-friendly message in statusMessage" duration="1" />
+    <testCase name="server/utils/errors - throwAppError - in development mode - logs technical message in development" duration="8" />
+    <testCase name="server/utils/errors - getErrorCodeFromStatus - returns BAD_REQUEST for status 400" duration="0" />
+    <testCase name="server/utils/errors - getErrorCodeFromStatus - returns NOT_FOUND for status 404" duration="0" />
+    <testCase name="server/utils/errors - getErrorCodeFromStatus - returns RATE_LIMITED for status 429" duration="0" />
+    <testCase name="server/utils/errors - getErrorCodeFromStatus - returns INTERNAL_ERROR for unknown status codes" duration="1" />
+  </file>
+  <file path="tests\shared\errors.test.ts">
+    <testCase name="shared/errors - ErrorCode - has all expected error codes" duration="5" />
+    <testCase name="shared/errors - errorMessages - has messages for all error codes" duration="1" />
+    <testCase name="shared/errors - errorMessages - has messages for HTTP status codes" duration="1" />
+    <testCase name="shared/errors - errorMessages - returns French user-friendly messages" duration="2" />
+    <testCase name="shared/errors - errorHttpStatus - maps error codes to HTTP status codes" duration="1" />
+    <testCase name="shared/errors - DEFAULT_ERROR_MESSAGE - is the INTERNAL_ERROR message" duration="0" />
+    <testCase name="shared/errors - getErrorMessage - returns message for known error code" duration="0" />
+    <testCase name="shared/errors - getErrorMessage - returns message for HTTP status code" duration="0" />
+    <testCase name="shared/errors - getErrorMessage - returns default message for unknown key" duration="0" />
   </file>
   <file path="tests\utils\formatters.test.ts">
-    <testCase name="formatters - formatRepoName - replaces hyphens with spaces and capitalizes words" duration="7" />
+    <testCase name="formatters - formatRepoName - replaces hyphens with spaces and capitalizes words" duration="5" />
     <testCase name="formatters - formatRepoName - replaces underscores with spaces and capitalizes words" duration="1" />
-    <testCase name="formatters - formatRepoName - handles mixed hyphens and underscores" duration="1" />
-    <testCase name="formatters - formatRepoName - handles single word" duration="1" />
-    <testCase name="formatters - formatRepoName - handles already capitalized input" duration="0" />
-    <testCase name="formatters - formatRepoName - handles empty string" duration="0" />
-    <testCase name="formatters - formatFullDate - formats date in French by default" duration="50" />
+    <testCase name="formatters - formatRepoName - handles mixed hyphens and underscores" duration="0" />
+    <testCase name="formatters - formatRepoName - handles single word" duration="0" />
+    <testCase name="formatters - formatRepoName - handles already capitalized input" duration="1" />
+    <testCase name="formatters - formatRepoName - handles empty string" duration="1" />
+    <testCase name="formatters - formatFullDate - formats date in French by default" duration="14" />
     <testCase name="formatters - formatFullDate - formats date in French when locale is fr" duration="1" />
-    <testCase name="formatters - formatFullDate - formats date in English when locale is en" duration="4" />
+    <testCase name="formatters - formatFullDate - formats date in English when locale is en" duration="6" />
     <testCase name="formatters - formatFullDate - treats non-fr locale as English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns &quot;Aujourd&apos;hui&quot; for today in French" duration="12" />
-    <testCase name="formatters - formatRelativeDate - returns &quot;Today&quot; for today in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns &quot;Hier&quot; for yesterday in French" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns &quot;Aujourd&apos;hui&quot; for today in French" duration="7" />
+    <testCase name="formatters - formatRelativeDate - returns &quot;Today&quot; for today in English" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns &quot;Hier&quot; for yesterday in French" duration="1" />
     <testCase name="formatters - formatRelativeDate - returns &quot;Yesterday&quot; for yesterday in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns days ago for 2-6 days" duration="2" />
-    <testCase name="formatters - formatRelativeDate - returns days ago in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns weeks ago for 7-29 days" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns weeks ago in English with plural" duration="2" />
-    <testCase name="formatters - formatRelativeDate - returns 1 week ago without plural in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns months ago for 30-364 days" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns months ago in English with plural" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns days ago for 2-6 days" duration="1" />
+    <testCase name="formatters - formatRelativeDate - returns days ago in English" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns weeks ago for 7-29 days" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns weeks ago in English with plural" duration="1" />
+    <testCase name="formatters - formatRelativeDate - returns 1 week ago without plural in English" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns months ago for 30-364 days" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns months ago in English with plural" duration="1" />
     <testCase name="formatters - formatRelativeDate - returns 1 month ago without plural in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - returns years ago for 365+ days" duration="2" />
+    <testCase name="formatters - formatRelativeDate - returns years ago for 365+ days" duration="1" />
     <testCase name="formatters - formatRelativeDate - returns years ago in English with plural" duration="1" />
     <testCase name="formatters - formatRelativeDate - returns 1 year ago without plural in English" duration="1" />
-    <testCase name="formatters - formatRelativeDate - defaults to French locale" duration="2" />
+    <testCase name="formatters - formatRelativeDate - defaults to French locale" duration="1" />
   </file>
   <file path="tests\utils\languageColors.test.ts">
-    <testCase name="languageColors - languageColors map - contains common languages" duration="8" />
-    <testCase name="languageColors - languageColors map - has entries for all defined languages" duration="3" />
-    <testCase name="languageColors - getLanguageColor - returns correct color for known language" duration="1" />
-    <testCase name="languageColors - getLanguageColor - returns correct color for another known language" duration="1" />
+    <testCase name="languageColors - languageColors map - contains common languages" duration="2" />
+    <testCase name="languageColors - languageColors map - has entries for all defined languages" duration="1" />
+    <testCase name="languageColors - getLanguageColor - returns correct color for known language" duration="0" />
+    <testCase name="languageColors - getLanguageColor - returns correct color for another known language" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns fallback gray for unknown language" duration="0" />
     <testCase name="languageColors - getLanguageColor - returns fallback gray for empty string" duration="0" />
   </file>
   <file path="tests\utils\utils.test.ts">
-    <testCase name="cn (class merge utility) - merges simple class names" duration="29" />
+    <testCase name="cn (class merge utility) - merges simple class names" duration="25" />
     <testCase name="cn (class merge utility) - handles conditional classes with clsx" duration="1" />
-    <testCase name="cn (class merge utility) - merges conflicting Tailwind classes using tailwind-merge" duration="3" />
+    <testCase name="cn (class merge utility) - merges conflicting Tailwind classes using tailwind-merge" duration="2" />
     <testCase name="cn (class merge utility) - handles empty inputs" duration="1" />
-    <testCase name="cn (class merge utility) - handles undefined and null inputs" duration="0" />
-    <testCase name="cn (class merge utility) - handles array inputs" duration="4" />
+    <testCase name="cn (class merge utility) - handles undefined and null inputs" duration="2" />
+    <testCase name="cn (class merge utility) - handles array inputs" duration="1" />
     <testCase name="cn (class merge utility) - handles object inputs" duration="1" />
   </file>
 </testExecutions>

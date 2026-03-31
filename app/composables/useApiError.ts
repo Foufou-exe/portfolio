@@ -7,6 +7,7 @@
 
 import { ref, computed } from 'vue'
 import { useNuxtApp } from '#app'
+import { errorMessages, DEFAULT_ERROR_MESSAGE } from '../../shared/errors'
 import type { ParsedError } from '../plugins/error-handler.client'
 
 // Types pour les erreurs
@@ -14,18 +15,6 @@ interface ErrorState {
   hasError: boolean
   error: ParsedError | null
 }
-
-// Messages par defaut (fallback si le plugin n'est pas charge)
-const defaultMessages: Record<string, string> = {
-  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
-  NOT_FOUND: 'La ressource demandee n\'a pas ete trouvee.',
-  BAD_REQUEST: 'Les donnees fournies sont invalides.',
-  VALIDATION_ERROR: 'Les donnees fournies sont invalides.',
-  SMTP_NOT_CONFIGURED: 'Le service de messagerie n\'est pas disponible.',
-}
-
-// Message par defaut
-const DEFAULT_ERROR_MESSAGE = defaultMessages['INTERNAL_ERROR'] as string
 
 /**
  * Composable pour gerer les erreurs API dans un composant
@@ -152,7 +141,7 @@ function parseErrorFallback(error: unknown): ParsedError {
     let userMessage: string = DEFAULT_ERROR_MESSAGE
 
     if (code) {
-      const codeMessage = defaultMessages[code]
+      const codeMessage = errorMessages[code]
       if (codeMessage) {
         userMessage = codeMessage
       }
