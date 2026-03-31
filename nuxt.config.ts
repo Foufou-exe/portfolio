@@ -86,11 +86,9 @@ export default defineNuxtConfig({
 
   // Runtime config
   runtimeConfig: {
-    // Server-side only (private) - SMTP for Nodemailer
-    smtpHost: process.env.NUXT_SMTP_HOST || 'smtp.gmail.com',
-    smtpPort: process.env.NUXT_SMTP_PORT || '587',
-    smtpUser: process.env.NUXT_SMTP_USER || '',
-    smtpPass: process.env.NUXT_SMTP_PASS || '',
+    // Server-side only (private) - Resend for emails
+    resendApiKey: process.env.NUXT_RESEND_API_KEY || '',
+    resendFromEmail: process.env.NUXT_RESEND_FROM_EMAIL || '',
     contactEmail: process.env.NUXT_CONTACT_EMAIL || '',
     // GitHub API Token (increases rate limit from 60 to 5000 requests/hour)
     githubToken: process.env.NUXT_GITHUB_TOKEN || '',

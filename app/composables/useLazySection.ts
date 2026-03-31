@@ -1,4 +1,5 @@
 import { useIntersectionObserver } from '@vueuse/core'
+import { onUnmounted, ref } from 'vue'
 
 /**
  * Registre global des sections lazy-loadées
@@ -52,6 +53,12 @@ export function useLazySection(sectionId: string, options: { rootMargin?: string
 
   // Enregistrer dans le registre global
   lazySectionRegistry.set(sectionId, activate)
+
+  // Nettoyer le registre si le composant est detruite avant activation
+  onUnmounted(() => {
+    lazySectionRegistry.delete(sectionId)
+    stop()
+  })
 
   return {
     sentinelRef,

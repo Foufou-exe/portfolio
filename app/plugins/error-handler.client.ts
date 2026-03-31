@@ -4,43 +4,10 @@
  * Parse les erreurs API et fournit des messages user-friendly
  */
 
-// Codes d'erreur (definis localement pour eviter l'import serveur)
-type ErrorCode
-  = | 'INTERNAL_ERROR'
-    | 'NOT_FOUND'
-    | 'BAD_REQUEST'
-    | 'VALIDATION_ERROR'
-    | 'EMAIL_SEND_FAILED'
-    | 'GITHUB_API_ERROR'
-    | 'SMTP_NOT_CONFIGURED'
-    | 'RATE_LIMITED'
-
-// Messages user-friendly cote client (FR)
-const clientErrorMessages: Record<string, string> = {
-  // Par code d'erreur
-  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
-  NOT_FOUND: 'La ressource demandee n\'a pas ete trouvee.',
-  BAD_REQUEST: 'La requete est invalide. Veuillez verifier vos donnees.',
-  VALIDATION_ERROR: 'Les donnees fournies sont invalides.',
-  EMAIL_SEND_FAILED: 'Impossible d\'envoyer le message. Veuillez reessayer plus tard.',
-  GITHUB_API_ERROR: 'Impossible de recuperer les donnees GitHub. Veuillez reessayer plus tard.',
-  SMTP_NOT_CONFIGURED: 'Le service de messagerie n\'est pas disponible.',
-  RATE_LIMITED: 'Trop de requetes. Veuillez patienter quelques instants.',
-
-  // Fallback par code HTTP
-  400: 'Les donnees fournies sont invalides.',
-  401: 'Vous n\'etes pas autorise a effectuer cette action.',
-  403: 'Acces refuse.',
-  404: 'La ressource demandee n\'a pas ete trouvee.',
-  429: 'Trop de requetes. Veuillez patienter quelques instants.',
-  500: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
-  502: 'Une erreur de communication s\'est produite. Veuillez reessayer.',
-  503: 'Le service est temporairement indisponible. Veuillez reessayer plus tard.',
-  504: 'Le service met trop de temps a repondre. Veuillez reessayer.',
-}
+import { ErrorCode, errorMessages, getErrorMessage, DEFAULT_ERROR_MESSAGE, type ErrorCodeType } from '../../shared/errors'
 
 interface ApiErrorData {
-  code?: ErrorCode | string
+  code?: ErrorCodeType | string
   technicalMessage?: string
   details?: Record<string, unknown>
   stack?: string
@@ -68,16 +35,6 @@ export interface ParsedError {
   }
 }
 
-// Message par defaut
-const DEFAULT_ERROR_MESSAGE = 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.'
-
-/**
- * Recupere un message d'erreur avec fallback
- */
-function getErrorMessage(key: string): string {
-  return clientErrorMessages[key] ?? DEFAULT_ERROR_MESSAGE
-}
-
 /**
  * Parse une erreur et retourne un message user-friendly
  */
@@ -88,7 +45,7 @@ export function parseApiError(error: unknown): ParsedError {
   if (error instanceof TypeError && error.message.includes('fetch')) {
     return {
       userMessage: getErrorMessage('503'),
-      code: 'NETWORK_ERROR',
+      code: ErrorCode.NETWORK_ERROR,
       technicalDetails: isDev ? { message: error.message, stack: error.stack } : undefined,
     }
   }
@@ -103,13 +60,13 @@ export function parseApiError(error: unknown): ParsedError {
     // Chercher le message approprie
     let userMessage: string = DEFAULT_ERROR_MESSAGE
     if (code) {
-      const codeMessage = clientErrorMessages[code]
+      const codeMessage = errorMessages[code]
       if (codeMessage) {
         userMessage = codeMessage
       }
     }
     else if (statusCode) {
-      const statusMessage = clientErrorMessages[String(statusCode)]
+      const statusMessage = errorMessages[String(statusCode)]
       if (statusMessage) {
         userMessage = statusMessage
       }
