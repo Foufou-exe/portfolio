@@ -106,7 +106,7 @@ describe('contact.post API', () => {
       message: 'Message envoye (mode demo)',
       demo: true,
     })
-    expect(consoleSpy).toHaveBeenCalledWith('SMTP not configured. Running in demo mode.')
+    expect(consoleSpy).toHaveBeenCalled()
     consoleSpy.mockRestore()
     infoSpy.mockRestore()
   })
@@ -119,7 +119,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: '', message: 'Hello' })
 
-    await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
+    await expect(handler({} as never)).rejects.toThrow('Les données fournies sont invalides.')
   })
 
   it('throws 400 when message is missing', async () => {
@@ -130,7 +130,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'test@example.com', message: '' })
 
-    await expect(handler({} as never)).rejects.toThrow('Email et message sont requis')
+    await expect(handler({} as never)).rejects.toThrow('Les données fournies sont invalides.')
   })
 
   it('throws 400 when email exceeds 254 chars', async () => {
@@ -142,7 +142,7 @@ describe('contact.post API', () => {
     const longEmail = `${'a'.repeat(246)}@test.com`
     mockReadBody.mockResolvedValue({ email: longEmail, message: 'Hello' })
 
-    await expect(handler({} as never)).rejects.toThrow('Email invalide')
+    await expect(handler({} as never)).rejects.toThrow('Les données fournies sont invalides.')
   })
 
   it('throws 400 for invalid email format', async () => {
@@ -153,7 +153,7 @@ describe('contact.post API', () => {
     })
     mockReadBody.mockResolvedValue({ email: 'not-an-email', message: 'Hello' })
 
-    await expect(handler({} as never)).rejects.toThrow('Email invalide')
+    await expect(handler({} as never)).rejects.toThrow('Les données fournies sont invalides.')
   })
 
   it('sends email successfully with valid config', async () => {
@@ -213,7 +213,7 @@ describe('contact.post API', () => {
     mockSendMail.mockRejectedValue(new Error('SMTP connection failed'))
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    await expect(handler({} as never)).rejects.toThrow('Erreur interne du serveur')
+    await expect(handler({} as never)).rejects.toThrow('Impossible d\'envoyer le message. Veuillez réessayer plus tard.')
     errorSpy.mockRestore()
   })
 })

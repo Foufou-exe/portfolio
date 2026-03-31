@@ -17,9 +17,9 @@ describe('Portfolio Data', () => {
   describe('Profile', () => {
     it('has required profile fields', () => {
       expect(profile.name).toBeDefined()
-      expect(profile.title).toBeDefined()
+      expect(profile.titleKey).toBeDefined()
       expect(profile.avatar).toBeDefined()
-      expect(profile.bio).toBeDefined()
+      expect(profile.bioKey).toBeDefined()
     })
 
     it('has valid initials', () => {
@@ -35,7 +35,7 @@ describe('Portfolio Data', () => {
     it('all skills have required fields', () => {
       skills.forEach((skill) => {
         expect(skill.name).toBeDefined()
-        expect(skill.description).toBeDefined()
+        expect(skill.descriptionKey).toBeDefined()
         expect(skill.category).toBeDefined()
       })
     })
@@ -63,8 +63,8 @@ describe('Portfolio Data', () => {
 
     it('all soft skills have required fields', () => {
       softSkills.forEach((skill) => {
-        expect(skill.name).toBeDefined()
-        expect(skill.description).toBeDefined()
+        expect(skill.nameKey).toBeDefined()
+        expect(skill.descriptionKey).toBeDefined()
         expect(skill.category).toBeDefined()
         expect(skill.icon).toBeDefined()
       })
@@ -107,10 +107,10 @@ describe('Portfolio Data', () => {
     it('all experiences have required fields', () => {
       experiences.forEach((exp) => {
         expect(exp.id).toBeDefined()
-        expect(exp.title).toBeDefined()
+        expect(exp.titleKey).toBeDefined()
         expect(exp.company).toBeDefined()
         expect(exp.period).toBeDefined()
-        expect(exp.description).toBeDefined()
+        expect(exp.descriptionKey).toBeDefined()
       })
     })
 
@@ -129,7 +129,7 @@ describe('Portfolio Data', () => {
     it('all education entries have required fields', () => {
       education.forEach((edu) => {
         expect(edu.id).toBeDefined()
-        expect(edu.degree).toBeDefined()
+        expect(edu.degreeKey).toBeDefined()
         expect(edu.school).toBeDefined()
         expect(edu.period).toBeDefined()
       })
@@ -148,7 +148,7 @@ describe('Portfolio Data', () => {
     it('all skill categories have required fields', () => {
       skillCategories.forEach((cat) => {
         expect(cat.id).toBeDefined()
-        expect(cat.label).toBeDefined()
+        expect(cat.labelKey).toBeDefined()
         expect(cat.icon).toBeDefined()
       })
     })
@@ -156,7 +156,7 @@ describe('Portfolio Data', () => {
     it('all soft skill categories have required fields', () => {
       softSkillCategories.forEach((cat) => {
         expect(cat.id).toBeDefined()
-        expect(cat.label).toBeDefined()
+        expect(cat.labelKey).toBeDefined()
         expect(cat.icon).toBeDefined()
         expect(cat.color).toBeDefined()
       })
