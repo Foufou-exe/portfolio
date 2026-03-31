@@ -5,15 +5,15 @@
  */
 
 // Codes d'erreur (definis localement pour eviter l'import serveur)
-type ErrorCode =
-  | 'INTERNAL_ERROR'
-  | 'NOT_FOUND'
-  | 'BAD_REQUEST'
-  | 'VALIDATION_ERROR'
-  | 'EMAIL_SEND_FAILED'
-  | 'GITHUB_API_ERROR'
-  | 'SMTP_NOT_CONFIGURED'
-  | 'RATE_LIMITED'
+type ErrorCode
+  = | 'INTERNAL_ERROR'
+    | 'NOT_FOUND'
+    | 'BAD_REQUEST'
+    | 'VALIDATION_ERROR'
+    | 'EMAIL_SEND_FAILED'
+    | 'GITHUB_API_ERROR'
+    | 'SMTP_NOT_CONFIGURED'
+    | 'RATE_LIMITED'
 
 // Messages user-friendly cote client (FR)
 const clientErrorMessages: Record<string, string> = {
