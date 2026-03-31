@@ -1,6 +1,5 @@
-import { defineEventHandler } from 'h3'
-import { logger } from '../../utils/logger'
-import { ErrorCode, createAppError, getErrorCodeFromStatus } from '../../utils/errors'
+import { defineEventHandler, createError } from 'h3'
+import { ErrorCode, throwAppError, getErrorCodeFromStatus } from '../../utils/errors'
 
 // Types pour l'API GitHub
 interface GitHubRepoResponse {
@@ -26,7 +25,7 @@ interface GitHubRepoResponse {
   }
 }
 
-// Interface pour les détails du repo (incluant social preview)
+// Interface pour les details du repo (incluant social preview)
 interface GitHubRepoDetails {
   open_graph_image_url?: string
 }
@@ -46,12 +45,12 @@ export interface GitHubRepo {
   createdAt: string
   isRecent: boolean // Push dans les 30 derniers jours
   imageUrl: string | null // Social preview ou image README
-  hasCustomImage: boolean // true si social preview personnalisée (pas le fallback GitHub)
-  isPinned: boolean // Repo épinglé sur le profil
+  hasCustomImage: boolean // true si social preview personnalisee (pas le fallback GitHub)
+  isPinned: boolean // Repo epingle sur le profil
   contributors: { login: string, avatarUrl: string }[] // Top 5 contributeurs
 }
 
-// Cache simple en mémoire pour éviter les appels répétés
+// Cache simple en memoire pour eviter les appels repetes
 interface CacheEntry {
   data: GitHubRepo[]
   timestamp: number
@@ -60,18 +59,13 @@ interface CacheEntry {
 let cache: CacheEntry | null = null
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
 
-const githubLogger = logger.withSource('github-api')
-
 export default defineEventHandler(async (_event) => {
   const config = useRuntimeConfig()
   const { githubToken } = config
   const username = config.githubUsername
 
-  // Vérifier le cache
+  // Verifier le cache
   if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
-    githubLogger.debug('Returning cached data', {
-      data: { count: cache.data.length },
-    })
     return {
       success: true,
       data: cache.data,
@@ -97,7 +91,7 @@ export default defineEventHandler(async (_event) => {
       headers['X-GitHub-Api-Version'] = '2022-11-28'
     }
 
-    // Récupérer les repos épinglés via l'API GraphQL si token disponible
+    // Recuperer les repos epingles via l'API GraphQL si token disponible
     let pinnedRepoNames: string[] = []
     if (githubToken) {
       try {
@@ -125,18 +119,13 @@ export default defineEventHandler(async (_event) => {
         })
         const graphqlData = await graphqlResponse.json()
         pinnedRepoNames = graphqlData?.data?.user?.pinnedItems?.nodes?.map((n: { name: string }) => n.name) || []
-        githubLogger.debug('Fetched pinned repos', {
-          data: { count: pinnedRepoNames.length },
-        })
       }
-      catch (e) {
-        githubLogger.warn('Failed to fetch pinned repos', {
-          error: e,
-        })
+      catch {
+        // Silently ignore pinned repos fetch failure
       }
     }
 
-    // Appel à l'API GitHub pour les repos
+    // Appel a l'API GitHub pour les repos
     const response = await fetch(
       `https://api.github.com/users/${username}/repos?sort=pushed&direction=desc&per_page=30`,
       { headers },
@@ -144,23 +133,16 @@ export default defineEventHandler(async (_event) => {
 
     if (!response.ok) {
       const errorCode = getErrorCodeFromStatus(response.status)
-      throw createAppError(errorCode, {
-        technicalMessage: `GitHub API returned ${response.status}: ${response.statusText}`,
-        details: {
-          status: response.status,
-          statusText: response.statusText,
-        },
-        source: 'github-api',
+      throw createError({
+        statusCode: response.status,
+        statusMessage: `GitHub API error: ${response.statusText}`,
+        data: { code: errorCode },
       })
     }
 
     const repos: GitHubRepoResponse[] = await response.json()
 
-    githubLogger.debug('Fetched repos from GitHub', {
-      data: { totalCount: repos.length },
-    })
-
-    // Filtrer : exclure les forks, repos archivés
+    // Filtrer : exclure les forks, repos archives
     const filteredRepos = repos
       .filter(repo =>
         !repo.fork
@@ -168,11 +150,11 @@ export default defineEventHandler(async (_event) => {
         && repo.visibility === 'public',
       )
 
-    // Transformer en format adapté
+    // Transformer en format adapte
     const now = new Date()
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-    // Récupérer les images social preview et contributeurs pour chaque repo
+    // Recuperer les images social preview et contributeurs pour chaque repo
     const transformedRepos: GitHubRepo[] = await Promise.all(
       filteredRepos.slice(0, 10).map(async (repo) => {
         let imageUrl: string | null = null
@@ -180,7 +162,7 @@ export default defineEventHandler(async (_event) => {
         let contributors: { login: string, avatarUrl: string }[] = []
 
         if (githubToken) {
-          // Récupérer social preview et contributeurs en parallèle
+          // Recuperer social preview et contributeurs en parallele
           const [detailsResult, contributorsResult] = await Promise.allSettled([
             fetch(
               `https://api.github.com/repos/${repo.full_name}`,
@@ -246,7 +228,7 @@ export default defineEventHandler(async (_event) => {
       }),
     )
 
-    // Trier: épinglés d'abord, puis par date de push
+    // Trier: epingles d'abord, puis par date de push
     const sortedRepos = transformedRepos.sort((a, b) => {
       if (a.isPinned && !b.isPinned) return -1
       if (!a.isPinned && b.isPinned) return 1
@@ -258,13 +240,6 @@ export default defineEventHandler(async (_event) => {
       data: sortedRepos,
       timestamp: Date.now(),
     }
-
-    githubLogger.info('Successfully fetched and cached GitHub repos', {
-      data: {
-        count: sortedRepos.length,
-        pinnedCount: sortedRepos.filter(r => r.isPinned).length,
-      },
-    })
 
     return {
       success: true,
@@ -283,11 +258,7 @@ export default defineEventHandler(async (_event) => {
       throw error
     }
 
-    // Erreur réseau ou autre
-    throw createAppError(ErrorCode.GITHUB_API_ERROR, {
-      technicalMessage: error instanceof Error ? error.message : 'Unknown GitHub API error',
-      cause: error,
-      source: 'github-api',
-    })
+    // Erreur reseau ou autre
+    throwAppError(ErrorCode.GITHUB_API_ERROR, error instanceof Error ? error.message : 'Unknown GitHub API error')
   }
 })

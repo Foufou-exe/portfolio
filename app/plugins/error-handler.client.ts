@@ -1,38 +1,42 @@
 /**
- * Plugin de gestion d'erreurs côté client
+ * Plugin de gestion d'erreurs cote client
  *
- * En mode développement : affiche les détails techniques
- * En mode production : affiche des messages user-friendly
+ * Parse les erreurs API et fournit des messages user-friendly
  */
 
-import { ErrorCode } from '../../server/utils/errors'
+// Codes d'erreur (definis localement pour eviter l'import serveur)
+type ErrorCode =
+  | 'INTERNAL_ERROR'
+  | 'NOT_FOUND'
+  | 'BAD_REQUEST'
+  | 'VALIDATION_ERROR'
+  | 'EMAIL_SEND_FAILED'
+  | 'GITHUB_API_ERROR'
+  | 'SMTP_NOT_CONFIGURED'
+  | 'RATE_LIMITED'
 
-// Messages user-friendly côté client (FR)
+// Messages user-friendly cote client (FR)
 const clientErrorMessages: Record<string, string> = {
-  [ErrorCode.INTERNAL_ERROR]: 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
-  [ErrorCode.NOT_FOUND]: 'La ressource demandée n\'a pas été trouvée.',
-  [ErrorCode.BAD_REQUEST]: 'La requête est invalide. Veuillez vérifier vos données.',
-  [ErrorCode.UNAUTHORIZED]: 'Vous n\'êtes pas autorisé à effectuer cette action.',
-  [ErrorCode.FORBIDDEN]: 'Accès refusé.',
-  [ErrorCode.RATE_LIMITED]: 'Trop de requêtes. Veuillez patienter quelques instants.',
-  [ErrorCode.API_UNREACHABLE]: 'Le service est temporairement indisponible. Veuillez réessayer plus tard.',
-  [ErrorCode.API_TIMEOUT]: 'Le service met trop de temps à répondre. Veuillez réessayer.',
-  [ErrorCode.API_INVALID_RESPONSE]: 'Une erreur de communication s\'est produite. Veuillez réessayer.',
-  [ErrorCode.VALIDATION_ERROR]: 'Les données fournies sont invalides.',
-  [ErrorCode.EMAIL_SEND_FAILED]: 'Impossible d\'envoyer le message. Veuillez réessayer plus tard.',
-  [ErrorCode.GITHUB_API_ERROR]: 'Impossible de récupérer les données GitHub. Veuillez réessayer plus tard.',
-  [ErrorCode.SMTP_NOT_CONFIGURED]: 'Le service de messagerie n\'est pas configuré.',
+  // Par code d'erreur
+  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
+  NOT_FOUND: 'La ressource demandee n\'a pas ete trouvee.',
+  BAD_REQUEST: 'La requete est invalide. Veuillez verifier vos donnees.',
+  VALIDATION_ERROR: 'Les donnees fournies sont invalides.',
+  EMAIL_SEND_FAILED: 'Impossible d\'envoyer le message. Veuillez reessayer plus tard.',
+  GITHUB_API_ERROR: 'Impossible de recuperer les donnees GitHub. Veuillez reessayer plus tard.',
+  SMTP_NOT_CONFIGURED: 'Le service de messagerie n\'est pas disponible.',
+  RATE_LIMITED: 'Trop de requetes. Veuillez patienter quelques instants.',
 
   // Fallback par code HTTP
-  400: 'Les données fournies sont invalides.',
-  401: 'Vous n\'êtes pas autorisé à effectuer cette action.',
-  403: 'Accès refusé.',
-  404: 'La ressource demandée n\'a pas été trouvée.',
-  429: 'Trop de requêtes. Veuillez patienter quelques instants.',
-  500: 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
-  502: 'Une erreur de communication s\'est produite. Veuillez réessayer.',
-  503: 'Le service est temporairement indisponible. Veuillez réessayer plus tard.',
-  504: 'Le service met trop de temps à répondre. Veuillez réessayer.',
+  400: 'Les donnees fournies sont invalides.',
+  401: 'Vous n\'etes pas autorise a effectuer cette action.',
+  403: 'Acces refuse.',
+  404: 'La ressource demandee n\'a pas ete trouvee.',
+  429: 'Trop de requetes. Veuillez patienter quelques instants.',
+  500: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
+  502: 'Une erreur de communication s\'est produite. Veuillez reessayer.',
+  503: 'Le service est temporairement indisponible. Veuillez reessayer plus tard.',
+  504: 'Le service met trop de temps a repondre. Veuillez reessayer.',
 }
 
 interface ApiErrorData {
@@ -50,13 +54,13 @@ interface ApiError {
 }
 
 export interface ParsedError {
-  /** Message à afficher à l'utilisateur */
+  /** Message a afficher a l'utilisateur */
   userMessage: string
   /** Code d'erreur (si disponible) */
   code?: string
   /** Code HTTP */
   statusCode?: number
-  /** Détails techniques (uniquement en dev) */
+  /** Details techniques (uniquement en dev) */
   technicalDetails?: {
     message?: string
     stack?: string
@@ -64,11 +68,11 @@ export interface ParsedError {
   }
 }
 
-// Message par défaut
-const DEFAULT_ERROR_MESSAGE = 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.'
+// Message par defaut
+const DEFAULT_ERROR_MESSAGE = 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.'
 
 /**
- * Récupère un message d'erreur avec fallback
+ * Recupere un message d'erreur avec fallback
  */
 function getErrorMessage(key: string): string {
   return clientErrorMessages[key] ?? DEFAULT_ERROR_MESSAGE
@@ -80,23 +84,23 @@ function getErrorMessage(key: string): string {
 export function parseApiError(error: unknown): ParsedError {
   const isDev = process.env.NODE_ENV === 'development'
 
-  // Erreur de fetch/réseau
+  // Erreur de fetch/reseau
   if (error instanceof TypeError && error.message.includes('fetch')) {
     return {
-      userMessage: getErrorMessage(ErrorCode.API_UNREACHABLE),
-      code: ErrorCode.API_UNREACHABLE,
+      userMessage: getErrorMessage('503'),
+      code: 'NETWORK_ERROR',
       technicalDetails: isDev ? { message: error.message, stack: error.stack } : undefined,
     }
   }
 
-  // Erreur avec structure API (H3Error transformée)
+  // Erreur avec structure API (H3Error transformee)
   if (error && typeof error === 'object') {
     const apiError = error as ApiError
     const { statusCode } = apiError
     const errorData = apiError.data as ApiErrorData | undefined
     const code = errorData?.code
 
-    // Chercher le message approprié
+    // Chercher le message approprie
     let userMessage: string = DEFAULT_ERROR_MESSAGE
     if (code) {
       const codeMessage = clientErrorMessages[code]
@@ -111,7 +115,7 @@ export function parseApiError(error: unknown): ParsedError {
       }
     }
     else if (apiError.statusMessage) {
-      // Utiliser le statusMessage si c'est déjà user-friendly (vient du serveur)
+      // Utiliser le statusMessage si c'est deja user-friendly (vient du serveur)
       userMessage = apiError.statusMessage
     }
 
@@ -144,43 +148,11 @@ export function parseApiError(error: unknown): ParsedError {
   }
 }
 
-/**
- * Logger côté client
- */
-export const clientLogger = {
-  debug(message: string, data?: Record<string, unknown>): void {
-    if (process.env.NODE_ENV === 'development') {
-      console.debug(`[DEBUG] ${message}`, data || '')
-    }
-  },
-
-  info(message: string, data?: Record<string, unknown>): void {
-    if (process.env.NODE_ENV === 'development') {
-      console.info(`[INFO] ${message}`, data || '')
-    }
-  },
-
-  warn(message: string, data?: Record<string, unknown>): void {
-    console.warn(`[WARN] ${message}`, data || '')
-  },
-
-  error(message: string, error?: unknown): void {
-    if (process.env.NODE_ENV === 'development') {
-      console.error(`[ERROR] ${message}`, error || '')
-    }
-    else {
-      // En prod, on log juste le message sans les détails
-      console.error(`[ERROR] ${message}`)
-    }
-  },
-}
-
 export default defineNuxtPlugin(() => {
-  // Fournir les utilitaires d'erreur globalement
+  // Fournir l'utilitaire parseApiError globalement
   return {
     provide: {
       parseApiError,
-      clientLogger,
     },
   }
 })

@@ -43,12 +43,12 @@ import { experiences } from '~/data/portfolio'
 import type { Establishment } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
-// Traduit les achievements (tableau)
+// Traduit les achievements (tableau) - utilise tm() pour les tableaux
 const getAchievements = (key: string): string[] => {
-  const result = t(key, [])
+  const result = tm(key)
   return Array.isArray(result) ? result : []
 }
 

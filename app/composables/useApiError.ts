@@ -1,8 +1,8 @@
 /**
  * Composable pour la gestion des erreurs
  *
- * Fournit des utilitaires pour gérer et afficher les erreurs
- * de manière cohérente dans l'application
+ * Fournit des utilitaires pour gerer et afficher les erreurs
+ * de maniere coherente dans l'application
  */
 
 import { ref, computed } from 'vue'
@@ -15,20 +15,20 @@ interface ErrorState {
   error: ParsedError | null
 }
 
-// Messages par défaut (fallback si le plugin n'est pas chargé)
+// Messages par defaut (fallback si le plugin n'est pas charge)
 const defaultMessages: Record<string, string> = {
-  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.',
-  NOT_FOUND: 'La ressource demandée n\'a pas été trouvée.',
-  BAD_REQUEST: 'Les données fournies sont invalides.',
-  API_UNREACHABLE: 'Le service est temporairement indisponible.',
-  VALIDATION_ERROR: 'Les données fournies sont invalides.',
+  INTERNAL_ERROR: 'Une erreur inattendue s\'est produite. Veuillez reessayer plus tard.',
+  NOT_FOUND: 'La ressource demandee n\'a pas ete trouvee.',
+  BAD_REQUEST: 'Les donnees fournies sont invalides.',
+  VALIDATION_ERROR: 'Les donnees fournies sont invalides.',
+  SMTP_NOT_CONFIGURED: 'Le service de messagerie n\'est pas disponible.',
 }
 
-// Message par défaut
+// Message par defaut
 const DEFAULT_ERROR_MESSAGE = defaultMessages['INTERNAL_ERROR'] as string
 
 /**
- * Composable pour gérer les erreurs API dans un composant
+ * Composable pour gerer les erreurs API dans un composant
  */
 export function useApiError() {
   const state = ref<ErrorState>({
@@ -39,7 +39,7 @@ export function useApiError() {
   const isDev = process.env.NODE_ENV === 'development'
 
   /**
-   * Message d'erreur à afficher à l'utilisateur
+   * Message d'erreur a afficher a l'utilisateur
    */
   const errorMessage = computed(() => {
     if (!state.value.error) return null
@@ -47,7 +47,7 @@ export function useApiError() {
   })
 
   /**
-   * Détails techniques (uniquement en dev)
+   * Details techniques (uniquement en dev)
    */
   const technicalDetails = computed(() => {
     if (!isDev || !state.value.error) return null
@@ -55,7 +55,7 @@ export function useApiError() {
   })
 
   /**
-   * Définit une erreur
+   * Definit une erreur
    */
   function setError(error: unknown): void {
     const nuxtApp = useNuxtApp()
@@ -68,7 +68,7 @@ export function useApiError() {
       }
     }
     else {
-      // Fallback si le plugin n'est pas chargé (SSR)
+      // Fallback si le plugin n'est pas charge (SSR)
       const parsed = parseErrorFallback(error)
       state.value = {
         hasError: true,
@@ -78,7 +78,7 @@ export function useApiError() {
 
     // Logger en dev
     if (isDev) {
-      console.error('[useError] Error caught:', error)
+      console.error('[useApiError] Error caught:', error)
     }
   }
 
@@ -93,12 +93,12 @@ export function useApiError() {
   }
 
   /**
-   * Exécute une fonction async avec gestion d'erreur
+   * Execute une fonction async avec gestion d'erreur
    */
   async function withErrorHandling<T>(
     fn: () => Promise<T>,
     options?: {
-      /** Effacer l'erreur précédente avant d'exécuter */
+      /** Effacer l'erreur precedente avant d'executer */
       clearBefore?: boolean
       /** Callback en cas d'erreur */
       onError?: (error: ParsedError) => void
@@ -121,25 +121,25 @@ export function useApiError() {
   }
 
   return {
-    /** État de l'erreur */
+    /** Etat de l'erreur */
     hasError: computed(() => state.value.hasError),
-    /** Erreur parsée complète */
+    /** Erreur parsee complete */
     error: computed(() => state.value.error),
     /** Message user-friendly */
     errorMessage,
-    /** Détails techniques (dev only) */
+    /** Details techniques (dev only) */
     technicalDetails,
-    /** Définit une erreur */
+    /** Definit une erreur */
     setError,
     /** Efface l'erreur */
     clearError,
-    /** Wrapper pour exécuter avec gestion d'erreur */
+    /** Wrapper pour executer avec gestion d'erreur */
     withErrorHandling,
   }
 }
 
 /**
- * Parser de fallback pour le SSR ou si le plugin n'est pas chargé
+ * Parser de fallback pour le SSR ou si le plugin n'est pas charge
  */
 function parseErrorFallback(error: unknown): ParsedError {
   const isDev = process.env.NODE_ENV === 'development'
@@ -183,41 +183,5 @@ function parseErrorFallback(error: unknown): ParsedError {
   return {
     userMessage: DEFAULT_ERROR_MESSAGE,
     technicalDetails: isDev ? { message: String(error) } : undefined,
-  }
-}
-
-/**
- * Composable pour le logging côté client
- */
-export function useClientLogger(source?: string) {
-  const isDev = process.env.NODE_ENV === 'development'
-  const prefix = source ? `[${source}]` : ''
-
-  return {
-    debug(message: string, data?: Record<string, unknown>): void {
-      if (isDev) {
-        console.debug(`${prefix}[DEBUG] ${message}`, data || '')
-      }
-    },
-
-    info(message: string, data?: Record<string, unknown>): void {
-      if (isDev) {
-        console.info(`${prefix}[INFO] ${message}`, data || '')
-      }
-    },
-
-    warn(message: string, data?: Record<string, unknown>): void {
-      console.warn(`${prefix}[WARN] ${message}`, data || '')
-    },
-
-    error(message: string, error?: unknown): void {
-      if (isDev) {
-        console.error(`${prefix}[ERROR] ${message}`, error || '')
-      }
-      else {
-        // En prod, on log juste le message
-        console.error(`${prefix}[ERROR] ${message}`)
-      }
-    },
   }
 }
