@@ -5,7 +5,6 @@ import {
   errorHttpStatus,
   DEFAULT_ERROR_MESSAGE,
   getErrorMessage,
-  type ErrorCodeType,
 } from '../../shared/errors'
 
 describe('shared/errors', () => {

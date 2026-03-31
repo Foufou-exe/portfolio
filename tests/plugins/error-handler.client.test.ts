@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { parseApiError } from '../../app/plugins/error-handler.client'
 
 describe('error-handler.client plugin', () => {

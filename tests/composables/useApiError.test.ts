@@ -1,5 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
+// Import after mocking
+import { useApiError } from '../../app/composables/useApiError'
+
 // Mock useNuxtApp
 const mockParseApiError = vi.fn()
 vi.mock('#app', () => ({
@@ -7,9 +10,6 @@ vi.mock('#app', () => ({
     $parseApiError: mockParseApiError,
   }),
 }))
-
-// Import after mocking
-import { useApiError } from '../../app/composables/useApiError'
 
 describe('useApiError', () => {
   const originalEnv = process.env.NODE_ENV
@@ -168,7 +168,7 @@ describe('useApiError', () => {
     })
 
     it('catches error and returns null on failure', async () => {
-      const { withErrorHandling, hasError, errorMessage } = useApiError()
+      const { withErrorHandling, hasError } = useApiError()
 
       const result = await withErrorHandling(async () => {
         throw new Error('Test error')
