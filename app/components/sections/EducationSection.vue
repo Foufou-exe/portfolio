@@ -42,13 +42,14 @@ import { education } from '~/data/portfolio'
 import type { Establishment } from '~/data/portfolio'
 import { useElementAnimation } from '~/composables/useScrollAnimation'
 
-const { t, tm } = useI18n()
+const { t, tm, rt } = useI18n()
 const { elementRef, isVisible } = useElementAnimation()
 
-// Traduit les achievements (tableau) - utilise tm() pour les tableaux
+// Traduit les achievements (tableau) - utilise tm() + rt() pour résoudre les chaînes
 const getAchievements = (key: string): string[] => {
   const result = tm(key)
-  return Array.isArray(result) ? result : []
+  if (!Array.isArray(result)) return []
+  return result.map(item => rt(item))
 }
 
 // Traduit les champs de l'établissement
