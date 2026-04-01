@@ -1,9 +1,9 @@
 {
   "name": "portfolio",
   "type": "module",
-  "version": "2026.1.2",
+  "version": "2026.1.4",
   "author": "Thibaut Maurras",
-  "description": "portfolio",
+  "description": "Portfolio of Thibaut Maurras, a software engineer specializing in frontend development and design.",
   "private": true,
   "engines": {
     "node": ">=24.x",
@@ -55,7 +55,6 @@
     "@nuxtjs/color-mode": "^4.0.0",
     "@types/animejs": "^3.1.13",
     "@types/node": "^25.0.9",
-
     "@vitest/coverage-v8": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.39.2",
