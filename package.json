@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "type": "module",
-  "version": "2026.1.5",
+  "version": "2026.2.0",
   "author": "Thibaut Maurras",
   "description": "Portfolio of Thibaut Maurras, a software engineer specializing in frontend development and design.",
   "private": true,
